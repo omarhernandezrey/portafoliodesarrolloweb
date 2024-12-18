@@ -1,88 +1,149 @@
+// components/sections/ProjectsSection.tsx
 "use client";
-import { motion } from "framer-motion";
 
-const projects = [
+import { motion } from "framer-motion";
+import { useWindowSize } from "../../hooks/useWindowSize";
+
+interface Project {
+  title: string;
+  demo: string;
+  demoTablet: string;
+  demoMobile: string;
+}
+
+const projects: Project[] = [
   {
     title: "E-commerce Moderno",
-    description: "Tienda en línea desarrollada con Next.js y Tailwind CSS.",
-    technologies: ["Next.js", "Tailwind CSS", "Stripe"],
-    image: "/images/ecommerce.jpg",
-    github: "https://github.com/tu-usuario/ecommerce",
-    demo: "https://ecommerce-demo.com",
+    demo: "https://enfermeria-roxana.vercel.app/inicio",
+    demoTablet: "https://enfermeria-roxana.vercel.app/tabla-demo",
+    demoMobile: "https://enfermeria-roxana.vercel.app/mobile-demo",
   },
   {
     title: "Gestor de Tareas",
-    description: "Aplicación para gestionar tareas con React y Node.js.",
-    technologies: ["React", "Node.js", "MongoDB"],
-    image: "/images/tasks.jpg",
-    github: "https://github.com/tu-usuario/task-manager",
-    demo: "https://task-manager-demo.com",
+    demo: "https://enfermeria-roxana.vercel.app/inicio",
+    demoTablet: "https://enfermeria-roxana.vercel.app/tabla-demo",
+    demoMobile: "https://enfermeria-roxana.vercel.app/mobile-demo",
   },
-  // Agrega más proyectos aquí
+  // Agrega más proyectos según sea necesario
 ];
 
 export default function ProjectsSection() {
-  return (
-    <section
-      id="projects"
-      className="py-20 px-4 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white"
-    >
-      <div className="container mx-auto max-w-6xl">
-        {/* Título */}
-        <motion.h2
-          className="text-4xl font-extrabold mb-12 text-center"
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          Proyectos Destacados
-        </motion.h2>
+  const { width } = useWindowSize();
 
-        {/* Grid de Proyectos */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  // Definir los niveles de escala según el ancho de la pantalla
+  let scaleFactorLaptop = 1;
+  let scaleFactorTablet = 1;
+  let scaleFactorMobile = 1;
+
+  if (width < 480) {
+    // Dispositivos muy pequeños (e.g., pequeños móviles)
+    scaleFactorLaptop = 0.1;
+    scaleFactorTablet = 0.1;
+    scaleFactorMobile = 0.1;
+  } else if (width < 768) {
+    // Móviles
+    scaleFactorLaptop = 0.15;
+    scaleFactorTablet = 0.15;
+    scaleFactorMobile = 0.15;
+  } else if (width < 1024) {
+    // Tablets
+    scaleFactorLaptop = 0.2;
+    scaleFactorTablet = 0.2;
+    scaleFactorMobile = 0.2;
+  } else {
+    // Desktop y mayores
+    scaleFactorLaptop = 0.25;
+    scaleFactorTablet = 0.25;
+    scaleFactorMobile = 0.25;
+  }
+
+  return (
+    <section id="projects" className="py-20 bg-gray-100 dark:bg-gray-900">
+      <div className="container mx-auto px-6 lg:px-20">
+        {/* Grid de una sola columna */}
+        <div className="grid grid-cols-1 gap-12">
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              className="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
+              className="relative flex justify-center items-center"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.4 }}
             >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
-                <p className="text-sm mb-4">{project.description}</p>
-                <div className="mb-4">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="inline-block bg-blue-500 text-white px-2 py-1 rounded mr-2 text-xs"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex justify-between">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500 hover:underline"
-                  >
-                    GitHub
-                  </a>
-                  <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500 hover:underline"
-                  >
-                    Ver Demo
-                  </a>
-                </div>
+              {/* Contenedor de la tarjeta con imágenes responsivas */}
+              <div className="relative w-full max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto p-4 overflow-visible">
+                {/* Imagen del laptop */}
+                <img
+                  src="/images/laptop.png"
+                  alt="Laptop Mockup"
+                  className="w-full h-auto z-10"
+                />
+
+                {/* Iframe para Laptop */}
+                <iframe
+                  src={project.demo}
+                  title={`${project.title}-laptop`}
+                  className="absolute rounded-lg shadow-lg z-20"
+                  style={{
+                    width: "2203px", // Tamaño original ajustado
+                    height: "1411px",
+                    top: "15.5%",
+                    left: "14%",
+                    transform: `scale(${scaleFactorLaptop})`,
+                    transformOrigin: "top left",
+                  }}
+                  loading="lazy" // Mejora de rendimiento
+                ></iframe>
+
+                {/* Imagen de la tablet montada sobre el laptop */}
+                <img
+                  src="/images/tablet.png"
+                  alt="Tablet Mockup"
+                  className="absolute top-[34%] left-[-25%] w-[59.333333%] z-30
+                         sm:top-[40%] sm:left-[-20%] sm:w-[50%]
+                         lg:top-[31%] lg:left-[-25%] lg:w-[68.333333%]"
+                />
+
+                {/* Iframe para Tablet */}
+                <iframe
+                  src={project.demoTablet}
+                  title={`${project.title}-tablet`}
+                  className="absolute rounded-lg shadow-lg z-40"
+                  style={{
+                    width: "1808px", // Tamaño original ajustado
+                    height: "1132px",
+                    top: "39%",
+                    left: "-20%",
+                    transform: `scale(${scaleFactorTablet})`,
+                    transformOrigin: "top left",
+                  }}
+                  loading="lazy" // Mejora de rendimiento
+                ></iframe>
+
+                {/* Imagen del móvil montada sobre la tablet */}
+                <img
+                  src="/images/mobile.png"
+                  alt="Mobile Mockup"
+                  className="absolute top-[60%] left-[-10%] w-[30%] z-50
+                         sm:top-[65%] sm:left-[-8%] sm:w-[25%]
+                         lg:top-[48%] lg:left-[78%] lg:w-[19%]"
+                />
+
+                {/* Iframe para Móvil */}
+                <iframe
+                  src={project.demoMobile}
+                  title={`${project.title}-mobile`}
+                  className="absolute rounded-lg shadow-lg"
+                  style={{
+                    width: "532px", // Tamaño original ajustado
+                    height: "915px",
+                    top: "54%",
+                    left: "79%",
+                    transform: `scale(${scaleFactorMobile})`,
+                    transformOrigin: "top left",
+                    zIndex: 9999, // Asegura que esté por encima de todos los demás elementos
+                  }}
+                  loading="lazy" // Mejora de rendimiento
+                ></iframe>
               </div>
             </motion.div>
           ))}
