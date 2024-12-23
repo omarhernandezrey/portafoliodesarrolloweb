@@ -21,7 +21,7 @@ const projects = [
     
   {
     title: "Películas Tendencia",
-    description: "Esta aplicación web te permite explorar el mundo del cine de una manera sencilla e intuitiva. Podrás descubrir las películas más populares del momento, buscar títulos específicos y obtener información detallada sobre cada una de ellas. Además, podrás navegar por diferentes categorías para encontrar películas que se adapten a tus gustos. Funcionalidades.",
+    description: "Explora el cine fácilmente: descubre películas populares, busca títulos, obtén detalles y navega por categorías según tus gustos.",
     technologies: ["HTML", "CSS", "JavaScript"],
     repository: "https://github.com/omarhernandezrey/49-Curso-de-API-REST-con-Javascript-Performance-y-Usabilidad",
     demo: "https://omarhernandezrey.github.io/49-Curso-de-API-REST-con-Javascript-Performance-y-Usabilidad/",
