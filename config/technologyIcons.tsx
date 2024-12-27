@@ -5,7 +5,12 @@ import {
   FaCss3Alt,
   FaHtml5,
   FaJs,
-  FaBoxOpen
+  FaBoxOpen,
+  FaCode,
+  FaRobot,
+  FaGraduationCap,
+  FaGithub,
+  FaMicrophone
 } from 'react-icons/fa';
 import {
   SiTailwindcss,
@@ -20,9 +25,14 @@ import { GrStorage } from 'react-icons/gr';
 import { PiGridNineFill } from 'react-icons/pi';
 import { FaCloudSun } from 'react-icons/fa6';
 import { JSX } from 'react';
-// (Opcional) import React from 'react';
 
+/**
+ * Mapa de tecnologías e intereses a íconos.
+ * Cada propiedad es un string que luego podrás usar en tus componentes 
+ * para mostrar el ícono asociado.
+ */
 const technologyIcons: Record<string, JSX.Element> = {
+  // Tecnologías o skills
   React: <FaReact style={{ color: '#3b82f6', width: '48px', height: '48px' }} />,
   JavaScript: <FaJs style={{ color: '#fbbf24', width: '48px', height: '48px' }} />,
   TypeScript: <SiTypescript style={{ color: '#2563eb', width: '48px', height: '48px' }} />,
@@ -42,7 +52,14 @@ const technologyIcons: Record<string, JSX.Element> = {
   "Tailwind CSS": <RiTailwindCssFill style={{ color: '#14b8a6', width: '48px', height: '48px' }} />,
   localStorage: <GrStorage style={{ color: '#6b7280', width: '48px', height: '48px' }} />,
   "CSS Grid": <PiGridNineFill style={{ color: '#6b7280', width: '48px', height: '48px' }} />,
-  "APIs REST": <FaCloudSun style={{ color: '#f59e0b', width: '48px', height: '48px' }} />
+  "APIs REST": <FaCloudSun style={{ color: '#f59e0b', width: '48px', height: '48px' }} />,
+
+  // Intereses (enfocados a desarrollo Full Stack)
+  "Platzi Learning": <FaGraduationCap style={{ color: '#c084fc', width: '48px', height: '48px' }} />,
+  "Open Source": <FaGithub style={{ color: '#a3a3a3', width: '48px', height: '48px' }} />,
+  "Tech Conferences": <FaMicrophone style={{ color: '#ef4444', width: '48px', height: '48px' }} />,
+  "AI & ML": <FaRobot style={{ color: '#fcd34d', width: '48px', height: '48px' }} />,
+  Coding: <FaCode style={{ color: '#6ee7b7', width: '48px', height: '48px' }} />
 };
 
 export default technologyIcons;
