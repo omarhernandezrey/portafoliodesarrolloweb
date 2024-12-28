@@ -1,48 +1,130 @@
 "use client";
-import { useEffect, useRef } from "react";
-import Typed from "typed.js";
 
-export default function HeroSection() {
-  // Referencia para el contenedor de Typed.js
-  const typedElement = useRef<HTMLSpanElement>(null);
+import React from "react";
+import Particles from "react-tsparticles";
+import { loadFull } from "tsparticles";
 
-  useEffect(() => {
-    // Configuración de Typed.js
-    const typed = new Typed(typedElement.current, {
-      strings: ["Omar Hernández Rey", "Desarrollador Full Stack"],
-      typeSpeed: 50,
-      backSpeed: 50,
-      loop: true,
-    });
-
-    // Destruye la instancia cuando el componente se desmonta
-    return () => typed.destroy();
-  }, []);
+const HeroSection: React.FC = () => {
+  const particlesInit = async (engine: any) => {
+    await loadFull(engine);
+  };
 
   return (
-    <section
-      className="h-screen flex flex-col items-center justify-center bg-gray-900 text-white text-center px-4"
-      id="hero"
-    >
-      {/* Título Principal con Efecto Typed */}
-      <h1 className="text-5xl md:text-6xl font-extrabold mb-4">
-        ¡Hola, soy{" "}
-        <span className="text-blue-500" ref={typedElement}></span>
-        !
-      </h1>
+    <div className="relative w-full h-screen">
+      {/* Imagen de fondo */}
+      <div
+        className="absolute top-0 left-0 w-full h-full"
+        style={{
+          backgroundImage: `url('/images/hero-background.jpg')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          zIndex: -2,
+        }}
+      ></div>
 
-      {/* Subtítulo */}
-      <p className="text-lg md:text-2xl mb-6">
-        Soy un desarrollador web full stack apasionado por crear aplicaciones increíbles.
-      </p>
+      {/* Superposición negra */}
+      <div
+        className="absolute top-0 left-0 w-full h-full bg-black"
+        style={{
+          opacity: 0.5,
+          zIndex: -1,
+        }}
+      ></div>
 
-      {/* Botón de CTA */}
-      <a
-        href="#projects"
-        className="px-6 py-3 bg-blue-500 text-white rounded-md text-lg hover:bg-blue-600 transition duration-300"
-      >
-        Ver Mis Proyectos
-      </a>
-    </section>
+      {/* Partículas modernas */}
+      <Particles
+        init={particlesInit}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: 0,
+        }}
+        options={{
+          fpsLimit: 60,
+          background: {
+            color: "transparent",
+          },
+          particles: {
+            number: { value: 100, density: { enable: true, area: 800 } },
+            color: { value: ["#00ff00", "#00bfff", "#ff69b4", "#ff4500"] }, // Colores modernos
+            shape: {
+              type: ["circle", "triangle", "star"], // Formas variadas
+            },
+            opacity: {
+              value: 0.8,
+              random: true,
+              anim: {
+                enable: true,
+                speed: 0.5,
+                opacity_min: 0.3,
+                sync: false,
+              },
+            },
+            size: {
+              value: 5,
+              random: true,
+              anim: {
+                enable: true,
+                speed: 2,
+                size_min: 0.5,
+                sync: false,
+              },
+            },
+            move: {
+              enable: true,
+              speed: 2,
+              direction: "none",
+              random: false,
+              straight: false,
+              outModes: { default: "out" },
+              attract: {
+                enable: true,
+                rotateX: 600,
+                rotateY: 1200,
+              },
+            },
+            links: {
+              enable: true,
+              distance: 150,
+              color: "#ffffff",
+              opacity: 0.5,
+              width: 1,
+            },
+          },
+          interactivity: {
+            events: {
+              onHover: {
+                enable: true,
+                mode: "repulse", // Partículas se alejan del cursor
+              },
+              onClick: {
+                enable: true,
+                mode: "push", // Agrega partículas al hacer clic
+              },
+            },
+            modes: {
+              repulse: {
+                distance: 100,
+                duration: 0.4,
+              },
+              push: {
+                quantity: 4,
+              },
+            },
+          },
+        }}
+      />
+
+      {/* Contenido */}
+      <div className="relative w-full h-full flex items-center justify-center z-10">
+        <h1 className="text-4xl font-bold text-white">Hero Section</h1>
+      </div>
+    </div>
   );
-}
+};
+
+export default HeroSection;

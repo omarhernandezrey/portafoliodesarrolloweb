@@ -11,21 +11,21 @@ const projects = [
         demo: "https://enfermeria-roxana.vercel.app/inicio",
     },
     
-    {
+   /*  {
         title: "Michis App",
         description: "Aplicación interactiva que utiliza APIs REST para mostrar fotos aleatorias de gatos, gestionar favoritos y subir imágenes personalizadas. Diseñada con HTML, CSS y JavaScript.",
         technologies: ["HTML", "CSS", "JavaScript", "APIs REST"],
         repository: "https://github.com/omarhernandezrey/47-curso-de-api-rest-con-javascript-fundamentos",
         demo: "https://omarhernandezrey.github.io/47-curso-de-api-rest-con-javascript-fundamentos/",
-    },
+    }, */
     
-  {
+/*   {
     title: "Películas Tendencia",
     description: "Explora el cine fácilmente: descubre películas populares, busca títulos, obtén detalles y navega por categorías según tus gustos.",
     technologies: ["HTML", "CSS", "JavaScript"],
     repository: "https://github.com/omarhernandezrey/49-Curso-de-API-REST-con-Javascript-Performance-y-Usabilidad",
     demo: "https://omarhernandezrey.github.io/49-Curso-de-API-REST-con-Javascript-Performance-y-Usabilidad/",
-  },
+  }, */
 
   {
     title: "Task Manager App",
