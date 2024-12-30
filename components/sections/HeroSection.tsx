@@ -31,7 +31,10 @@ const HeroSection: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div
+      id="hero"
+      className="relative w-full h-screen overflow-hidden scroll-mt-16"
+    >
       {/* Imagen de fondo */}
       <div
         className="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat"
@@ -42,9 +45,7 @@ const HeroSection: React.FC = () => {
       ></div>
 
       {/* Superposición negra con opacidad */}
-      <div
-        className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-[-2]"
-      ></div>
+      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-[-2]"></div>
 
       {/* Partículas avanzadas */}
       <Particles
@@ -214,7 +215,7 @@ const HeroSection: React.FC = () => {
           href="#projects"
           className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-[#0099FF] to-teal-400 text-white font-semibold rounded-lg shadow-md hover:scale-105 hover:shadow-lg transition-transform"
         >
-     Mis Proyectos
+          Mis Proyectos
         </motion.a>
       </div>
     </div>

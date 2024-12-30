@@ -19,46 +19,47 @@ const AboutSection: React.FC = () => {
   };
 
   return (
-    <section className="w-full bg-[#1a1a1a] text-white py-16 px-8">
+    <section id="about" className="w-full bg-[#1a1a1a] text-white py-16 px-8 scroll-mt-16">
       <div className="mx-auto max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-{/* Columna Izquierda: Foto y Botón */}
-<div className="flex flex-col items-center">
-  <div className="relative w-[240px] h-[300px] mb-6">
-    <div
-      className="
-        absolute top-0 left-0 w-full h-full
-        border-4 border-teal-400
-        transform translate-x-4 -translate-y-4
-        transition-transform duration-300
-        hover:translate-x-6 hover:-translate-y-6
-      "
-    />
-    <div className="relative w-full h-full overflow-hidden">
-      <img
-        src="/images/profile.jpg"
-        alt="Profile"
-        className="object-cover w-full h-full"
-      />
-    </div>
-  </div>
-  {/* Botón para descargar CV */}
-  <a
-    href="/files/CV-Omar-Hernandez-Rey.pdf"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="
-      bg-teal-500 hover:bg-teal-600 
-      text-white font-semibold
-      py-3 px-8 rounded-lg shadow-lg
-      transition-transform duration-300
-      hover:scale-105
-      mt-4 text-center
-    "
-    download
-  >
-    Download CV
-  </a>
-</div>
+        {/* Columna Izquierda: Foto y Botón */}
+        <div className="flex flex-col items-center">
+          <div className="relative w-[240px] h-[300px] mb-6">
+            <div
+              className="
+                absolute top-0 left-0 w-full h-full
+                border-4 border-teal-400
+                transform translate-x-4 -translate-y-4
+                transition-transform duration-300
+                hover:translate-x-6 hover:-translate-y-6
+              "
+            />
+            <div className="relative w-full h-full overflow-hidden">
+              <img
+                src="/images/profile.jpg"
+                alt="Profile"
+                className="object-cover w-full h-full"
+              />
+            </div>
+          </div>
+          {/* Botón para descargar CV */}
+          <a
+            href="/files/CV-Omar-Hernandez-Rey.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="
+              bg-gradient-to-r from-teal-400 to-blue-500 hover:from-teal-500 hover:to-blue-600 
+              text-white font-semibold
+              py-3 px-8 rounded-lg shadow-lg
+              transition-transform duration-300
+              hover:scale-105
+              mt-4 text-center
+            "
+            download
+          >
+            Download CV
+          </a>
+        </div>
+        
         {/* Columna Derecha: Texto Sobre Mí */}
         <div className="flex flex-col space-y-6">
           <h2 className="text-4xl font-bold text-teal-400">

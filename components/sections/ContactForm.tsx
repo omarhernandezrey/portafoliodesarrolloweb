@@ -34,21 +34,27 @@ export default function ContactForm() {
   return (
     <section
       id="contact"
-      className="py-20 px-4 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white"
+      className="py-20 px-4 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white scroll-mt-16"
     >
       <div className="container mx-auto max-w-4xl">
-        <h2 className="text-4xl font-extrabold text-center mb-8">Contáctame</h2>
+        <h2 className="text-4xl font-extrabold text-center mb-8 text-teal-500">
+          Contáctame
+        </h2>
+        <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
+          Estoy aquí para responder tus preguntas y colaborar en tus proyectos.
+          Completa el formulario y me pondré en contacto contigo pronto.
+        </p>
         <form
           ref={form}
           onSubmit={sendEmail}
-          className="flex flex-col gap-4 bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md"
+          className="flex flex-col gap-4 bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg"
         >
           {/* Campo Nombre */}
           <input
             type="text"
             name="user_name"
             placeholder="Tu Nombre"
-            className="p-3 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-3 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
             required
           />
 
@@ -57,7 +63,7 @@ export default function ContactForm() {
             type="email"
             name="user_email"
             placeholder="Tu Correo Electrónico"
-            className="p-3 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-3 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
             required
           />
 
@@ -66,7 +72,7 @@ export default function ContactForm() {
             name="message"
             placeholder="Tu Mensaje"
             rows={5}
-            className="p-3 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-3 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
             required
           ></textarea>
 
@@ -74,10 +80,10 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={isSending}
-            className={`p-3 bg-blue-500 text-white rounded ${
+            className={`p-3 bg-teal-500 text-white font-semibold rounded-lg shadow-md ${
               isSending
                 ? "opacity-50 cursor-not-allowed"
-                : "hover:bg-blue-600 transition duration-300"
+                : "hover:bg-teal-600 transition duration-300"
             }`}
           >
             {isSending ? "Enviando..." : "Enviar Mensaje"}

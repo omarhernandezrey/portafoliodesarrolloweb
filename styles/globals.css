@@ -6,3 +6,13 @@ body {
   margin: 0;
   font-family: 'Inter', sans-serif;
 }
+/* Estilos personalizados para gradientes */
+.text-gradient {
+  background: linear-gradient(90deg, #4ADE80, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gradient-custom {
+  background: linear-gradient(90deg, #4ADE80, #06b6d4);
+}
