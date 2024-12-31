@@ -1,0 +1,116 @@
+.educationSection {
+  background-color: #1c1f26;
+  padding: 40px 20px;
+  color: #e4e4e4;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  color: #00e6a8;
+  margin-bottom: 20px;
+}
+
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  width: 4px;
+  background-color: #00e6a8;
+  top: 20px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.capIcon {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.timelineItem {
+  position: relative;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.timelineItem.left .timelineContent {
+  text-align: right;
+  margin-right: calc(50% + 40px);
+}
+
+.timelineItem.right .timelineContent {
+  text-align: left;
+  margin-left: calc(50% + 40px);
+}
+
+.timelineIcon {
+  width: 20px;
+  height: 20px;
+  background-color: #00e6a8;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.timelineInnerCircle {
+  width: 8px;
+  height: 8px;
+  background-color: #1c1f26;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.timelineContent {
+  background-color: transparent;
+  padding: 10px;
+  position: relative;
+}
+
+.timelineEndPoint {
+  width: 20px;
+  height: 20px;
+  background-color: #00e6a8;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+}
+
+.itemTitle {
+  font-size: 1.5rem;
+  color: #00e6a8;
+  margin-bottom: 5px;
+}
+
+.itemInstitution {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.itemDuration {
+  font-size: 0.9rem;
+  color: #cccccc;
+  margin-bottom: 10px;
+}
+
+.itemDescription {
+  font-size: 0.9rem;
+  color: #b0b0b0;
+}
