@@ -36,6 +36,13 @@
   transform: translate(-50%, -50%);
 }
 
+.loadingMessage {
+  text-align: center;
+  color: #00e6a8;
+  font-size: 1rem;
+  margin-top: 20px;
+}
+
 .timelineItem {
   position: relative;
   width: 100%;
