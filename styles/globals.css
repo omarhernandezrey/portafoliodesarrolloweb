@@ -1,18 +1,18 @@
+/* app/globals.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-}
-/* Estilos personalizados para gradientes */
-.text-gradient {
-  background: linear-gradient(90deg, #4ADE80, #06b6d4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Estilos globales adicionales */
+
+html {
+  scroll-behavior: smooth;
 }
 
-.bg-gradient-custom {
-  background: linear-gradient(90deg, #4ADE80, #06b6d4);
+#tsparticles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Mantén las partículas detrás del contenido */
 }
