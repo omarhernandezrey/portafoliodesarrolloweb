@@ -120,7 +120,7 @@ export default function ParticlesComponent() {
         },
       },
       interactivity: {
-        detectsOn: "canvas", // Asegura que solo interactúe dentro del canvas
+        detectsOn: "window", // Detectar interacciones globales para mayor precisión
         events: {
           onHover: {
             enable: true,
@@ -151,6 +151,7 @@ export default function ParticlesComponent() {
         left: 0,
         width: "100%",
         height: "100%",
+        zIndex: -1, // Asegura que las partículas no interfieran con la interacción del puntero
       },
     };
   }, [logos, manualParticles]);
