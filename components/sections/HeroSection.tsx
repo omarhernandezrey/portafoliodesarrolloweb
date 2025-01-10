@@ -19,6 +19,7 @@ export default function HeroSection() {
 
       {/* Contenido */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center text-white px-4">
+        {/* Título animado */}
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight drop-shadow-md">
           ¡Hola Soy{" "}
           <span>
@@ -38,10 +39,12 @@ export default function HeroSection() {
           </span>
         </h1>
 
+        {/* Descripción */}
         <p className="max-w-lg text-sm sm:text-base md:text-lg lg:text-xl tracking-normal text-gray-300 mt-4 mb-8 animate-fadeIn">
           Combino creatividad, innovación y tecnología para crear experiencias web inolvidables.
         </p>
 
+        {/* Botón interactivo */}
         <button type="button" className="btn">
           <strong>Ver Proyectos</strong>
           <div id="container-stars">

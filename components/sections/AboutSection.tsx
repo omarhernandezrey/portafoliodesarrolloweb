@@ -1,27 +1,27 @@
-import React from 'react';
-import technologyIcons from '../../config/technologyIcons';
+import React from "react";
+import technologyIcons from "../../config/technologyIcons";
 
 const AboutSection: React.FC = () => {
   const interests = [
-    'Platzi Learning',
-    'Open Source',
-    'AI & ML',
-    'Coding',
-    'Tech Conferences',
+    "Platzi Learning",
+    "Open Source",
+    "AI & ML",
+    "Coding",
+    "Tech Conferences",
   ];
 
   const interestLinks: Record<string, string> = {
-    'Platzi Learning': 'https://platzi.com/',
-    'Open Source': 'https://opensource.org/',
-    'AI & ML': 'https://ai.google/',
-    'Coding': 'https://www.codecademy.com/',
-    'Tech Conferences': 'https://www.techconferences.co/',
+    "Platzi Learning": "https://platzi.com/",
+    "Open Source": "https://opensource.org/",
+    "AI & ML": "https://ai.google/",
+    "Coding": "https://www.codecademy.com/",
+    "Tech Conferences": "https://www.techconferences.co/",
   };
 
   return (
-    <section id="about" className="w-full bg-[#1a1a1a] text-white py-16 px-8 scroll-mt-16">
-      <div className="mx-auto max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        {/* Columna Izquierda: Foto y Botón */}
+    <section id="about" className="w-full bg-gradient-to-b from-gray-900 to-gray-800 text-white py-16 px-8 scroll-mt-16">
+      <div className="mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        {/* Foto y Botón */}
         <div className="flex flex-col items-center">
           <div className="relative w-[240px] h-[300px] mb-6">
             <div
@@ -33,7 +33,7 @@ const AboutSection: React.FC = () => {
                 hover:translate-x-6 hover:-translate-y-6
               "
             />
-            <div className="relative w-full h-full overflow-hidden">
+            <div className="relative w-full h-full overflow-hidden rounded-lg shadow-lg">
               <img
                 src="/images/profile.jpg"
                 alt="Profile"
@@ -41,7 +41,6 @@ const AboutSection: React.FC = () => {
               />
             </div>
           </div>
-          {/* Botón para descargar CV */}
           <a
             href="/files/CV-Omar-Hernandez-Rey.pdf"
             target="_blank"
@@ -59,20 +58,21 @@ const AboutSection: React.FC = () => {
             Download CV
           </a>
         </div>
-        
-        {/* Columna Derecha: Texto Sobre Mí */}
+
+        {/* Texto Sobre Mí */}
         <div className="flex flex-col space-y-6">
-          <h2 className="text-4xl font-bold text-teal-400">
-            SOBRE MÍ
+          <h2 className="text-4xl font-bold text-teal-400 uppercase tracking-wide">
+            Sobre Mí
           </h2>
           <p className="text-gray-300 leading-relaxed text-lg">
-            ¡Hola! Soy <strong>Omar Hernández Rey</strong>, un 
-            <strong> Desarrollador Web Full Stack</strong> con experiencia 
-            tanto en Front-End como en Back-End. Estoy a punto de graduarme en 
-            <strong> Ingeniería de Software</strong> del 
-            <strong> Politécnico Grancolombiano</strong> y continuamente 
-            mejoro mis conocimientos con cursos en 
-            <strong> Platzi</strong> sobre tecnologías web, DevOps y más.
+            ¡Hola! Soy <strong>Omar Hernández Rey</strong>, un{" "}
+            <strong>Desarrollador Web Full Stack</strong> con experiencia tanto
+            en <strong>Front-End</strong> como en <strong>Back-End</strong>.
+            Estoy a punto de graduarme en{" "}
+            <strong>Ingeniería de Software</strong> del{" "}
+            <strong>Politécnico Grancolombiano</strong> y continuamente mejoro
+            mis conocimientos con cursos en <strong>Platzi</strong> sobre
+            tecnologías web, DevOps y más.
           </p>
           <ul className="text-sm lg:text-base text-gray-300 space-y-3">
             <li>
@@ -94,16 +94,16 @@ const AboutSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Sección de Intereses */}
-      <div className="mx-auto max-w-5xl mt-16">
-        <h3 className="text-3xl font-bold text-teal-400 text-center mb-8">
-          MY INTERESTS
+      {/* Intereses */}
+      <div className="mx-auto max-w-6xl mt-16">
+        <h3 className="text-3xl font-bold text-teal-400 text-center mb-8 uppercase tracking-wide">
+          Mis Intereses
         </h3>
         <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-8 justify-items-center">
           {interests.map((interest) => (
             <a
               key={interest}
-              href={interestLinks[interest] || '#'}
+              href={interestLinks[interest] || "#"}
               target="_blank"
               rel="noopener noreferrer"
               className="

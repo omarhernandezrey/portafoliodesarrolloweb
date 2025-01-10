@@ -145,7 +145,7 @@ export default function SkillSection() {
   function handleMouseLeave(i: number) {}
 
   return (
-    <section className="bg-black text-white py-16">
+    <section className="bg-gradient-to-b from-gray-900 to-gray-800 text-white py-16">
       <div className="max-w-5xl mx-auto px-6 text-center">
         {/* Título principal con color personalizado */}
         <h2 className="text-4xl font-bold mb-8 text-[#3DC0A3]">Skills</h2>

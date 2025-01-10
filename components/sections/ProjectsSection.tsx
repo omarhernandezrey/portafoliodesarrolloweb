@@ -131,31 +131,32 @@ const projects = [
 ];
 
 const ProjectsSection: React.FC = () => {
-    return (
-      <section
-        id="projects"
-        className="py-20 bg-gray-100 dark:bg-gray-900 scroll-mt-16"
-      >
-        <div className="container mx-auto px-6 lg:px-20">
-          {/* Título de la Sección */}
-          <h2 className="text-4xl font-bold text-teal-400 text-center mb-12">
-            Mis Proyectos
-          </h2>
-  
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <Card
-                key={index}
-                title={project.title}
-                description={project.description}
-                technologies={project.technologies}
-                repository={project.repository}
-                demo={project.demo}
-              />
-            ))}
-          </div>
+  return (
+    <section
+      id="projects"
+      className="py-20 bg-gray-900 text-white scroll-mt-16"
+    >
+      <div className="container mx-auto px-6 lg:px-20">
+        {/* Título de la Sección */}
+        <h2 className="text-4xl font-extrabold text-teal-400 text-center mb-12 uppercase tracking-wider">
+          Mis Proyectos
+        </h2>
+
+        {/* Contenedor de Proyectos */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {projects.map((project, index) => (
+            <Card
+              key={index}
+              title={project.title}
+              description={project.description}
+              technologies={project.technologies}
+              repository={project.repository}
+              demo={project.demo}
+            />
+          ))}
         </div>
-      </section>
+      </div>
+    </section>
   );
 };
 
