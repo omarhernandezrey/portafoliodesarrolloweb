@@ -1,4 +1,3 @@
-// EducationSection.tsx
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
@@ -17,7 +16,9 @@ interface EducationItem {
   certificate?: string | null;
 }
 
-const flattenEducationData = (data: typeof educationData): EducationItem[] => {
+const flattenEducationData = (
+  data: typeof educationData
+): EducationItem[] => {
   return data.flatMap((category) =>
     category.items.map((item) => ({
       category: category.category,
@@ -31,7 +32,9 @@ const EducationSection: React.FC = () => {
   const [visibleCount, setVisibleCount] = useState(0);
   const [visibleItems, setVisibleItems] = useState<EducationItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedItem, setSelectedItem] = useState<EducationItem | null>(null);
+  const [selectedItem, setSelectedItem] = useState<EducationItem | null>(
+    null
+  );
   const [hasMore, setHasMore] = useState(true);
 
   const loadMoreItems = useCallback(() => {
@@ -78,8 +81,24 @@ const EducationSection: React.FC = () => {
   };
 
   return (
-    <section className={styles.educationSection}>
-      <h2 className={styles.title}>Education</h2>
+    <section
+      id="education" // Añadido el id para la navegación
+      className={`${styles.educationSection} pt-40`} // Añadido pt-16 para padding-top
+      aria-labelledby="education-title"
+      style={{ position: "relative" }} // Asegura que los elementos absolutos se posicionen respecto a esta sección
+    >
+      {/* Wave top (z-0 detrás, rotada) */}
+      <div className="absolute top-0 left-0 w-full rotate-180 overflow-hidden leading-[0] z-0">
+        <img
+          src="/images/wave-top.svg"
+          alt="wave top"
+          className="w-full h-auto"
+        />
+      </div>
+
+      <h2 id="education-title" className={styles.title}>
+        Education
+      </h2>
       <div className={styles.timeline}>
         <div className={styles.capIcon}>
           <FaGraduationCap size={30} />
@@ -98,6 +117,7 @@ const EducationSection: React.FC = () => {
               tabIndex={0}
               role="button"
               aria-pressed="false"
+              aria-labelledby={`education-item-title-${index}`}
             >
               <div className={styles.timelineIcon}>
                 {item.logo ? (
@@ -112,7 +132,12 @@ const EducationSection: React.FC = () => {
                 )}
               </div>
               <div className={styles.timelineContent}>
-                <h3 className={styles.itemTitle}>{item.title}</h3>
+                <h3
+                  id={`education-item-title-${index}`}
+                  className={styles.itemTitle}
+                >
+                  {item.title}
+                </h3>
                 <p className={styles.itemInstitution}>{item.institution}</p>
                 <p className={styles.itemDuration}>{item.duration}</p>
               </div>
@@ -130,6 +155,7 @@ const EducationSection: React.FC = () => {
             tabIndex={0}
             role="button"
             aria-pressed="false"
+            aria-label="Cargar más educación"
           >
             <div className={styles.timelineIcon}>
               <div className={styles.timelineInnerCircle}>+</div>
@@ -140,7 +166,10 @@ const EducationSection: React.FC = () => {
           </div>
         )}
 
-        <div id="infinite-scroll-sentinel" className={styles.timelineEndPoint}></div>
+        <div
+          id="infinite-scroll-sentinel"
+          className={styles.timelineEndPoint}
+        ></div>
       </div>
       {selectedItem && (
         <EducationModal

@@ -6,14 +6,27 @@ import ParticlesComponent from "@/components/ParticlesComponent";
 import "@/styles/advancedButton.css";
 
 export default function HeroSection() {
+  const handleViewProjects = () => {
+    const projectsSection = document.querySelector("#projects");
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <div className="relative w-full min-h-screen bg-black flex items-center justify-center">
+    <section
+      id="hero"
+      className="relative w-full min-h-screen bg-black flex items-center justify-center"
+    >
       {/* Fondo de imagen */}
       <div className="absolute inset-0 bg-[url('/images/hero-background.jpg')] bg-cover bg-center"></div>
       <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/90"></div>
 
       {/* Contenedor de partículas */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0" id="particles-container">
+      <div
+        className="absolute inset-0 overflow-hidden pointer-events-none z-0"
+        id="particles-container"
+      >
         <ParticlesComponent />
       </div>
 
@@ -41,11 +54,17 @@ export default function HeroSection() {
 
         {/* Descripción */}
         <p className="max-w-lg text-sm sm:text-base md:text-lg lg:text-xl tracking-normal text-gray-300 mt-4 mb-8 animate-fadeIn">
-          Combino creatividad, innovación y tecnología para crear experiencias web inolvidables.
+          Combino creatividad, innovación y tecnología para crear experiencias web
+          inolvidables.
         </p>
 
         {/* Botón interactivo */}
-        <button type="button" className="btn">
+        <button
+          type="button"
+          className="btn"
+          onClick={handleViewProjects}
+          aria-label="Ver Proyectos"
+        >
           <strong>Ver Proyectos</strong>
           <div id="container-stars">
             <div id="stars"></div>
@@ -56,6 +75,6 @@ export default function HeroSection() {
           </div>
         </button>
       </div>
-    </div>
+    </section>
   );
 }

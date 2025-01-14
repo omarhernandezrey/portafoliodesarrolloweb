@@ -1,12 +1,14 @@
 
 import React from "react";
+import "../styles/globals.css";
 import HeroSection from "../components/sections/HeroSection";
 import AboutSection from "../components/sections/AboutSection";
-import SkillSection from "../components/sections/SkillSection";
 import EducationSection from "../components/sections/EducationSection";
+import ServicesSection from '../components/sections/ServicesSection';
+import SkillSection from "../components/sections/SkillSection";
 import ProjectsSection from "../components/sections/ProjectsSection";
 import ContactForm from "../components/sections/ContactForm";
-import Footer from "../components/ui/Footer";
+import Footer from "../components/shared/Footer";
 
 export default function Home() {
   return (
@@ -15,6 +17,7 @@ export default function Home() {
       <AboutSection />
       <EducationSection />
       <SkillSection />
+      <ServicesSection />
       <ProjectsSection />
       <ContactForm />
       <Footer />

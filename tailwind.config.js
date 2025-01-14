@@ -1,5 +1,5 @@
 module.exports = {
-  darkMode: 'class', // o 'media'
+  darkMode: 'class', // Habilita el modo oscuro basado en una clase
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",

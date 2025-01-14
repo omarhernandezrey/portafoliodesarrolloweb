@@ -1,13 +1,7 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
 
-/** 
- * Ajusta estos datos a tus necesidades:
- * - percentage: "XX%"
- * - color: clases de Tailwind para el color del texto
- * - colorHex: el color en HEX que usaremos para la barra circular
- * - icon: ruta de tu ícono
- */
+// Parámetros y datos de Skills
 const skills = [
   {
     name: "HTML",
@@ -51,63 +45,52 @@ const skills = [
   },
 ];
 
-// Parámetros para el anillo circular.
+// Parámetros para el anillo circular
 const RADIUS = 28;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
-// Convierte "XX%" a número (0-100).
+// Convierte "XX%" a número (0-100)
 function parsePercentage(str: string): number {
   return parseInt(str.replace("%", ""), 10) || 0;
 }
 
 export default function SkillSection() {
-  /**
-   * 1) counts almacenará el valor "actual" de cada porcentaje.
-   *    Por defecto, se inicializan con su valor final (para no confundir al usuario).
-   */
+  // Estado que guarda el valor actual de cada porcentaje
   const [counts, setCounts] = useState<number[]>(
     skills.map((skill) => parsePercentage(skill.percentage))
   );
 
-  /**
-   * 2) animRefs guardará, para cada skill, el ID del requestAnimationFrame en curso,
-   *    de modo que podamos cancelar o evitar animaciones duplicadas.
-   */
+  // Animaciones (para cancelar si fuera necesario)
   const animRefs = useRef<Array<number | null>>([]);
 
-  // Al montar, inicializamos animRefs con un array del mismo tamaño que skills.
+  // Inicializa animRefs
   useEffect(() => {
     animRefs.current = skills.map(() => null);
   }, []);
 
-  /**
-   * 3) Función que “resetea” (en tiempo real) una skill a 1% y la anima hasta su valor final.
-   *    - i: índice de la skill en el array.
-   */
+  // Función de animación de la skill i
   function animateSkill(i: number) {
-    // Si había una animación en curso, la cancelamos.
+    // Cancela animación previa si existe
     if (animRefs.current[i] !== null) {
       cancelAnimationFrame(animRefs.current[i]!);
       animRefs.current[i] = null;
     }
 
-    // Valor final que queremos para esta skill.
     const finalVal = parsePercentage(skills[i].percentage);
 
-    // Forzamos a que arranque en 1% (se verá instantáneo antes de animar).
+    // Arrancamos en 1%
     setCounts((old) => {
       const copy = [...old];
       copy[i] = 1;
       return copy;
     });
 
-    // Ahora definimos la animación con ~60 frames (≈1s a 60fps).
+    // Definimos animación ~60 frames (~1s a 60fps)
     let frame = 0;
     const totalFrames = 60;
 
     function doFrame() {
       frame++;
-      // Hacemos interpolación lineal desde 1 hasta finalVal.
       const progress = frame / totalFrames;
       const currentValue = Math.floor(1 + (finalVal - 1) * progress);
 
@@ -120,7 +103,7 @@ export default function SkillSection() {
       if (frame < totalFrames) {
         animRefs.current[i] = requestAnimationFrame(doFrame);
       } else {
-        // Al terminar, aseguramos el valor final exacto.
+        // Aseguramos valor final
         setCounts((old) => {
           const copy = [...old];
           copy[i] = finalVal;
@@ -133,29 +116,49 @@ export default function SkillSection() {
     animRefs.current[i] = requestAnimationFrame(doFrame);
   }
 
-  /**
-   * 4) Manejo de eventos de mouse:
-   *    - onMouseEnter => llama a animateSkill(i)
-   *    - onMouseLeave => se queda en el valor final, NO reseteamos a 0%
-   */
+  // Handlers de eventos de hover
   function handleMouseEnter(i: number) {
     animateSkill(i);
   }
-  // No hacemos nada en onMouseLeave para que permanezca en el valor final
-  function handleMouseLeave(i: number) {}
+  function handleMouseLeave(i: number) {
+    // Se queda en el valor final
+  }
 
   return (
-    <section className="bg-gradient-to-b from-gray-900 to-gray-800 text-white py-16">
-      <div className="max-w-5xl mx-auto px-6 text-center">
-        {/* Título principal con color personalizado */}
-        <h2 className="text-4xl font-bold mb-8 text-[#3DC0A3]">Skills</h2>
+    <section
+      id="skills"
+      className="
+        relative overflow-hidden text-white 
+        bg-gradient-to-b from-gray-900 to-gray-800
+        py-32 px-4
+      "
+    >
+      {/* Wave Top (rotada) */}
+      <div className="absolute top-0 left-0 w-full rotate-180 overflow-hidden leading-[0] z-0">
+        <img
+          src="/images/wave-top.svg"
+          alt="wave top"
+          className="w-full h-auto"
+        />
+      </div>
+
+      {/* Contenido principal (z-10) */}
+      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+        {/* Título con degradado (igual que "My Services") */}
+        <h2
+          className="
+            text-center text-4xl md:text-5xl font-extrabold mb-8
+            text-transparent bg-clip-text 
+            bg-gradient-to-r from-green-400 to-blue-500
+          "
+        >
+          Skills
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
           {skills.map((skill, index) => {
-            // El valor actual que se está mostrando.
             const currentVal = counts[index];
-
-            // offset para el anillo: si currentVal = 100 => offset = 0 (lleno).
+            // Calcula offset para dibujar el anillo
             const offset =
               CIRCUMFERENCE - (CIRCUMFERENCE * currentVal) / 100;
 
@@ -166,7 +169,7 @@ export default function SkillSection() {
                 onMouseEnter={() => handleMouseEnter(index)}
                 onMouseLeave={() => handleMouseLeave(index)}
               >
-                {/* Contenedor para el anillo y el ícono */}
+                {/* Contenedor del anillo + ícono */}
                 <div className="relative w-16 h-16 mb-4">
                   <svg
                     className="absolute top-0 left-0 w-full h-full drop-shadow-[0_0_4px_rgba(0,0,0,0.5)]"
@@ -177,7 +180,7 @@ export default function SkillSection() {
                       cx={32}
                       cy={32}
                       r={RADIUS}
-                      stroke="#3f3f46" // gray-700
+                      stroke="#3f3f46" /* gray-700 */
                       strokeWidth={4}
                       fill="none"
                     />
@@ -193,12 +196,11 @@ export default function SkillSection() {
                       strokeDashoffset={offset}
                       transform="rotate(-90 32 32)"
                       strokeLinecap="round"
-                      // Pequeña transición para suavizar
                       className="transition-all duration-200 ease-linear"
                     />
                   </svg>
 
-                  {/* Ícono centrado */}
+                  {/* Ícono centrado (opacidad 50% para un look sutil) */}
                   <div className="absolute inset-0 p-2 flex items-center justify-center z-10">
                     <img
                       src={skill.icon}
@@ -215,8 +217,14 @@ export default function SkillSection() {
                   </div>
                 </div>
 
-                {/* Nombre de la skill con color personalizado */}
-                <h3 className="mt-2 text-xl font-semibold text-[#3DC0A3]">
+                {/* Nombre de la skill */}
+                <h3
+                  className="
+                    mt-2 text-xl font-semibold 
+                    text-transparent bg-clip-text 
+                    bg-gradient-to-r from-green-400 to-blue-500
+                  "
+                >
                   {skill.name}
                 </h3>
 
@@ -228,6 +236,15 @@ export default function SkillSection() {
             );
           })}
         </div>
+      </div>
+
+      {/* Wave Bottom */}
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-0">
+        <img
+          src="/images/wave-bottom.svg"
+          alt="wave bottom"
+          className="w-full h-auto"
+        />
       </div>
     </section>
   );

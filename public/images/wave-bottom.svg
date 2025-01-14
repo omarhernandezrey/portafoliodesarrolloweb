@@ -1,0 +1,11 @@
+<svg width="1440" height="150" viewBox="0 0 1440 150" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Define un gradiente lineal con colores similares al original -->
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1f2937" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#374151" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#1f2937" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#gradient)" d="M0,80 C360,0 1080,200 1440,80 V150 H0 Z"/>
+</svg>
