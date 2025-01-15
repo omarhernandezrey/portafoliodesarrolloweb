@@ -10,6 +10,69 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Configuración para el cambio dinámico de colores */
+/* Paleta por defecto (palette1) */
+/* Variables de paleta */
+/* Variables de paleta */
+:root {
+  --background-color: #111927; /* Color de fondo extraído de la imagen */
+  --secondary-background-color: #1a1a1d;
+  --white-color: #ffffff; /* Color blanco */
+  --text-color: #c5c6c7;
+  --muted-color: #66fcf1;
+  --primary-color: #66fcf1;
+  --accent-color: #45a29e;
+  --card-bg-color: #1a1a1d;
+  --inner-circle-bg-color: #45a29e;
+  --inner-circle-text-color: #1a1a1d;
+  --item-title-color-palette2: #f39c12;
+  --loading-text-color-palette2: #f39c12;
+  --loadmore-bg-color: #0b0c10;
+  --loadmore-border-color: #66fcf1;
+  --loadmore-hover-bg-color: #1f2833;
+}
+
+:root.palette2 {
+  --background-color: #1c1c2e;
+  --secondary-background-color: #28283c;
+  --white-color: #ffffff; /* Color blanco */
+  --text-color: #f4f4f9;
+  --muted-color: #d1d1e0;
+  --primary-color: #ff6f61;
+  --accent-color: #f39c12;
+  --card-bg-color: #28283c;
+  --inner-circle-bg-color: #f39c12;
+  --inner-circle-text-color: #28283c;
+  --item-title-color-palette2: #f39c12;
+  --loading-text-color-palette2: #f39c12;
+  --loadmore-bg-color: #28283c;
+  --loadmore-border-color: #f39c12;
+  --loadmore-hover-bg-color: #1f2833;
+}
+
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+a, button {
+  color: var(--primary-color);
+  background-color: var(--button-bg-color);
+}
+a:hover, button:hover {
+  color: var(--text-color);
+  background-color: var(--button-hover-color);
+}
+.card {
+  background-color: var(--card-bg-color);
+  color: var(--text-color);
+}
+
+
+
+
+/* Estilo del contenedor de partículas */
 #tsparticles {
   position: absolute;
   width: 100%;

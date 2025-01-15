@@ -26,8 +26,8 @@ export default function NewsletterForm() {
   };
 
   return (
-    <div className="mt-8">
-      <h3 className="text-xl font-semibold mb-4 text-teal-400">Suscríbete a mi Newsletter</h3>
+<div className="mt-8"> 
+      <h3 className="text-xl font-semibold mb-4 text-[var(--accent-color)]">Suscríbete a mi Newsletter</h3>
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-center">
         <input
           type="email"
@@ -35,8 +35,8 @@ export default function NewsletterForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="
-            w-full sm:w-auto flex-1 p-4 rounded-l-lg bg-gray-700 text-white placeholder-gray-400
-            focus:outline-none focus:ring-2 focus:ring-teal-400
+            w-full sm:w-auto flex-1 p-4 rounded-l-lg bg-[var(--secondary-background-color)] text-[var(--text-color)] placeholder-[var(--muted-color)]
+            focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]
           "
           required
         />
@@ -44,8 +44,8 @@ export default function NewsletterForm() {
           type="submit"
           disabled={status === "loading"}
           className={`
-            mt-4 sm:mt-0 sm:ml-2 p-4 bg-teal-400 text-gray-900 font-semibold rounded-r-lg
-            hover:bg-teal-500 transition-colors duration-300
+            mt-4 sm:mt-0 sm:ml-2 p-4 bg-[var(--accent-color)] text-[var(--background-color)] font-semibold rounded-r-lg
+            hover:bg-[var(--primary-hover-color)] transition-colors duration-300
             ${status === "loading" ? "opacity-50 cursor-not-allowed" : ""}
           `}
         >
@@ -53,11 +53,12 @@ export default function NewsletterForm() {
         </button>
       </form>
       {status === "success" && (
-        <p className="text-green-400 mt-2">¡Suscripción exitosa!</p>
+        <p className="text-[var(--primary-color)] mt-2">¡Suscripción exitosa!</p>
       )}
       {status === "error" && (
-        <p className="text-red-400 mt-2">Error al suscribirse. Inténtalo de nuevo.</p>
+        <p className="text-[var(--error-color)] mt-2">Error al suscribirse. Inténtalo de nuevo.</p>
       )}
     </div>
+
   );
 }

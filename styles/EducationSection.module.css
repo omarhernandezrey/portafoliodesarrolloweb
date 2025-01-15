@@ -1,23 +1,32 @@
 .educationSection {
-  background-color: #111927; /* Color de fondo extraído de la imagen */
+  background-color: var(--background-color);
   padding: 60px 20px;
-  color: #c5c6c7;
+  color: var(--text-color);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .title {
   text-align: center;
-  font-size: 2.5rem;
-  color: #66fcf1;
-  margin-bottom: 40px;
-  position: relative;
+  font-size: 2.5rem; /* Tamaño de texto */
+  font-weight: 800; /* Equivale a font-extrabold */
+  margin-bottom: 40px; /* Margen inferior */
+  text-transform: uppercase; /* Texto en mayúsculas */
+  letter-spacing: 0.1em; /* Espaciado entre letras */
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--accent-color)
+  ); /* Gradiente de colores */
+  -webkit-background-clip: text; /* Clip para usar el gradiente en el texto */
+  -webkit-text-fill-color: transparent; /* Hacer el texto transparente para mostrar el gradiente */
+  position: relative; /* Posición relativa */
 }
 
 .title::after {
   content: "";
   width: 80px;
   height: 4px;
-  background-color: #45a29e;
+  background-color: var(--accent-color);
   display: block;
   margin: 10px auto 0;
   border-radius: 2px;
@@ -34,7 +43,7 @@
   content: "";
   position: absolute;
   width: 6px;
-  background-color: #45a29e;
+  background-color: var(--accent-color);
   top: 0;
   bottom: 0;
   left: 50%;
@@ -46,14 +55,14 @@
   top: -20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #45a29e;
+  background-color: var(--accent-color);
   width: 40px;
   height: 40px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #1a1a1d;
+  color: var(--background-color);
   box-shadow: 0 0 10px rgba(69, 162, 158, 0.5);
 }
 
@@ -95,8 +104,8 @@
   top: 20px;
   width: 50px;
   height: 50px;
-  background-color: #1a1a1d;
-  border: 3px solid #45a29e;
+  background-color: var(--secondary-background-color);
+  border: 3px solid var(--accent-color);
   border-radius: 50%;
   z-index: 1;
   display: flex;
@@ -107,7 +116,7 @@
 }
 
 .timelineItem:hover .timelineIcon {
-  background-color: #45a29e;
+  background-color: var(--accent-color);
   transform: rotate(360deg);
 }
 
@@ -129,9 +138,9 @@
 .timelineInnerCircle {
   width: 100%;
   height: 100%;
-  background-color: #45a29e;
+  background-color: var(--inner-circle-bg-color);
   border-radius: 50%;
-  color: #1a1a1d;
+  color: var(--inner-circle-text-color);
   font-size: 1.5rem;
   display: flex;
   justify-content: center;
@@ -139,7 +148,7 @@
 }
 
 .timelineContent {
-  background-color: #1a1a1d;
+  background-color: var(--card-bg-color);
   padding: 20px;
   border-radius: 10px;
   position: relative;
@@ -158,39 +167,40 @@
 
 .left .timelineContent::after {
   right: -20px;
-  border-left-color: #1a1a1d;
+  border-left-color: var(--card-bg-color);
 }
 
 .right .timelineContent::after {
   left: -20px;
-  border-right-color: #1a1a1d;
+  border-right-color: var(--card-bg-color);
 }
 
 .itemTitle {
   font-size: 1.4rem;
-  color: #66fcf1;
+  color: var(--primary-color);
   margin-bottom: 8px;
   font-weight: 600;
   word-wrap: break-word;
+  transition: color 0.3s;
 }
 
 .itemInstitution {
   font-size: 1.1rem;
-  color: #c5c6c7;
+  color: var(--text-color);
   margin-bottom: 6px;
   word-wrap: break-word;
 }
 
 .itemDuration {
   font-size: 0.95rem;
-  color: #c5c6c7;
+  color: var(--text-color);
   word-wrap: break-word;
 }
 
 .timelineEndPoint {
   width: 20px;
   height: 20px;
-  background-color: #45a29e;
+  background-color: var(--accent-color);
   border-radius: 50%;
   position: absolute;
   bottom: 0;
@@ -200,9 +210,10 @@
 
 .loadingText {
   text-align: center;
-  color: #66fcf1;
+  color: var(--muted-color);
   margin-top: 20px;
   font-size: 1rem;
+  transition: color 0.3s;
 }
 
 .loadMore {
@@ -213,12 +224,12 @@
 }
 
 .loadMore .timelineContent {
-  background-color: #0b0c10;
-  border: 2px dashed #66fcf1;
+  background-color: var(--loadmore-bg-color);
+  border: 2px dashed var(--loadmore-border-color);
 }
 
 .loadMore:hover .timelineContent {
-  background-color: #1f2833;
+  background-color: var(--loadmore-hover-bg-color);
 }
 
 @media (max-width: 480px) {

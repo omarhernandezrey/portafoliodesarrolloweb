@@ -11,7 +11,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ title, description, technologies, repository, demo }) => {
   return (
-    <div className="relative p-6 w-full max-w-sm flex flex-col justify-between bg-transparent text-white rounded-lg z-10">
+<div className="relative p-6 w-full max-w-sm flex flex-col justify-between bg-transparent text-[var(--text-color)] rounded-lg z-10">
       <div className="flex flex-col items-center justify-center">
         <div className="relative w-[200px] h-[150px] flex-shrink-0 xs:w-[250px] xs:h-[200px]">
           <img src="/images/laptop.png" alt="Laptop" className="w-full h-full object-cover" />
@@ -68,8 +68,8 @@ const Card: React.FC<CardProps> = ({ title, description, technologies, repositor
         </div>
       </div>
       <div className="mt-6 text-center">
-        <h3 className="text-xl font-bold text-teal-400">{title}</h3>
-        <p className="text-gray-300 text-sm mt-2">{description}</p>
+        <h3 className="text-xl font-bold text-[var(--accent-color)]">{title}</h3>
+        <p className="text-[var(--muted-color)] text-sm mt-2">{description}</p>
         {technologies && technologies.length > 0 && (
           <div className="flex justify-center gap-2 mt-4">
             {technologies.map((tech, index) => (
@@ -82,9 +82,9 @@ const Card: React.FC<CardProps> = ({ title, description, technologies, repositor
                     {technologyIcons[tech]}
                   </div>
                 ) : (
-                  <span className="text-teal-400 text-sm font-medium">{tech}</span>
+                  <span className="text-[var(--accent-color)] text-sm font-medium">{tech}</span>
                 )}
-                <span className="absolute bottom-[-30px] opacity-0 group-hover:opacity-100 group-hover:translate-y-[-5px] bg-gray-700 text-white text-xs px-2 py-1 rounded transition-all">
+                <span className="absolute bottom-[-30px] opacity-0 group-hover:opacity-100 group-hover:translate-y-[-5px] bg-[var(--secondary-background-color)] text-[var(--text-color)] text-xs px-2 py-1 rounded transition-all">
                   {tech}
                 </span>
               </div>
@@ -97,7 +97,7 @@ const Card: React.FC<CardProps> = ({ title, description, technologies, repositor
             href={repository}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-6 py-3 text-sm font-medium text-white bg-gray-800 border border-gray-700 rounded-lg hover:bg-gray-700 transition duration-200"
+            className="flex items-center gap-2 px-6 py-3 text-sm font-medium text-[var(--text-color)] bg-[var(--secondary-background-color)] border border-[var(--muted-color)] rounded-lg hover:bg-[var(--muted-color)] transition duration-200"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -114,13 +114,14 @@ const Card: React.FC<CardProps> = ({ title, description, technologies, repositor
             href={demo}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-3 text-sm font-medium text-white bg-teal-500 rounded-lg hover:bg-teal-600 transition duration-300"
+            className="px-6 py-3 text-sm font-medium text-[var(--text-color)] bg-[var(--primary-color)] rounded-lg hover:bg-[var(--primary-hover-color)] transition duration-300"
           >
             Demo
           </a>
         </div>
       </div>
     </div>
+
   );
 };
 

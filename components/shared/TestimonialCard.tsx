@@ -16,8 +16,8 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   avatar,
 }) => {
   return (
-    <blockquote className="bg-gray-700 p-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
-      <p className="text-gray-300 italic mb-4">"{quote}"</p>
+    <blockquote className="bg-[var(--secondary-background-color)] p-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
+      <p className="text-[var(--text-color)] italic mb-4">"{quote}"</p>
       <div className="flex items-center">
         <img
           src={avatar}
@@ -25,8 +25,8 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
           className="w-12 h-12 rounded-full mr-4 object-cover"
         />
         <div>
-          <cite className="text-teal-400 font-semibold">{author}</cite>
-          <span className="block text-gray-400 text-sm">{role}</span>
+          <cite className="text-[var(--accent-color)] font-semibold">{author}</cite>
+          <span className="block text-[var(--muted-color)] text-sm">{role}</span>
         </div>
       </div>
     </blockquote>

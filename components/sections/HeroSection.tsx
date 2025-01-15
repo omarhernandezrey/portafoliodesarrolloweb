@@ -16,31 +16,58 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative w-full min-h-screen bg-black flex items-center justify-center"
+      className="
+        relative w-full min-h-screen 
+        bg-[var(--background-color)] flex items-center justify-center
+      "
     >
       {/* Fondo de imagen */}
-      <div className="absolute inset-0 bg-[url('/images/hero-background.jpg')] bg-cover bg-center"></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/90"></div>
+      <div
+        className="
+          absolute inset-0 bg-[url('/images/hero-background.jpg')] 
+          bg-cover bg-center
+        "
+      ></div>
+
+      {/* Capa nublada */}
+      <div
+        className="
+          absolute inset-0 bg-black bg-opacity-50
+        "
+      ></div>
 
       {/* Contenedor de partículas */}
       <div
-        className="absolute inset-0 overflow-hidden pointer-events-none z-0"
+        className="
+          absolute inset-0 overflow-hidden 
+          pointer-events-none z-0
+        "
         id="particles-container"
       >
         <ParticlesComponent />
       </div>
 
       {/* Contenido */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center text-white px-4">
+      <div
+        className="
+          relative z-10 flex flex-col items-center 
+          justify-center text-center text-[var(--white-color)] px-4
+        "
+      >
         {/* Título animado */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight drop-shadow-md">
+        <h1
+          className="
+            text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
+            font-extrabold mb-6 tracking-tight drop-shadow-md
+          "
+        >
           ¡Hola Soy{" "}
           <span>
             <Typewriter
               options={{
                 strings: [
-                  '<span class="text-[#39ff14]">Omar Hernández Rey</span>',
-                  '<span class="text-cyan-400">Desarrollador Web Full Stack</span>',
+                  `<span class="text-[var(--accent-color)]">Omar Hernández Rey</span>`,
+                  `<span class="text-[var(--primary-color)]">Desarrollador Web Full Stack</span>`,
                 ],
                 autoStart: true,
                 loop: true,
@@ -53,7 +80,13 @@ export default function HeroSection() {
         </h1>
 
         {/* Descripción */}
-        <p className="max-w-lg text-sm sm:text-base md:text-lg lg:text-xl tracking-normal text-gray-300 mt-4 mb-8 animate-fadeIn">
+        <p
+          className="
+            max-w-lg text-sm sm:text-base md:text-lg lg:text-xl 
+            tracking-normal text-[var(--text-color)] 
+            mt-4 mb-8 animate-fadeIn
+          "
+        >
           Combino creatividad, innovación y tecnología para crear experiencias web
           inolvidables.
         </p>

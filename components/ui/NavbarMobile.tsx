@@ -4,6 +4,8 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   AiOutlineHome,
   AiOutlineUser,
+  AiOutlineBook,
+  AiOutlineTool,
   AiOutlineProject,
   AiOutlineMail,
   AiOutlineClose,
@@ -12,22 +14,45 @@ import {
   AiFillLinkedin,
 } from "react-icons/ai";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
+import { FaTools } from "react-icons/fa";
+import { BiBrain } from "react-icons/bi";
 
 interface NavbarMobileProps {
   isOpen: boolean;
   toggleMenu: () => void;
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
 }
 
-const NavbarMobile: React.FC<NavbarMobileProps> = ({
-  isOpen,
-  toggleMenu,
-  isDarkMode,
-  toggleDarkMode,
-}) => {
+const NavbarMobile: React.FC<NavbarMobileProps> = ({ isOpen, toggleMenu }) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const [activeSection, setActiveSection] = useState<string>("#hero");
+  const [isPalette2, setIsPalette2] = useState(false);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const storedPalette = localStorage.getItem("palette");
+    if (storedPalette === "palette2") {
+      root.classList.add("palette2");
+      setIsPalette2(true);
+    } else {
+      root.classList.remove("palette2");
+      setIsPalette2(false);
+    }
+  }, []);
+
+  const togglePalette = () => {
+    const root = document.documentElement;
+    setIsPalette2((prev) => {
+      const newState = !prev;
+      if (newState) {
+        root.classList.add("palette2");
+        localStorage.setItem("palette", "palette2");
+      } else {
+        root.classList.remove("palette2");
+        localStorage.setItem("palette", "default");
+      }
+      return newState;
+    });
+  };
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
@@ -89,10 +114,10 @@ const NavbarMobile: React.FC<NavbarMobileProps> = ({
   return (
     <div className="relative">
       {/* Navbar */}
-      <nav className="flex justify-between items-center px-6 py-4 bg-transparent border-b-2 border-teal-400 fixed top-0 left-0 w-full z-50 shadow-md">
+      <nav className="flex justify-between items-center px-6 py-4 bg-[var(--background-color)] text-[var(--text-color)] border-b border-[var(--accent-color)] fixed top-0 left-0 w-full z-50 shadow-md">
         <button
           onClick={toggleMenu}
-          className="text-teal-400 text-3xl focus:outline-none hover:text-teal-500 transition-colors duration-300"
+          className="text-[var(--primary-color)] text-3xl focus:outline-none hover:text-[var(--primary-hover-color)] transition-colors duration-300"
           aria-label="Toggle menu"
         >
           {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
@@ -100,7 +125,7 @@ const NavbarMobile: React.FC<NavbarMobileProps> = ({
         <button
           onClick={() => handleLinkClick("#hero")}
           className="focus:outline-none transition-transform transform hover:scale-125"
-          aria-label="Ir al Inicio"
+          aria-label="Go to Home"
         >
           <img
             src="/images/logo.png"
@@ -113,29 +138,26 @@ const NavbarMobile: React.FC<NavbarMobileProps> = ({
       {/* Menú desplegable */}
       <div
         ref={menuRef}
-        className={`fixed top-0 left-0 h-screen bg-gray-900 text-white z-40 transform ${
+        className={`fixed top-0 left-0 h-screen bg-[var(--secondary-background-color)] text-[var(--text-color)] z-40 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-500 ease-in-out w-4/5`}
-        style={{
-          boxShadow: isOpen ? "-2px 0 5px rgba(0,0,0,0.5)" : "none",
-        }}
       >
         <div className="flex flex-col justify-between h-full">
           {/* Enlaces de navegación */}
           <ul className="flex flex-col items-start pl-8 mt-32 space-y-6">
             {[
-              { id: "#hero", label: "Inicio", icon: <AiOutlineHome size={24} /> },
-              { id: "#about", label: "Sobre Mí", icon: <AiOutlineUser size={24} /> },
-              { id: "#education", label: "Educación", icon: <AiOutlineUser size={24} /> },
-              { id: "#skills", label: "Habilidades", icon: <AiOutlineUser size={24} /> },
-              { id: "#services", label: "Servicios", icon: <AiOutlineUser size={24} /> },
-              { id: "#projects", label: "Proyectos", icon: <AiOutlineProject size={24} /> },
-              { id: "#contact", label: "Contacto", icon: <AiOutlineMail size={24} /> },
+              { id: "#hero", label: "Home", icon: <AiOutlineHome size={24} /> },
+              { id: "#about", label: "About Me", icon: <AiOutlineUser size={24} /> },
+              { id: "#education", label: "Education", icon: <AiOutlineBook size={24} /> },
+              { id: "#skills", label: "Skills", icon: <BiBrain size={24} /> },
+              { id: "#services", label: "Services", icon: <FaTools size={24} /> },
+              { id: "#projects", label: "Projects", icon: <AiOutlineProject size={24} /> },
+              { id: "#contact", label: "Contact", icon: <AiOutlineMail size={24} /> },
             ].map((link) => (
               <li key={link.id} className="w-full">
                 <button
                   onClick={() => handleLinkClick(link.id)}
-                  className={`flex items-center gap-4 w-full px-4 py-2 text-teal-400 hover:text-teal-500 transition-colors duration-300 ${
+                  className={`flex items-center gap-4 w-full px-4 py-2 text-[var(--primary-color)] hover:text-[var(--accent-hover-color)] transition-colors duration-300 ${
                     activeSection === link.id ? "underline" : ""
                   }`}
                   aria-current={activeSection === link.id ? "page" : undefined}
@@ -147,13 +169,13 @@ const NavbarMobile: React.FC<NavbarMobileProps> = ({
             ))}
           </ul>
 
-          {/* Iconos sociales y botón de modo oscuro */}
-          <div className="flex items-center justify-around gap-4 py-6 border-t border-teal-400">
+          {/* Iconos sociales y botón de paleta de colores */}
+          <div className="flex items-center justify-center gap-6 py-6 border-t border-[var(--accent-color)]">
             <a
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-teal-400 transition-transform duration-500 hover:text-blue-400 hover:scale-125 hover:rotate-6"
+              className="text-[var(--primary-color)] transition-transform duration-500 hover:text-[var(--accent-hover-color)] hover:scale-125 hover:rotate-6"
               aria-label="GitHub"
             >
               <AiFillGithub size={36} />
@@ -162,20 +184,17 @@ const NavbarMobile: React.FC<NavbarMobileProps> = ({
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-teal-400 transition-transform duration-500 hover:text-blue-400 hover:scale-125 hover:-rotate-6"
+              className="text-[var(--primary-color)] transition-transform duration-500 hover:text-[var(--accent-hover-color)] hover:scale-125 hover:-rotate-6"
               aria-label="LinkedIn"
             >
               <AiFillLinkedin size={36} />
             </a>
             <button
-              onClick={() => {
-                toggleMenu();
-                toggleDarkMode();
-              }}
-              className="text-teal-400 transition-transform transform hover:scale-125 hover:text-yellow-400 focus:outline-none"
-              aria-label="Alternar Modo Oscuro"
+              onClick={togglePalette}
+              className="text-[var(--primary-color)] transition-transform transform hover:scale-125 hover:text-[var(--accent-hover-color)] focus:outline-none"
+              aria-label="Toggle Palette"
             >
-              {isDarkMode ? <MdLightMode size={36} /> : <MdDarkMode size={36} />}
+              {isPalette2 ? <MdLightMode size={36} /> : <MdDarkMode size={36} />}
             </button>
           </div>
         </div>

@@ -136,7 +136,7 @@ const ProjectsSection: React.FC = () => {
       id="projects"
       className="
         relative py-32 px-4 
-        bg-gray-900 text-white
+        bg-[var(--background-color)] text-[var(--text-color)]
         overflow-hidden scroll-mt-16
       "
     >
@@ -149,7 +149,7 @@ const ProjectsSection: React.FC = () => {
           className="
             text-center text-4xl md:text-5xl font-extrabold mb-12
             text-transparent bg-clip-text 
-            bg-gradient-to-r from-green-400 to-blue-500
+            bg-gradient-to-r from-[var(--primary-color)] to-[var(--accent-color)]
             uppercase tracking-wider
           "
         >
@@ -172,6 +172,7 @@ const ProjectsSection: React.FC = () => {
       </div>
 
     </section>
+
   );
 };
 

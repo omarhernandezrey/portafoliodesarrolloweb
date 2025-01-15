@@ -125,127 +125,127 @@ export default function SkillSection() {
   }
 
   return (
-    <section
-      id="skills"
+<section
+  id="skills"
+  className="
+    relative overflow-hidden text-[var(--text-color)] 
+    bg-gradient-to-b from-[var(--background-color)] to-[var(--secondary-background-color)]
+    py-32 px-4
+  "
+>
+  {/* Wave Top (rotada) */}
+  <div className="absolute top-0 left-0 w-full rotate-180 overflow-hidden leading-[0] z-0">
+    <img
+      src="/images/wave-top.svg"
+      alt="wave top"
+      className="w-full h-auto"
+    />
+  </div>
+
+  {/* Contenido principal (z-10) */}
+  <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+    {/* Título con degradado (igual que "My Services") */}
+    <h2
       className="
-        relative overflow-hidden text-white 
-        bg-gradient-to-b from-gray-900 to-gray-800
-        py-32 px-4
+        text-center text-4xl md:text-5xl font-extrabold mb-8
+        text-transparent bg-clip-text 
+        bg-gradient-to-r from-[var(--primary-color)] to-[var(--accent-color)]
       "
     >
-      {/* Wave Top (rotada) */}
-      <div className="absolute top-0 left-0 w-full rotate-180 overflow-hidden leading-[0] z-0">
-        <img
-          src="/images/wave-top.svg"
-          alt="wave top"
-          className="w-full h-auto"
-        />
-      </div>
+      Skills
+    </h2>
 
-      {/* Contenido principal (z-10) */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-        {/* Título con degradado (igual que "My Services") */}
-        <h2
-          className="
-            text-center text-4xl md:text-5xl font-extrabold mb-8
-            text-transparent bg-clip-text 
-            bg-gradient-to-r from-green-400 to-blue-500
-          "
-        >
-          Skills
-        </h2>
+    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+      {skills.map((skill, index) => {
+        const currentVal = counts[index];
+        // Calcula offset para dibujar el anillo
+        const offset =
+          CIRCUMFERENCE - (CIRCUMFERENCE * currentVal) / 100;
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
-          {skills.map((skill, index) => {
-            const currentVal = counts[index];
-            // Calcula offset para dibujar el anillo
-            const offset =
-              CIRCUMFERENCE - (CIRCUMFERENCE * currentVal) / 100;
-
-            return (
-              <div
-                key={index}
-                className="flex flex-col items-center"
-                onMouseEnter={() => handleMouseEnter(index)}
-                onMouseLeave={() => handleMouseLeave(index)}
+        return (
+          <div
+            key={index}
+            className="flex flex-col items-center"
+            onMouseEnter={() => handleMouseEnter(index)}
+            onMouseLeave={() => handleMouseLeave(index)}
+          >
+            {/* Contenedor del anillo + ícono */}
+            <div className="relative w-16 h-16 mb-4">
+              <svg
+                className="absolute top-0 left-0 w-full h-full drop-shadow-[0_0_4px_rgba(0,0,0,0.5)]"
+                viewBox="0 0 64 64"
               >
-                {/* Contenedor del anillo + ícono */}
-                <div className="relative w-16 h-16 mb-4">
-                  <svg
-                    className="absolute top-0 left-0 w-full h-full drop-shadow-[0_0_4px_rgba(0,0,0,0.5)]"
-                    viewBox="0 0 64 64"
-                  >
-                    {/* Círculo de fondo (gris) */}
-                    <circle
-                      cx={32}
-                      cy={32}
-                      r={RADIUS}
-                      stroke="#3f3f46" /* gray-700 */
-                      strokeWidth={4}
-                      fill="none"
-                    />
-                    {/* Círculo de progreso */}
-                    <circle
-                      cx={32}
-                      cy={32}
-                      r={RADIUS}
-                      stroke={skill.colorHex}
-                      strokeWidth={4}
-                      fill="none"
-                      strokeDasharray={CIRCUMFERENCE}
-                      strokeDashoffset={offset}
-                      transform="rotate(-90 32 32)"
-                      strokeLinecap="round"
-                      className="transition-all duration-200 ease-linear"
-                    />
-                  </svg>
+                {/* Círculo de fondo */}
+                <circle
+                  cx={32}
+                  cy={32}
+                  r={RADIUS}
+                  stroke="var(--muted-color)"
+                  strokeWidth={4}
+                  fill="none"
+                />
+                {/* Círculo de progreso */}
+                <circle
+                  cx={32}
+                  cy={32}
+                  r={RADIUS}
+                  stroke={skill.colorHex || "var(--accent-color)"}
+                  strokeWidth={4}
+                  fill="none"
+                  strokeDasharray={CIRCUMFERENCE}
+                  strokeDashoffset={offset}
+                  transform="rotate(-90 32 32)"
+                  strokeLinecap="round"
+                  className="transition-all duration-200 ease-linear"
+                />
+              </svg>
 
-                  {/* Ícono centrado (opacidad 50% para un look sutil) */}
-                  <div className="absolute inset-0 p-2 flex items-center justify-center z-10">
-                    <img
-                      src={skill.icon}
-                      alt={`${skill.name} icon`}
-                      className="w-full h-full object-contain opacity-50 pointer-events-none"
-                    />
-                  </div>
-
-                  {/* Porcentaje en texto */}
-                  <div className="absolute inset-0 flex items-center justify-center z-20">
-                    <span className={`text-sm font-bold ${skill.color}`}>
-                      {currentVal}%
-                    </span>
-                  </div>
-                </div>
-
-                {/* Nombre de la skill */}
-                <h3
-                  className="
-                    mt-2 text-xl font-semibold 
-                    text-transparent bg-clip-text 
-                    bg-gradient-to-r from-green-400 to-blue-500
-                  "
-                >
-                  {skill.name}
-                </h3>
-
-                {/* Descripción */}
-                <p className="text-gray-400 mt-2 text-sm max-w-xs">
-                  {skill.description}
-                </p>
+              {/* Ícono centrado */}
+              <div className="absolute inset-0 p-2 flex items-center justify-center z-10">
+                <img
+                  src={skill.icon}
+                  alt={`${skill.name} icon`}
+                  className="w-full h-full object-contain opacity-50 pointer-events-none"
+                />
               </div>
-            );
-          })}
-        </div>
-      </div>
 
-      {/* Wave Bottom */}
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-0">
-        <img
-          src="/images/wave-bottom.svg"
-          alt="wave bottom"
-          className="w-full h-auto"
-        />
-      </div>
-    </section>
+              {/* Porcentaje en texto */}
+              <div className="absolute inset-0 flex items-center justify-center z-20">
+                <span className={`text-sm font-bold text-[var(--text-color)]`}>
+                  {currentVal}%
+                </span>
+              </div>
+            </div>
+
+            {/* Nombre de la skill */}
+            <h3
+              className="
+                mt-2 text-xl font-semibold 
+                text-transparent bg-clip-text 
+                bg-gradient-to-r from-[var(--primary-color)] to-[var(--accent-color)]
+              "
+            >
+              {skill.name}
+            </h3>
+
+            {/* Descripción */}
+            <p className="text-[var(--text-color)] mt-2 text-sm max-w-xs">
+              {skill.description}
+            </p>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+
+  {/* Wave Bottom */}
+  <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-0">
+    <img
+      src="/images/wave-bottom.svg"
+      alt="wave bottom"
+      className="w-full h-auto"
+    />
+  </div>
+</section>
   );
 }

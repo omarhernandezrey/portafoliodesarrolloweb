@@ -87,14 +87,14 @@ const EducationModal: React.FC<EducationModalProps> = ({
           aria-describedby="modal-description"
         >
           <div
-            className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative"
+            className="bg-gradient-to-br from-[var(--background-color)] via-[var(--secondary-background-color)] to-[var(--background-color)] text-[var(--text-color)] rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative"
             onClick={(e) => e.stopPropagation()}
             ref={modalRef}
           >
             {/* Botón de Cierre */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-gray-300 hover:text-red-500 focus:outline-none"
+              className="absolute top-4 right-4 text-[var(--muted-color)] hover:text-[var(--accent-color)] focus:outline-none"
               aria-label="Cerrar modal"
               ref={closeButtonRef}
             >
@@ -105,7 +105,7 @@ const EducationModal: React.FC<EducationModalProps> = ({
             <div className="p-8">
               {/* Logo */}
               <div className="flex justify-center mb-6">
-                <div className="h-24 w-24 rounded-full overflow-hidden bg-gray-700 border-4 border-teal-500">
+                <div className="h-24 w-24 rounded-full overflow-hidden bg-[var(--secondary-background-color)] border-4 border-[var(--accent-color)]">
                   <img
                     src={logo}
                     alt={`${institution} logo`}
@@ -118,19 +118,21 @@ const EducationModal: React.FC<EducationModalProps> = ({
               {/* Título y Detalles */}
               <h2
                 id="modal-title"
-                className="text-3xl font-bold text-center mb-4"
+                className="text-3xl font-bold text-center mb-4 text-[var(--primary-color)]"
               >
                 {title}
               </h2>
-              <p className="text-center text-teal-400 text-lg font-medium mb-2">
+              <p className="text-center text-[var(--accent-color)] text-lg font-medium mb-2">
                 {institution}
               </p>
-              <p className="text-center text-gray-400 mb-6">{duration}</p>
+              <p className="text-center text-[var(--muted-color)] mb-6">
+                {duration}
+              </p>
 
               {/* Descripción */}
               <p
                 id="modal-description"
-                className="text-gray-300 leading-relaxed mb-6 text-justify"
+                className="text-[var(--text-color)] leading-relaxed mb-6 text-justify"
               >
                 {description}
               </p>
@@ -138,7 +140,7 @@ const EducationModal: React.FC<EducationModalProps> = ({
               {/* Certificado */}
               {certificate && (
                 <div className="mt-6">
-                  <h3 className="text-xl font-semibold text-teal-400 mb-4 text-center">
+                  <h3 className="text-xl font-semibold text-[var(--accent-color)] mb-4 text-center">
                     Certificado
                   </h3>
                   <div className="flex justify-center">
@@ -164,7 +166,7 @@ const EducationModal: React.FC<EducationModalProps> = ({
               <div className="mt-8 flex justify-center">
                 <button
                   onClick={onClose}
-                  className="bg-teal-500 text-gray-900 py-2 px-8 rounded-full hover:bg-teal-600 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-teal-400"
+                  className="bg-[var(--accent-color)] text-[var(--background-color)] py-2 px-8 rounded-full hover:bg-[var(--primary-hover-color)] transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-[var(--accent-hover-color)]"
                 >
                   Cerrar
                 </button>
