@@ -1,6 +1,6 @@
-// components/shared/TestimonialCard.tsx
 "use client";
 import React from "react";
+import Image from "next/image";
 
 interface TestimonialCardProps {
   quote: string;
@@ -17,12 +17,14 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
 }) => {
   return (
     <blockquote className="bg-[var(--secondary-background-color)] p-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
-      <p className="text-[var(--text-color)] italic mb-4">"{quote}"</p>
+      <p className="text-[var(--text-color)] italic mb-4">&ldquo;{quote}&rdquo;</p>
       <div className="flex items-center">
-        <img
+        <Image
           src={avatar}
           alt={`${author} avatar`}
-          className="w-12 h-12 rounded-full mr-4 object-cover"
+          width={48}
+          height={48}
+          className="rounded-full mr-4 object-cover"
         />
         <div>
           <cite className="text-[var(--accent-color)] font-semibold">{author}</cite>

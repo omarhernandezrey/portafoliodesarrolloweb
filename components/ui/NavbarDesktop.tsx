@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { MdLightMode, MdDarkMode } from "react-icons/md";
 import { FaHome, FaUserAlt, FaGraduationCap, FaCode, FaEnvelope, FaProjectDiagram, FaToolbox } from "react-icons/fa";
 
@@ -41,9 +42,11 @@ const NavbarDesktop = () => {
       <div className="flex items-center justify-between px-8 py-3">
         {/* Logo */}
         <div className="flex items-center gap-4">
-          <img
+          <Image
             src="/images/logo.png"
             alt="Logo"
+            width={64} // Ajusta el tamaño según tus necesidades
+            height={64} // Ajusta el tamaño según tus necesidades
             className="h-16 w-auto object-contain transition-transform duration-500 hover:scale-125"
           />
         </div>

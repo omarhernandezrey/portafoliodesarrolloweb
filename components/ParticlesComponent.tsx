@@ -1,3 +1,5 @@
+// components/ParticlesComponent.tsx
+
 "use client";
 
 import React, { useEffect, useState, useMemo } from "react";
@@ -21,7 +23,13 @@ export default function ParticlesComponent() {
         console.error("Error al inicializar el motor de partículas:", error);
       }
     };
-    initParticlesEngine((window as any).tsParticles);
+
+    // Accede a tsParticles sin usar 'any' gracias a la extensión de Window
+    if (window.tsParticles) {
+      initParticlesEngine(window.tsParticles);
+    } else {
+      console.error("tsParticles no está disponible en window.");
+    }
   }, []);
 
   /**

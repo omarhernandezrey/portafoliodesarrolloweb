@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import technologyIcons from '../../config/technologyIcons';
 
 interface CardProps {
@@ -11,10 +12,16 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ title, description, technologies, repository, demo }) => {
   return (
-<div className="relative p-6 w-full max-w-sm flex flex-col justify-between bg-transparent text-[var(--text-color)] rounded-lg z-10">
+    <div className="relative p-6 w-full max-w-sm flex flex-col justify-between bg-transparent text-[var(--text-color)] rounded-lg z-10">
       <div className="flex flex-col items-center justify-center">
         <div className="relative w-[200px] h-[150px] flex-shrink-0 xs:w-[250px] xs:h-[200px]">
-          <img src="/images/laptop.png" alt="Laptop" className="w-full h-full object-cover" />
+          <Image 
+            src="/images/laptop.png" 
+            alt="Laptop" 
+            width={200} 
+            height={150} 
+            className="w-full h-full object-cover" 
+          />
           <div className="absolute top-4 left-3 right-3 bottom-4 overflow-hidden">
             <iframe
               src={demo}
@@ -32,7 +39,13 @@ const Card: React.FC<CardProps> = ({ title, description, technologies, repositor
         </div>
         <div className="flex justify-between items-center w-full mt-[-72px] gap-20">
           <div className="relative flex-shrink-0" style={{ width: '120px', height: '87px' }}>
-            <img src="/images/tablet.png" alt="Tablet" className="w-full h-full object-cover" />
+            <Image 
+              src="/images/tablet.png" 
+              alt="Tablet" 
+              width={120} 
+              height={87} 
+              className="w-full h-full object-cover" 
+            />
             <div className="absolute top-1 left-0.5 right-0.5 bottom-2 overflow-hidden">
               <iframe
                 src={demo}
@@ -49,7 +62,13 @@ const Card: React.FC<CardProps> = ({ title, description, technologies, repositor
             </div>
           </div>
           <div className="relative flex-shrink-0" style={{ width: '36px', height: '76px' }}>
-            <img src="/images/mobile.png" alt="Mobile" className="w-full h-full object-cover" />
+            <Image 
+              src="/images/mobile.png" 
+              alt="Mobile" 
+              width={36} 
+              height={76} 
+              className="w-full h-full object-cover" 
+            />
             <div className="absolute top-1 left-0.5 right-0.5 bottom-1 overflow-hidden">
               <iframe
                 src={demo}
@@ -121,7 +140,6 @@ const Card: React.FC<CardProps> = ({ title, description, technologies, repositor
         </div>
       </div>
     </div>
-
   );
 };
 

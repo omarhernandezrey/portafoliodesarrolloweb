@@ -1,7 +1,10 @@
+// ./components/sections/EducationSection.tsx
+
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { FaGraduationCap } from "react-icons/fa";
+import Image from "next/image";
 import styles from "../../styles/EducationSection.module.css";
 import { educationData } from "../../lib/educationData";
 import EducationModal from "../ui/EducationModal";
@@ -16,9 +19,7 @@ interface EducationItem {
   certificate?: string | null;
 }
 
-const flattenEducationData = (
-  data: typeof educationData
-): EducationItem[] => {
+const flattenEducationData = (data: typeof educationData): EducationItem[] => {
   return data.flatMap((category) =>
     category.items.map((item) => ({
       category: category.category,
@@ -28,13 +29,13 @@ const flattenEducationData = (
 };
 
 const EducationSection: React.FC = () => {
-  const allItems = flattenEducationData(educationData);
+  // Memorizar allItems para evitar recreación en cada render
+  const allItems = useMemo(() => flattenEducationData(educationData), []);
+
   const [visibleCount, setVisibleCount] = useState(0);
   const [visibleItems, setVisibleItems] = useState<EducationItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedItem, setSelectedItem] = useState<EducationItem | null>(
-    null
-  );
+  const [selectedItem, setSelectedItem] = useState<EducationItem | null>(null);
   const [hasMore, setHasMore] = useState(true);
 
   const loadMoreItems = useCallback(() => {
@@ -58,19 +59,17 @@ const EducationSection: React.FC = () => {
   }, [visibleCount, allItems]);
 
   useEffect(() => {
-    const initialLoad = async () => {
-      for (let i = 0; i < Math.min(7, allItems.length); i++) {
-        await new Promise((resolve) => setTimeout(resolve, 300));
-        setVisibleItems((prev) => [...prev, allItems[i]]);
-        setVisibleCount((prev) => prev + 1);
-      }
+    const initialLoad = () => {
+      const initialBatch = Math.min(7, allItems.length);
+      setVisibleItems(allItems.slice(0, initialBatch));
+      setVisibleCount(initialBatch);
       setIsLoading(false);
-      if (visibleCount >= allItems.length) {
+      if (initialBatch >= allItems.length) {
         setHasMore(false);
       }
     };
     initialLoad();
-  }, []);
+  }, [allItems]);
 
   const openModal = (item: EducationItem) => {
     setSelectedItem(item);
@@ -83,16 +82,18 @@ const EducationSection: React.FC = () => {
   return (
     <section
       id="education" // Añadido el id para la navegación
-      className={`${styles.educationSection} pt-40`} // Añadido pt-16 para padding-top
+      className={`${styles.educationSection} pt-40`} // Añadido pt-40 para padding-top
       aria-labelledby="education-title"
       style={{ position: "relative" }} // Asegura que los elementos absolutos se posicionen respecto a esta sección
     >
       {/* Wave top (z-0 detrás, rotada) */}
       <div className="absolute top-0 left-0 w-full rotate-180 overflow-hidden leading-[0] z-0">
-        <img
+        <Image
           src="/images/wave-top.svg"
-          alt="wave top"
+          alt="Wave Top"
           className="w-full h-auto"
+          width={1920} // Ajusta según las dimensiones reales de la imagen
+          height={200} // Ajusta según las dimensiones reales de la imagen
         />
       </div>
 
@@ -111,9 +112,7 @@ const EducationSection: React.FC = () => {
               key={index}
               className={`${styles.timelineItem} ${alignment}`}
               onClick={() => openModal(item)}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") openModal(item);
-              }}
+              onKeyPress={() => openModal(item)} // Eliminado 'e' ya que no se usa
               tabIndex={0}
               role="button"
               aria-pressed="false"
@@ -121,11 +120,17 @@ const EducationSection: React.FC = () => {
             >
               <div className={styles.timelineIcon}>
                 {item.logo ? (
-                  <img
+                  <Image
                     src={item.logo}
                     alt={`${item.institution} logo`}
                     className={styles.timelineLogo}
                     loading="lazy"
+                    width={50} // Ajusta según las dimensiones reales de la imagen
+                    height={50} // Ajusta según las dimensiones reales de la imagen
+                    onError={() => {
+                      console.error(`Error al cargar la imagen: ${item.logo}`);
+                      // Opcional: establecer una imagen de fallback
+                    }} // Eliminado 'e' ya que no se usa
                   />
                 ) : (
                   <div className={styles.timelineInnerCircle}></div>
@@ -149,9 +154,7 @@ const EducationSection: React.FC = () => {
           <div
             className={`${styles.timelineItem} ${styles.loadMore}`}
             onClick={loadMoreItems}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") loadMoreItems();
-            }}
+            onKeyPress={() => loadMoreItems()} // Eliminado 'e' ya que no se usa
             tabIndex={0}
             role="button"
             aria-pressed="false"

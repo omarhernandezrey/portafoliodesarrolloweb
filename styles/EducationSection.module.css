@@ -12,11 +12,7 @@
   margin-bottom: 40px; /* Margen inferior */
   text-transform: uppercase; /* Texto en mayúsculas */
   letter-spacing: 0.1em; /* Espaciado entre letras */
-  background: linear-gradient(
-    to right,
-    var(--primary-color),
-    var(--accent-color)
-  ); /* Gradiente de colores */
+  background: linear-gradient(to right, var(--primary-color), var(--accent-color)); /* Gradiente de colores */
   -webkit-background-clip: text; /* Clip para usar el gradiente en el texto */
   -webkit-text-fill-color: transparent; /* Hacer el texto transparente para mostrar el gradiente */
   position: relative; /* Posición relativa */
@@ -43,9 +39,9 @@
   content: "";
   position: absolute;
   width: 6px;
+  height: 100%; /* Asegura que la línea vertical ocupe todo el contenedor */
   background-color: var(--accent-color);
   top: 0;
-  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -232,6 +228,7 @@
   background-color: var(--loadmore-hover-bg-color);
 }
 
+/* Media Queries para Responsividad */
 @media (max-width: 480px) {
   .educationSection {
     padding: 40px 10px;

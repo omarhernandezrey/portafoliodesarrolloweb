@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   AiOutlineHome,
   AiOutlineUser,
   AiOutlineBook,
-  AiOutlineTool,
   AiOutlineProject,
   AiOutlineMail,
   AiOutlineClose,
@@ -127,10 +127,12 @@ const NavbarMobile: React.FC<NavbarMobileProps> = ({ isOpen, toggleMenu }) => {
           className="focus:outline-none transition-transform transform hover:scale-125"
           aria-label="Go to Home"
         >
-          <img
+          <Image
             src="/images/logo.png"
             alt="Logo"
-            className="h-12 w-12 object-contain transition-transform duration-300"
+            width={48}
+            height={48}
+            className="object-contain transition-transform duration-300"
           />
         </button>
       </nav>

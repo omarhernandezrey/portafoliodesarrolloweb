@@ -1,8 +1,7 @@
-// /components/ui/EducationModal.tsx
-
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import Image from "next/image";
 import { FaTimes } from "react-icons/fa";
 import { Transition } from "@headlessui/react";
 
@@ -106,11 +105,12 @@ const EducationModal: React.FC<EducationModalProps> = ({
               {/* Logo */}
               <div className="flex justify-center mb-6">
                 <div className="h-24 w-24 rounded-full overflow-hidden bg-[var(--secondary-background-color)] border-4 border-[var(--accent-color)]">
-                  <img
+                  <Image
                     src={logo}
                     alt={`${institution} logo`}
+                    width={96} // 24px * 4
+                    height={96}
                     className="h-full w-full object-cover"
-                    loading="lazy"
                   />
                 </div>
               </div>
@@ -151,11 +151,12 @@ const EducationModal: React.FC<EducationModalProps> = ({
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <img
+                      <Image
                         src={certificate}
                         alt="Certificado"
+                        width={600} // Ajusta según tus necesidades
+                        height={400}
                         className="w-full max-w-[600px] max-h-[400px] rounded-lg object-contain"
-                        loading="lazy"
                       />
                     </a>
                   </div>

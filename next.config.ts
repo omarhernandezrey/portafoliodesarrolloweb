@@ -1,9 +1,12 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+// next.config.ts
+
+import type { NextConfig } from 'next';
+
+/** @type {NextConfig} */
+const nextConfig: NextConfig = {
   reactStrictMode: true, // Habilita el modo estricto de React
-  experimental: {
-    scrollRestoration: true, // Habilita la restauración del scroll en las páginas
-  },
+  scrollRestoration: true, // Habilita la restauración del scroll en las páginas
+
   webpack: (config, { isServer }) => {
     // Evita dependencias innecesarias en el lado cliente
     if (!isServer) {
@@ -14,6 +17,11 @@ const nextConfig = {
     }
     return config;
   },
+
+  // Configuración de imágenes (Descomenta y ajusta si usas imágenes externas)
+  // images: {
+  //   domains: ['dominio-externo.com', 'otro-dominio.com'], // Añade los dominios necesarios
+  // },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
