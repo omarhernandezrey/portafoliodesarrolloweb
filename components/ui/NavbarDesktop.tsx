@@ -1,113 +1,122 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
-import { MdLightMode, MdDarkMode } from "react-icons/md";
 import { FaHome, FaUserAlt, FaGraduationCap, FaCode, FaEnvelope, FaProjectDiagram, FaToolbox } from "react-icons/fa";
 
 const NavbarDesktop = () => {
-  const [isPalette2, setIsPalette2] = useState(false);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    const storedPalette = localStorage.getItem("palette");
-    if (storedPalette === "palette2") {
-      root.classList.add("palette2");
-      setIsPalette2(true);
-    } else {
-      root.classList.remove("palette2");
-      setIsPalette2(false);
-    }
-  }, []);
-
-  const togglePalette = () => {
-    const root = document.documentElement;
-    setIsPalette2((prev) => {
-      const newState = !prev;
-
-      if (newState) {
-        root.classList.add("palette2");
-        localStorage.setItem("palette", "palette2");
-      } else {
-        root.classList.remove("palette2");
-        localStorage.setItem("palette", "default");
-      }
-
-      return newState;
-    });
-  };
-
   return (
     <nav className="fixed top-0 left-0 w-full bg-[var(--background-color)] text-[var(--text-color)] shadow-lg z-50 backdrop-blur-md bg-opacity-90">
-      <div className="flex items-center justify-between px-8 py-3">
+      <div className="flex items-center justify-between px-6 py-3">
         {/* Logo */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center">
           <Image
-            src="/images/logo.png"
+            src="/images/logo7.png"
             alt="Logo"
-            width={64} // Ajusta el tamaño según tus necesidades
-            height={64} // Ajusta el tamaño según tus necesidades
-            className="h-16 w-auto object-contain transition-transform duration-500 hover:scale-125"
+            width={64}
+            height={64}
+            className="h-12 w-auto object-contain"
           />
+          <div className="flex flex-col ml-2 hidden lg:flex">
+            <span
+              style={{
+                color: "var(--primary-color)",
+                fontSize: "0.8rem",
+                fontWeight: "bold",
+              }}
+            >
+              Desarrollador Web Full Stack
+            </span>
+            <span
+              style={{
+                color: "var(--accent-color)",
+                fontSize: "0.7rem",
+              }}
+            >
+              Omar Hernández Rey
+            </span>
+          </div>
         </div>
 
         {/* Navigation Links */}
-        <div className="flex items-center justify-end gap-8">
+        <div className="flex items-center justify-end gap-6 text-sm lg:text-base mr-[6rem]">
           <a
-            href="#home"
-            className="hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center gap-2 text-sm font-medium uppercase tracking-wider hover:scale-105"
+            href="#hero"
+            className="hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center gap-2 font-medium uppercase tracking-wide hover:scale-105"
           >
             <FaHome /> Home
           </a>
           <a
             href="#about"
-            className="hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center gap-2 text-sm font-medium uppercase tracking-wider hover:scale-105"
+            className="hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center gap-2 font-medium uppercase tracking-wide hover:scale-105"
           >
             <FaUserAlt /> About Me
           </a>
           <a
             href="#education"
-            className="hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center gap-2 text-sm font-medium uppercase tracking-wider hover:scale-105"
+            className="hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center gap-2 font-medium uppercase tracking-wide hover:scale-105"
           >
             <FaGraduationCap /> Education
           </a>
           <a
             href="#skills"
-            className="hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center gap-2 text-sm font-medium uppercase tracking-wider hover:scale-105"
+            className="hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center gap-2 font-medium uppercase tracking-wide hover:scale-105"
           >
             <FaToolbox /> Skills
           </a>
           <a
             href="#services"
-            className="hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center gap-2 text-sm font-medium uppercase tracking-wider hover:scale-105"
+            className="hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center gap-2 font-medium uppercase tracking-wide hover:scale-105"
           >
             <FaCode /> Services
           </a>
           <a
             href="#projects"
-            className="hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center gap-2 text-sm font-medium uppercase tracking-wider hover:scale-105"
+            className="hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center gap-2 font-medium uppercase tracking-wide hover:scale-105"
           >
             <FaProjectDiagram /> Projects
           </a>
           <a
             href="#contact"
-            className="hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center gap-2 text-sm font-medium uppercase tracking-wider hover:scale-105"
+            className="hover:text-[var(--accent-color)] transition-colors duration-300 flex items-center gap-2 font-medium uppercase tracking-wide hover:scale-105"
           >
             <FaEnvelope /> Contact
           </a>
         </div>
-
-        {/* Palette Toggle Button */}
-        <div className="flex items-center gap-4">
-          <button
-            onClick={togglePalette}
-            className="p-2 bg-[var(--primary-color)] text-[var(--background-color)] rounded-full shadow-xl hover:bg-[var(--primary-hover-color)] transition-transform transform hover:scale-110 focus:ring-4 focus:ring-[var(--accent-color)]"
-            aria-label="Cambiar Paleta de Colores"
-          >
-            {isPalette2 ? <MdLightMode size={20} /> : <MdDarkMode size={20} />}
-          </button>
-        </div>
       </div>
+
+      {/* Responsive Styles */}
+      <style jsx>{`
+        @media (max-width: 1024px) {
+          .flex.items-center .flex-col {
+            display: none; /* Oculta el texto del logo en tabletas y dispositivos más pequeños */
+          }
+          .flex.items-center.justify-end.gap-6 {
+            margin-right: 5rem; /* Asegura un margen adecuado con el botón */
+          }
+        }
+
+        @media (max-width: 768px) {
+          nav {
+            padding: 0.5rem 1rem;
+          }
+          .flex.items-center.justify-end.gap-6 {
+            flex-wrap: wrap;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-right: 3rem; /* Reduce el margen pero evita solapamiento */
+          }
+        }
+
+        @media (max-width: 480px) {
+          .flex.items-center.justify-end.gap-6 {
+            gap: 6px;
+          }
+          .flex.items-center {
+            justify-content: center;
+          }
+        }
+      `}</style>
     </nav>
   );
 };

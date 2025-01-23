@@ -13,9 +13,9 @@ import {
   AiFillGithub,
   AiFillLinkedin,
 } from "react-icons/ai";
-import { MdDarkMode, MdLightMode } from "react-icons/md";
-import { FaTools } from "react-icons/fa";
+import { MdColorLens } from "react-icons/md"; // Icono de paleta
 import { BiBrain } from "react-icons/bi";
+import { FaTools } from "react-icons/fa";
 
 interface NavbarMobileProps {
   isOpen: boolean;
@@ -25,33 +25,32 @@ interface NavbarMobileProps {
 const NavbarMobile: React.FC<NavbarMobileProps> = ({ isOpen, toggleMenu }) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const [activeSection, setActiveSection] = useState<string>("#hero");
-  const [isPalette2, setIsPalette2] = useState(false);
+  const [paletteIndex, setPaletteIndex] = useState(0);
 
   useEffect(() => {
-    const root = document.documentElement;
-    const storedPalette = localStorage.getItem("palette");
-    if (storedPalette === "palette2") {
-      root.classList.add("palette2");
-      setIsPalette2(true);
-    } else {
-      root.classList.remove("palette2");
-      setIsPalette2(false);
+    const storedPalette = localStorage.getItem("paletteIndex");
+    if (storedPalette) {
+      setPaletteIndex(parseInt(storedPalette, 10));
+      applyPalette(parseInt(storedPalette, 10));
     }
   }, []);
 
-  const togglePalette = () => {
+  const applyPalette = (index: number) => {
     const root = document.documentElement;
-    setIsPalette2((prev) => {
-      const newState = !prev;
-      if (newState) {
-        root.classList.add("palette2");
-        localStorage.setItem("palette", "palette2");
-      } else {
-        root.classList.remove("palette2");
-        localStorage.setItem("palette", "default");
-      }
-      return newState;
+    const palettes = ["", "palette2", "palette3", "palette4", "palette5"];
+    palettes.forEach((palette) => {
+      if (palette) root.classList.remove(palette);
     });
+    if (palettes[index]) {
+      root.classList.add(palettes[index]);
+    }
+  };
+
+  const togglePalette = () => {
+    const nextIndex = (paletteIndex + 1) % 5; // 5 paletas disponibles
+    setPaletteIndex(nextIndex);
+    applyPalette(nextIndex);
+    localStorage.setItem("paletteIndex", nextIndex.toString());
   };
 
   useEffect(() => {
@@ -123,18 +122,18 @@ const NavbarMobile: React.FC<NavbarMobileProps> = ({ isOpen, toggleMenu }) => {
           {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
         </button>
         <button
-          onClick={() => handleLinkClick("#hero")}
-          className="focus:outline-none transition-transform transform hover:scale-125"
-          aria-label="Go to Home"
-        >
-          <Image
-            src="/images/logo.png"
-            alt="Logo"
-            width={48}
-            height={48}
-            className="object-contain transition-transform duration-300"
-          />
-        </button>
+  onClick={() => handleLinkClick("#hero")}
+  className="absolute right-6 top-1/2 transform -translate-y-1/2 focus:outline-none border-2 rounded-full border-[var(--primary-color)] p-1"
+  aria-label="Go to Home"
+>
+  <Image
+    src="/images/logo7.png"
+    alt="Logo"
+    width={35}
+    height={35}
+    className="object-contain rounded-full"
+  />
+</button>
       </nav>
 
       {/* Menú desplegable */}
@@ -196,7 +195,7 @@ const NavbarMobile: React.FC<NavbarMobileProps> = ({ isOpen, toggleMenu }) => {
               className="text-[var(--primary-color)] transition-transform transform hover:scale-125 hover:text-[var(--accent-hover-color)] focus:outline-none"
               aria-label="Toggle Palette"
             >
-              {isPalette2 ? <MdLightMode size={36} /> : <MdDarkMode size={36} />}
+              <MdColorLens size={36} />
             </button>
           </div>
         </div>

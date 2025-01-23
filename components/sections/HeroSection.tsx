@@ -83,7 +83,7 @@ export default function HeroSection() {
         <p
           className="
             max-w-lg text-sm sm:text-base md:text-lg lg:text-xl 
-            tracking-normal text-[var(--text-color)] 
+            tracking-normal text-[var(--white-color)] 
             mt-4 mb-8 animate-fadeIn
           "
         >
@@ -98,7 +98,8 @@ export default function HeroSection() {
           onClick={handleViewProjects}
           aria-label="Ver Proyectos"
         >
-          <strong>Ver Proyectos</strong>
+          <strong>
+          View Projects</strong>
           <div id="container-stars">
             <div id="stars"></div>
           </div>

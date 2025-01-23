@@ -24,7 +24,7 @@ const eslintConfig = [
     rules: {
       // Ejemplo: desactivar la regla de indentación
       "indent": "off",
-      // Añade más reglas según tus necesidades
+      //"@typescript-eslint/prefer-as-const": "off",
     },
   },
 ];

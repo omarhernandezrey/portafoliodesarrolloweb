@@ -1,20 +1,17 @@
-// components/ParticlesComponent.tsx
-
 "use client";
 
 import React, { useEffect, useState, useMemo } from "react";
 import Particles from "@tsparticles/react";
-import type { Engine } from "@tsparticles/engine";
+import type { Engine, ISourceOptions } from "@tsparticles/engine";
 import { loadFull } from "tsparticles";
 
-/**
- * Componente para mostrar partículas con íconos personalizados.
- * Incluye manejo de errores para imágenes.
- */
 export default function ParticlesComponent() {
   const [init, setInit] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const [logosReady, setLogosReady] = useState(false);
 
   useEffect(() => {
+    setIsClient(true); // Detectamos si estamos en el cliente
     const initParticlesEngine = async (engine: Engine) => {
       try {
         await loadFull(engine);
@@ -24,7 +21,6 @@ export default function ParticlesComponent() {
       }
     };
 
-    // Accede a tsParticles sin usar 'any' gracias a la extensión de Window
     if (window.tsParticles) {
       initParticlesEngine(window.tsParticles);
     } else {
@@ -32,51 +28,48 @@ export default function ParticlesComponent() {
     }
   }, []);
 
-  /**
-   * Lista de rutas de los íconos.
-   * Filtra automáticamente imágenes inválidas.
-   */
-  const logos = useMemo(
-    () =>
-      [
-        "/images/logos/angular.svg",
-        "/images/logos/css.svg",
-        "/images/logos/django.svg",
-        "/images/logos/docker.svg",
-        "/images/logos/express-js.svg",
-        "/images/logos/figma.svg",
-        "/images/logos/firebase.svg",
-        "/images/logos/git.svg",
-        "/images/logos/github.svg",
-        "/images/logos/html.svg",
-        "/images/logos/javascript.svg",
-        "/images/logos/jenkins.svg",
-        "/images/logos/mongodb.svg",
-        "/images/logos/mysql.svg",
-        "/images/logos/next-js.svg",
-        "/images/logos/nodejs.svg",
-        "/images/logos/postgresql.svg",
-        "/images/logos/react-js.svg",
-        "/images/logos/sqlite.svg",
-        "/images/logos/svelte.svg",
-        "/images/logos/tailwind-css.svg",
-        "/images/logos/typescript.svg",
-        "/images/logos/vite.svg",
-        "/images/logos/vue-js.svg",
-      ].filter((src) => {
-        const img = new Image();
-        img.src = src;
-        img.onerror = () => console.error(`Error al cargar la imagen: ${src}`);
-        return !!img.src;
-      }),
-    []
-  );
+  const logos = useMemo(() => {
+    if (!isClient) return []; // Evitar ejecutar en el servidor
+    const loadedLogos = [
+      "/images/logos/angular.svg",
+      "/images/logos/css.svg",
+      "/images/logos/django.svg",
+      "/images/logos/docker.svg",
+      "/images/logos/express-js.svg",
+      "/images/logos/figma.svg",
+      "/images/logos/firebase.svg",
+      "/images/logos/git.svg",
+      "/images/logos/github.svg",
+      "/images/logos/html.svg",
+      "/images/logos/javascript.svg",
+      "/images/logos/jenkins.svg",
+      "/images/logos/mongodb.svg",
+      "/images/logos/mysql.svg",
+      "/images/logos/next-js.svg",
+      "/images/logos/nodejs.svg",
+      "/images/logos/postgresql.svg",
+      "/images/logos/react-js.svg",
+      "/images/logos/sqlite.svg",
+      "/images/logos/svelte.svg",
+      "/images/logos/tailwind-css.svg",
+      "/images/logos/typescript.svg",
+      "/images/logos/vite.svg",
+      "/images/logos/vue-js.svg",
+    ].filter((src) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => setLogosReady(true);
+      img.onerror = () => console.error(`Error al cargar la imagen: ${src}`);
+      return !!img.src;
+    });
+    return loadedLogos;
+  }, [isClient]);
 
-  // Genera partículas manuales
   const manualParticles = useMemo(() => {
+    if (!logosReady) return [];
     return logos.map((logo) => ({
       position: {
-        x: Math.random() * 70 + 15, // Evitar bordes
+        x: Math.random() * 70 + 15,
         y: Math.random() * 70 + 15,
       },
       options: {
@@ -92,9 +85,10 @@ export default function ParticlesComponent() {
         },
       },
     }));
-  }, [logos]);
+  }, [logos, logosReady]);
 
-  const options = useMemo(() => {
+  const options: ISourceOptions = useMemo(() => {
+    if (!logosReady) return {};
     return {
       detectRetina: true,
       fpsLimit: 120,
@@ -104,7 +98,7 @@ export default function ParticlesComponent() {
         move: {
           enable: true,
           speed: 2,
-          outModes: { default: "bounce" as const },
+          outModes: { default: "bounce" },
         },
         collisions: {
           enable: true,
@@ -128,21 +122,21 @@ export default function ParticlesComponent() {
         },
       },
       interactivity: {
-        detectsOn: "window", // Detectar interacciones globales para mayor precisión
+        detectsOn: "window", // Uso del valor compatible directamente
         events: {
           onHover: {
             enable: true,
-            mode: "repulse", // Repulsión al pasar el mouse
+            mode: "repulse",
           },
           onClick: {
             enable: true,
-            mode: "push", // Creación de nuevas partículas al hacer clic
+            mode: "push",
           },
         },
         modes: {
           repulse: {
             distance: 150,
-            duration: 0.4, // Menor duración para una respuesta fluida
+            duration: 0.4,
           },
           push: {
             quantity: 2,
@@ -151,18 +145,18 @@ export default function ParticlesComponent() {
       },
       manualParticles,
       fullScreen: {
-        enable: false, // Asegura que las partículas no ocupen todo el viewport
+        enable: false,
       },
       style: {
         position: "absolute",
-        top: 0,
-        left: 0,
+        top: "0px",
+        left: "0px",
         width: "100%",
         height: "100%",
-        zIndex: -1, // Asegura que las partículas no interfieran con la interacción del puntero
+        zIndex: "-1",
       },
     };
-  }, [logos, manualParticles]);
+  }, [logos, manualParticles, logosReady]);
 
-  return init ? <Particles id="tsparticles" options={options} /> : null;
+  return init && logosReady ? <Particles id="tsparticles" options={options} /> : null;
 }

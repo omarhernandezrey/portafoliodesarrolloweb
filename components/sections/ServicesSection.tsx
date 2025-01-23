@@ -59,6 +59,7 @@ export default function ServicesSection() {
       */
       className="relative bg-[var(--background-color)] text-[var(--text-color)] pt-32 pb-32 overflow-hidden"
     >
+      
       {/* Contenido principal (z-10 adelante) */}
       <div className="relative z-10 container mx-auto px-4 max-w-screen-xl">
         {/* TÍTULO con gradiente */}

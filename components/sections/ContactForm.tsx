@@ -68,7 +68,7 @@ export default function ContactForm() {
             bg-gradient-to-r from-[var(--primary-color)] to-[var(--accent-color)]
           "
         >
-          Contáctame
+          Contact Me
         </h2>
 
         <p className="text-center text-[var(--muted-color)] mb-8">

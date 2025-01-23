@@ -1,5 +1,3 @@
-// /app/certificates/[...certificatePath]/page.tsx
-
 "use client";
 
 import React from "react";
@@ -10,7 +8,10 @@ const CertificatePage = () => {
   const router = useRouter();
   const params = useParams();
 
-  const certificatePath = params.certificatePath?.join("/");
+  // Verificar si params.certificatePath es un arreglo antes de usar join
+  const certificatePath = Array.isArray(params.certificatePath)
+    ? params.certificatePath.join("/")
+    : params.certificatePath || "";
 
   if (!certificatePath) {
     return (

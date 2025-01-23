@@ -132,12 +132,13 @@ export default function SkillSection() {
       "
     >
       {/* Wave Top (rotada) */}
-      <div className="absolute top-0 left-0 w-full rotate-180 overflow-hidden leading-[0] z-0">
+      <div className="absolute top-0 left-0 w-full h-48 rotate-180 overflow-hidden leading-[0] z-0">
         <Image
           src="/images/wave-top.svg"
           alt="Wave Top"
           fill // Hace que la imagen ocupe todo el espacio del contenedor padre
           style={{ objectFit: 'cover' }} // Ajusta según tus necesidades ('cover' o 'contain')
+          className="w-full h-full"
           priority={false} // Puedes establecerlo en true si es crucial para el LCP
         />
       </div>
@@ -241,12 +242,13 @@ export default function SkillSection() {
       </div>
 
       {/* Wave Bottom */}
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-0">
+      <div className="absolute bottom-0 left-0 w-full h-48 overflow-hidden leading-[0] z-0">
         <Image
           src="/images/wave-bottom.svg"
           alt="Wave Bottom"
           fill // Hace que la imagen ocupe todo el espacio del contenedor padre
           style={{ objectFit: 'cover' }} // Ajusta según tus necesidades ('cover' o 'contain')
+          className="w-full h-full"
           priority={false} // Puedes establecerlo en true si es crucial para el LCP
         />
       </div>

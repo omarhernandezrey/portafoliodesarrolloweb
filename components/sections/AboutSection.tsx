@@ -96,19 +96,25 @@ const AboutSection: React.FC = () => {
               bg-gradient-to-r from-[var(--primary-color)] to-[var(--accent-color)]
             "
           >
-            Sobre Mí
+            About Me
           </h2>
 
-          <p className="text-[var(--muted-color)] leading-relaxed text-lg">
-            ¡Hola! Soy <strong>Omar Hernández Rey</strong>, un{' '}
-            <strong>Desarrollador Web Full Stack</strong> con experiencia tanto
-            en <strong>Front-End</strong> como en <strong>Back-End</strong>.
-            Estoy a punto de graduarme en{' '}
-            <strong>Ingeniería de Software</strong> del{' '}
-            <strong>Politécnico Grancolombiano</strong> y continuamente mejoro
-            mis conocimientos con cursos en <strong>Platzi</strong> sobre
-            tecnologías web, DevOps y más.
-          </p>
+          
+          <p
+  className="text-[var(--muted-color)] leading-relaxed text-lg text-justify"
+  style={{
+    textAlign: "justify",
+    textJustify: "inter-word", // Soporte variable según el navegador
+    hyphens: "auto",           // Permite cortar palabras para evitar huecos grandes
+  }}
+>
+  ¡Hola! Soy <strong className="text-[var(--muted-color)] font-normal">Omar Hernández Rey</strong>, un <strong className="text-[var(--primary-color)] font-normal">Desarrollador Web Full Stack</strong> con experiencia tanto en <strong className="text-[var(--accent-color)] font-normal">Front-End</strong> como en <strong className="text-[var(--accent-color)] font-normal">Back-End</strong>. Estoy a punto de graduarme en <strong className="text-[var(--primary-color)] font-normal">Ingeniería de Software</strong> del <strong className="text-[var(--primary-color)] font-normal">Politécnico Grancolombiano</strong> y continuamente mejoro mis conocimientos con cursos en <strong className="text-[var(--accent-color)] font-normal">Platzi</strong> sobre tecnologías web, DevOps y más.
+</p>
+
+
+ 
+
+
 
           <ul className="text-sm lg:text-base text-[var(--muted-color)] space-y-3">
             <li>
@@ -145,7 +151,7 @@ const AboutSection: React.FC = () => {
             uppercase tracking-wide
           "
         >
-          Mis Intereses
+          My Interests
         </h3>
         <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-8 justify-items-center">
           {interests.map((interest) => (

@@ -5,7 +5,7 @@ import type { NextConfig } from 'next';
 /** @type {NextConfig} */
 const nextConfig: NextConfig = {
   reactStrictMode: true, // Habilita el modo estricto de React
-  scrollRestoration: true, // Habilita la restauración del scroll en las páginas
+  // scrollRestoration: true, // ⚠ Eliminada para evitar el error
 
   webpack: (config, { isServer }) => {
     // Evita dependencias innecesarias en el lado cliente

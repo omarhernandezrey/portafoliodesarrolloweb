@@ -148,7 +148,7 @@ export default function Footer() {
         <div className="w-full h-64 rounded-lg overflow-hidden shadow-md">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.930785758242!2d-74.1013568497773!3d4.557107158097733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f8428a1a0b3ef%3A0x123456789abcdef!2sTu%20Dirección%20Aqui!5e0!3m2!1ses!2sco!4v1736731266116!5m2!1ses!2sco"
-            allowFullScreen=""
+            allowFullScreen
             loading="lazy"
             className="w-full h-full"
             title="Ubicación de Omar Hernández Rey"
