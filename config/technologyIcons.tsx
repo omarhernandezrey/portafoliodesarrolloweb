@@ -15,7 +15,8 @@ import {
 import {
   SiTailwindcss,
   SiTypescript,
-  SiVercel
+  SiVercel,
+  SiAxios
 } from 'react-icons/si';
 import { MdPhoneIphone } from 'react-icons/md';
 import { BsFiletypeScss } from 'react-icons/bs';
@@ -26,13 +27,8 @@ import { PiGridNineFill } from 'react-icons/pi';
 import { FaCloudSun } from 'react-icons/fa6';
 import { JSX } from 'react';
 
-/**
- * Mapa de tecnologías e intereses a íconos.
- * Cada propiedad es un string que luego podrás usar en tus componentes 
- * para mostrar el ícono asociado.
- */
+// Mapa de tecnologías a íconos
 const technologyIcons: Record<string, JSX.Element> = {
-  // Tecnologías o skills
   React: <FaReact style={{ color: '#3b82f6', width: '48px', height: '48px' }} />,
   JavaScript: <FaJs style={{ color: '#fbbf24', width: '48px', height: '48px' }} />,
   TypeScript: <SiTypescript style={{ color: '#2563eb', width: '48px', height: '48px' }} />,
@@ -53,8 +49,10 @@ const technologyIcons: Record<string, JSX.Element> = {
   localStorage: <GrStorage style={{ color: '#6b7280', width: '48px', height: '48px' }} />,
   "CSS Grid": <PiGridNineFill style={{ color: '#6b7280', width: '48px', height: '48px' }} />,
   "APIs REST": <FaCloudSun style={{ color: '#f59e0b', width: '48px', height: '48px' }} />,
+  Fetch: <FaCloudSun style={{ color: '#38bdf8', width: '48px', height: '48px' }} />,
+  Axios: <SiAxios style={{ color: '#4b5563', width: '48px', height: '48px' }} />,
 
-  // Intereses (enfocados a desarrollo Full Stack)
+  // Intereses personales
   "Platzi Learning": <FaGraduationCap style={{ color: '#c084fc', width: '48px', height: '48px' }} />,
   "Open Source": <FaGithub style={{ color: '#a3a3a3', width: '48px', height: '48px' }} />,
   "Tech Conferences": <FaMicrophone style={{ color: '#ef4444', width: '48px', height: '48px' }} />,

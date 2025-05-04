@@ -5,6 +5,17 @@ import Card from "../shared/Card";
 
 const projects = [
   {
+    title: "Michis App - API REST con JavaScript",
+    description:
+      "Aplicación web para mostrar, guardar y subir imágenes de gatitos usando The Cat API. Proyecto del Curso de Fundamentos de API REST con JavaScript.",
+    technologies: ["HTML", "CSS", "JavaScript", "Fetch", "Axios"],
+    repository: "https://github.com/omarhernandezrey/30_cursoDeApiRestConJavascriptFundamentos",
+    demo: "https://michis-app-api-rest.netlify.app/",
+  },
+  
+  
+
+  {
     title: "Página Web Enfermería Roxana",
     description:
       "Una plataforma web moderna y responsiva diseñada para promover servicios profesionales de enfermería, ofreciendo información clara y contacto rápido.",
