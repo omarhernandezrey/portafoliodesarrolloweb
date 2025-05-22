@@ -80,7 +80,7 @@ html {
   --loadmore-border-color: #ffd65a;
   --loadmore-hover-bg-color: #3b3731;
 
-  /* Gradiente dorado suave (para fondos, bordes o hover) */
+  /* Gradiente dorado suave */
   --gold-gradient: linear-gradient(135deg, #c5961f 0%, #ffd65a 100%);
 }
 
@@ -114,18 +114,9 @@ html {
   --loadmore-hover-bg-color: #ecfef9; /* Hover clarito en la misma gama verde/teal */
 }
 
-
-
-
-
 /* palette5 */
 :root.palette5 {
-  /*
-   * Tema oscuro con rojo dominante, 
-   * evitando tonos que se parezcan a los anteriores.
-   */
-
-  /* Fondos */
+  /* Tema oscuro con rojo dominante */
   --background-color: #141414;         /* Fondo principal muy oscuro */
   --secondary-background-color: #1f1f1f; /* Fondo secundario ligeramente más claro */
 
@@ -152,8 +143,169 @@ html {
   --loadmore-border-color: #ed3434;
   --loadmore-hover-bg-color: #2b2b2b; /* Hover un poco más oscuro */
 
-  /* Gradiente intenso (para fondos, bordes o hover) */
+  /* Gradiente intenso */
   --bold-gradient: linear-gradient(135deg, #ed3434 0%, #fa5c5c 100%);
+}
+
+/* palette6 - Tema Cyberpunk Neon */
+:root.palette6 {
+  --background-color: #0a0a1a;         /* Fondo azul oscuro intenso */
+  --secondary-background-color: #151530; /* Fondo secundario ligeramente más claro */
+
+  /* Texto */
+  --white-color: #ffffff;
+  --text-color: #e0e0ff;              /* Azul claro para texto */
+  --muted-color: #a0a0ff;             /* Azul neón apagado */
+
+  /* Colores principales */
+  --primary-color: #ff00ff;            /* Magenta neón */
+  --accent-color: #00ffff;             /* Cian neón */
+
+  /* Elementos UI */
+  --card-bg-color: #151530;
+  --inner-circle-bg-color: #ff00ff;
+  --inner-circle-text-color: #0a0a1a;
+
+  /* Textos específicos */
+  --item-title-color-palette2: #00ffff;
+  --loading-text-color-palette2: #ff00ff;
+
+  /* Botones */
+  --loadmore-bg-color: #151530;
+  --loadmore-border-color: #00ffff;
+  --loadmore-hover-bg-color: #202045;
+
+  /* Efectos especiales */
+  --neon-glow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+  --neon-text-glow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+}
+
+/* palette7 - Tema Forest Night */
+:root.palette7 {
+  --background-color: #0a1a0f;         /* Verde oscuro profundo */
+  --secondary-background-color: #132a1a; /* Verde un poco más claro */
+
+  /* Texto */
+  --white-color: #ffffff;
+  --text-color: #d1e7dd;              /* Verde claro suave */
+  --muted-color: #8ab39c;             /* Verde apagado */
+
+  /* Colores principales */
+  --primary-color: #4caf50;           /* Verde vibrante */
+  --accent-color: #8bc34a;            /* Verde lima */
+
+  /* Elementos UI */
+  --card-bg-color: #132a1a;
+  --inner-circle-bg-color: #4caf50;
+  --inner-circle-text-color: #0a1a0f;
+
+  /* Textos específicos */
+  --item-title-color-palette2: #8bc34a;
+  --loading-text-color-palette2: #4caf50;
+
+  /* Botones */
+  --loadmore-bg-color: #132a1a;
+  --loadmore-border-color: #4caf50;
+  --loadmore-hover-bg-color: #1e3a24;
+
+  /* Efectos naturales */
+  --leaf-shadow: 0 4px 6px rgba(76, 175, 80, 0.2);
+}
+
+/* palette8 - Tema Sunset Vibes */
+:root.palette8 {
+  --background-color: #1a0a14;         /* Morado oscuro profundo */
+  --secondary-background-color: #2a1320; /* Morado un poco más claro */
+
+  /* Texto */
+  --white-color: #ffffff;
+  --text-color: #ffd6e7;              /* Rosa claro */
+  --muted-color: #ffa8c8;             /* Rosa medio */
+
+  /* Colores principales */
+  --primary-color: #ff6b6b;           /* Coral */
+  --accent-color: #ffb347;            /* Naranja dorado */
+
+  /* Elementos UI */
+  --card-bg-color: #2a1320;
+  --inner-circle-bg-color: #ff6b6b;
+  --inner-circle-text-color: #1a0a14;
+
+  /* Textos específicos */
+  --item-title-color-palette2: #ffb347;
+  --loading-text-color-palette2: #ff6b6b;
+
+  /* Botones */
+  --loadmore-bg-color: #2a1320;
+  --loadmore-border-color: #ff6b6b;
+  --loadmore-hover-bg-color: #3a1a28;
+
+  /* Gradiente atardecer */
+  --sunset-gradient: linear-gradient(135deg, #ff6b6b 0%, #ffb347 100%);
+}
+
+/* palette9 - Tema Deep Ocean */
+:root.palette9 {
+  --background-color: #0a0a1f;         /* Azul marino muy oscuro */
+  --secondary-background-color: #15152b; /* Azul un poco más claro */
+
+  /* Texto */
+  --white-color: #ffffff;
+  --text-color: #d1e0ff;              /* Azul claro */
+  --muted-color: #8a9bb8;             /* Azul grisáceo */
+
+  /* Colores principales */
+  --primary-color: #00b4d8;           /* Azul turquesa */
+  --accent-color: #0077b6;            /* Azul más profundo */
+
+  /* Elementos UI */
+  --card-bg-color: #15152b;
+  --inner-circle-bg-color: #00b4d8;
+  --inner-circle-text-color: #0a0a1f;
+
+  /* Textos específicos */
+  --item-title-color-palette2: #0077b6;
+  --loading-text-color-palette2: #00b4d8;
+
+  /* Botones */
+  --loadmore-bg-color: #15152b;
+  --loadmore-border-color: #00b4d8;
+  --loadmore-hover-bg-color: #202040;
+
+  /* Efectos oceánicos */
+  --wave-shadow: 0 4px 8px rgba(0, 180, 216, 0.3);
+}
+
+/* palette10 - Tema Royal Purple */
+:root.palette10 {
+  --background-color: #0f0a1a;         /* Púrpura oscuro intenso */
+  --secondary-background-color: #1a132a; /* Púrpura un poco más claro */
+
+  /* Texto */
+  --white-color: #ffffff;
+  --text-color: #e6d6ff;              /* Lila claro */
+  --muted-color: #b39ddb;             /* Lila medio */
+
+  /* Colores principales */
+  --primary-color: #9c27b0;           /* Púrpura vibrante */
+  --accent-color: #673ab7;            /* Púrpura azulado */
+
+  /* Elementos UI */
+  --card-bg-color: #1a132a;
+  --inner-circle-bg-color: #9c27b0;
+  --inner-circle-text-color: #0f0a1a;
+
+  /* Textos específicos */
+  --item-title-color-palette2: #673ab7;
+  --loading-text-color-palette2: #9c27b0;
+
+  /* Botones */
+  --loadmore-bg-color: #1a132a;
+  --loadmore-border-color: #9c27b0;
+  --loadmore-hover-bg-color: #251a3a;
+
+  /* Efectos reales */
+  --royal-glow: 0 0 10px rgba(156, 39, 176, 0.5);
 }
 
 body {

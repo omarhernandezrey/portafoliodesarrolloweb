@@ -4,11 +4,14 @@ import { useState } from "react";
 import { MdColorLens } from "react-icons/md"; // Importar el ícono
 
 export default function PaletteToggle() {
-  const [paletteIndex, setPaletteIndex] = useState(0); // Manejo de 5 paletas
+  const [paletteIndex, setPaletteIndex] = useState(0); // Manejo de 10 paletas
 
   const togglePalette = () => {
     const root = document.documentElement;
-    const palettes = ["", "palette2", "palette3", "palette4", "palette5"]; // Lista de paletas
+
+    // Lista completa de paletas desde palette2 hasta palette10
+    const palettes = ["", "palette2", "palette3", "palette4", "palette5", "palette6", "palette7", "palette8", "palette9", "palette10"];
+
     const nextIndex = (paletteIndex + 1) % palettes.length; // Avanzar al siguiente índice
 
     // Eliminar todas las clases de paleta previamente aplicadas
