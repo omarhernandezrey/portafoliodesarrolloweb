@@ -281,7 +281,6 @@ export default function PremiumSkillsSection() {
               style={{
                 color: 'var(--accent-color)',
                 backgroundColor: 'var(--accent-color)',
-                borderColor: 'var(--accent-color)',
                 background: `rgba(243, 156, 18, 0.1)`,
                 borderColor: `rgba(243, 156, 18, 0.3)`
               }}
@@ -333,14 +332,14 @@ export default function PremiumSkillsSection() {
                 }}
                 onMouseEnter={(e) => {
                   if (selectedCategory !== "All") {
-                    e.target.style.color = 'var(--white-color)';
-                    e.target.style.backgroundColor = 'rgba(40, 40, 60, 0.5)';
+                    (e.target as HTMLElement).style.color = 'var(--white-color)';
+                    (e.target as HTMLElement).style.backgroundColor = 'rgba(40, 40, 60, 0.5)';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (selectedCategory !== "All") {
-                    e.target.style.color = 'var(--muted-color)';
-                    e.target.style.backgroundColor = 'transparent';
+                    (e.target as HTMLElement).style.color = 'var(--muted-color)';
+                    (e.target as HTMLElement).style.backgroundColor = 'transparent';
                   }
                 }}
               >
@@ -358,14 +357,14 @@ export default function PremiumSkillsSection() {
                   }}
                   onMouseEnter={(e) => {
                     if (selectedCategory !== category) {
-                      e.target.style.color = 'var(--white-color)';
-                      e.target.style.backgroundColor = 'rgba(40, 40, 60, 0.5)';
+                      (e.target as HTMLElement).style.color = 'var(--white-color)';
+                      (e.target as HTMLElement).style.backgroundColor = 'rgba(40, 40, 60, 0.5)';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (selectedCategory !== category) {
-                      e.target.style.color = 'var(--muted-color)';
-                      e.target.style.backgroundColor = 'transparent';
+                      (e.target as HTMLElement).style.color = 'var(--muted-color)';
+                      (e.target as HTMLElement).style.backgroundColor = 'transparent';
                     }
                   }}
                 >
