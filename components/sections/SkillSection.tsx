@@ -8,19 +8,19 @@
 
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /* -------------------------------------------------------------------------------------------------
    Tipos y datos
 --------------------------------------------------------------------------------------------------*/
 type Skill = {
-  name: string;            // Nombre visible
-  percentage: string;      // Porcentaje de dominio (“95%”)
-  colorHex: string;        // Color primario del skill
-  icon: string;            // Ruta al ícono SVG
-  description: string;     // Descripción breve
-  category: string;        // Categoría para filtrar
+  name: string;
+  percentage: string;
+  colorHex: string;
+  icon: string;
+  description: string;
+  category: string;
 };
 
 const SKILLS: Skill[] = [
@@ -93,9 +93,9 @@ const SKILLS: Skill[] = [
 /* -------------------------------------------------------------------------------------------------
    Constantes para la animación de los círculos de progreso
 --------------------------------------------------------------------------------------------------*/
-const RADIUS = 36;                                   // Radio del círculo
-const CIRCUMFERENCE = 2 * Math.PI * RADIUS;          // Longitud de la circunferencia
-const ANIMATION_DURATION = 1200;                     // Duración de la animación (ms)
+const RADIUS = 36;
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+const ANIMATION_DURATION = 1200;
 
 /* -------------------------------------------------------------------------------------------------
    Partículas de fondo (decorativas)
@@ -121,21 +121,54 @@ const parsePercentage = (str: string): number =>
 export default function PremiumSkillsSection() {
   /* --------------------------- estados --------------------------- */
   const [animatedValues, setAnimatedValues] = useState<number[]>(
-    () => SKILLS.map(() => 0)
-  );                                                      // Porcentajes animados
+    () => SKILLS.map(() => 0),
+  );
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [hasAnimated, setHasAnimated] = useState(false);  // Controla la anim inicial
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   /* -------------------------- refs ---------------------------- */
   const sectionRef = useRef<HTMLElement>(null);
-  const animationRefs = useRef<Array<number | null>>([]);  // requestAnimationFrame ids
+  const animationRefs = useRef<Array<number | null>>([]);
 
   /* -------------------- filtrado por categoría -------------------- */
   const filteredSkills =
     selectedCategory === 'All'
       ? SKILLS
       : SKILLS.filter((skill) => skill.category === selectedCategory);
+
+  /* ---------------- función genérica de animación ---------------- */
+  const animateToValue = useCallback(
+    (index: number, target: number) => {
+      if (animationRefs.current[index]) {
+        cancelAnimationFrame(animationRefs.current[index]!);
+      }
+
+      const start = performance.now();
+      const from = animatedValues[index] || 0;
+
+      const animate = (now: number) => {
+        const progress = Math.min((now - start) / ANIMATION_DURATION, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+        const current = Math.round(from + (target - from) * eased);
+
+        setAnimatedValues((prev) => {
+          const next = [...prev];
+          next[index] = current;
+          return next;
+        });
+
+        if (progress < 1) {
+          animationRefs.current[index] = requestAnimationFrame(animate);
+        } else {
+          animationRefs.current[index] = null;
+        }
+      };
+
+      animationRefs.current[index] = requestAnimationFrame(animate);
+    },
+    [animatedValues],
+  );
 
   /* -------------------- observer para disparar animación inicial -------------------- */
   useEffect(() => {
@@ -147,55 +180,29 @@ export default function PremiumSkillsSection() {
             filteredSkills.forEach((skill, idx) => {
               setTimeout(
                 () => animateToValue(idx, parsePercentage(skill.percentage)),
-                idx * 150
+                idx * 150,
               );
             });
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
-    sectionRef.current && observer.observe(sectionRef.current);
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
-  }, [filteredSkills, hasAnimated]);
+  }, [filteredSkills, hasAnimated, animateToValue]);
 
   /* --------------- reset de animaciones al cambiar categoría --------------- */
   useEffect(() => {
     setHasAnimated(false);
     setAnimatedValues(filteredSkills.map(() => 0));
     setHoveredIndex(null);
-    animationRefs.current.forEach((id) => id && cancelAnimationFrame(id));
+    animationRefs.current.forEach((id) => {
+      if (id) cancelAnimationFrame(id);
+    });
     animationRefs.current = Array(filteredSkills.length).fill(null);
   }, [selectedCategory, filteredSkills.length]);
-
-  /* ---------------- función genérica de animación ---------------- */
-  const animateToValue = (index: number, target: number) => {
-    animationRefs.current[index] && cancelAnimationFrame(animationRefs.current[index]!);
-
-    const start = performance.now();
-    const from = animatedValues[index] || 0;
-
-    const animate = (now: number) => {
-      const progress = Math.min((now - start) / ANIMATION_DURATION, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);                  // easeOutCubic
-      const current = Math.round(from + (target - from) * eased);
-
-      setAnimatedValues((prev) => {
-        const next = [...prev];
-        next[index] = current;
-        return next;
-      });
-
-      if (progress < 1) {
-        animationRefs.current[index] = requestAnimationFrame(animate);
-      } else {
-        animationRefs.current[index] = null;
-      }
-    };
-
-    animationRefs.current[index] = requestAnimationFrame(animate);
-  };
 
   /* ---------------- manejadores de hover ---------------- */
   const handleSkillHover = (idx: number) => {
@@ -237,7 +244,6 @@ export default function PremiumSkillsSection() {
         }
       `}</style>
 
-      {/* ------------------------ Sección principal ------------------------ */}
       <section
         ref={sectionRef}
         className="relative min-h-screen py-20 px-4 overflow-hidden"
@@ -246,7 +252,7 @@ export default function PremiumSkillsSection() {
             'linear-gradient(135deg, var(--background-color) 0%, var(--secondary-background-color) 50%, var(--background-color) 100%)',
         }}
       >
-        {/* ---------- partículas decorativas ---------- */}
+        {/* partículas decorativas */}
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           {PARTICLES.map((p) => (
             <motion.div
@@ -275,7 +281,7 @@ export default function PremiumSkillsSection() {
           ))}
         </div>
 
-        {/* ---------- degradado de overlay superior ---------- */}
+        {/* degradado de overlay superior */}
         <div
           className="absolute inset-0"
           style={{
@@ -286,7 +292,7 @@ export default function PremiumSkillsSection() {
         />
 
         <div className="relative z-10 max-w-7xl mx-auto">
-          {/* ------------------------ cabecera ------------------------ */}
+          {/* cabecera */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -327,7 +333,7 @@ export default function PremiumSkillsSection() {
             </p>
           </motion.div>
 
-          {/* ------------------------ filtros de categoría ------------------------ */}
+          {/* filtros de categoría */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -338,18 +344,16 @@ export default function PremiumSkillsSection() {
             <div
               className="flex flex-wrap gap-2 p-2 backdrop-blur-lg rounded-2xl border"
               style={{
-                backgroundColor: 'rgba(40, 40, 60, 0.5)',
-                borderColor: 'rgba(209, 209, 224, 0.3)',
+                backgroundColor: 'rgba(40,40,60,0.5)',
+                borderColor: 'rgba(209,209,224,0.3)',
               }}
             >
-              {/* ---- botón “All” ---- */}
               <CategoryButton
                 isActive={selectedCategory === 'All'}
                 label="All Skills"
                 onClick={() => setSelectedCategory('All')}
               />
 
-              {/* ---- botones dinámicos ---- */}
               {Array.from(new Set(SKILLS.map((s) => s.category))).map((cat) => (
                 <CategoryButton
                   key={cat}
@@ -361,7 +365,7 @@ export default function PremiumSkillsSection() {
             </div>
           </motion.div>
 
-          {/* ------------------------ grilla de skills ------------------------ */}
+          {/* grilla de skills */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <AnimatePresence mode="wait">
               {filteredSkills.map((skill, idx) => {
@@ -376,24 +380,29 @@ export default function PremiumSkillsSection() {
                     initial={{ opacity: 0, scale: 0.8, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.8, y: -20 }}
-                    transition={{ duration: 0.5, delay: idx * 0.1, type: 'spring', stiffness: 100 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: idx * 0.1,
+                      type: 'spring',
+                      stiffness: 100,
+                    }}
                     className="relative group cursor-pointer"
                     onMouseEnter={() => handleSkillHover(idx)}
                     onMouseLeave={() => handleSkillLeave(idx)}
                   >
-                    {/* ---------- tarjeta principal ---------- */}
+                    {/* tarjeta */}
                     <div
                       className="relative h-full p-8 backdrop-blur-xl border rounded-3xl transition-all duration-500 transform-gpu"
                       style={{
                         backgroundColor: hovered
                           ? 'var(--card-bg-color)'
-                          : 'rgba(40, 40, 60, 0.4)',
-                        borderColor: hovered ? 'var(--accent-color)' : 'rgba(209, 209, 224, 0.3)',
-                        boxShadow: hovered ? '0 25px 50px rgba(243, 156, 18, 0.15)' : 'none',
+                          : 'rgba(40,40,60,0.4)',
+                        borderColor: hovered ? 'var(--accent-color)' : 'rgba(209,209,224,0.3)',
+                        boxShadow: hovered ? '0 25px 50px rgba(243,156,18,0.15)' : 'none',
                         transform: hovered ? 'scale(1.05)' : 'scale(1)',
                       }}
                     >
-                      {/* brillo sutil */}
+                      {/* brillo */}
                       <div
                         className="absolute inset-0 rounded-3xl transition-opacity duration-500"
                         style={{
@@ -403,12 +412,10 @@ export default function PremiumSkillsSection() {
                         }}
                       />
 
-                      {/* contenido interno */}
+                      {/* contenido */}
                       <div className="relative z-10 flex flex-col items-center text-center h-full">
-                        {/* círculo de progreso */}
                         <div className="relative w-32 h-32 mb-6">
                           <svg className="w-full h-full transform -rotate-90" viewBox="0 0 80 80">
-                            {/* fondo */}
                             <circle
                               cx="40"
                               cy="40"
@@ -417,7 +424,6 @@ export default function PremiumSkillsSection() {
                               strokeWidth="4"
                               fill="none"
                             />
-                            {/* progreso */}
                             <motion.circle
                               cx="40"
                               cy="40"
@@ -430,14 +436,15 @@ export default function PremiumSkillsSection() {
                               strokeLinecap="round"
                               className="drop-shadow-lg"
                               style={{
-                                filter: hovered ? `drop-shadow(0 0 8px ${skill.colorHex}50)` : 'none',
+                                filter: hovered
+                                  ? `drop-shadow(0 0 8px ${skill.colorHex}50)`
+                                  : 'none',
                               }}
                               animate={{ strokeDashoffset: offset }}
                               transition={{ duration: 0.8, ease: 'easeOut' }}
                             />
                           </svg>
 
-                          {/* ícono + porcentaje */}
                           <div className="absolute inset-0 flex flex-col items-center justify-center">
                             <motion.img
                               src={skill.icon}
@@ -459,12 +466,13 @@ export default function PremiumSkillsSection() {
                           </div>
                         </div>
 
-                        {/* nombre */}
-                        <h3 className="text-xl font-bold mb-3" style={{ color: 'var(--white-color)' }}>
+                        <h3
+                          className="text-xl font-bold mb-3"
+                          style={{ color: 'var(--white-color)' }}
+                        >
                           {skill.name}
                         </h3>
 
-                        {/* descripción */}
                         <motion.p
                           className="text-sm leading-relaxed flex-grow"
                           style={{ color: 'var(--muted-color)' }}
@@ -474,7 +482,6 @@ export default function PremiumSkillsSection() {
                           {skill.description}
                         </motion.p>
 
-                        {/* línea animada */}
                         <motion.div
                           className="w-full h-px mt-4"
                           style={{
@@ -486,7 +493,6 @@ export default function PremiumSkillsSection() {
                       </div>
                     </div>
 
-                    {/* badge de categoría */}
                     <motion.div
                       className="absolute -top-3 -right-3 px-3 py-1 rounded-full text-xs font-bold shadow-lg"
                       style={{
@@ -529,12 +535,11 @@ type CategoryButtonProps = {
 };
 
 function CategoryButton({ label, isActive, onClick }: CategoryButtonProps) {
-  /* Se utiliza currentTarget para evitar problemas de tipado con e.target */
   const handleEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!isActive) {
       const el = e.currentTarget;
       el.style.color = 'var(--white-color)';
-      el.style.backgroundColor = 'rgba(40, 40, 60, 0.5)';
+      el.style.backgroundColor = 'rgba(40,40,60,0.5)';
     }
   };
 
@@ -555,7 +560,7 @@ function CategoryButton({ label, isActive, onClick }: CategoryButtonProps) {
       style={{
         backgroundColor: isActive ? 'var(--primary-color)' : 'transparent',
         color: isActive ? 'var(--white-color)' : 'var(--muted-color)',
-        boxShadow: isActive ? '0 10px 25px rgba(255, 111, 97, 0.3)' : 'none',
+        boxShadow: isActive ? '0 10px 25px rgba(255,111,97,0.3)' : 'none',
       }}
     >
       {label}
