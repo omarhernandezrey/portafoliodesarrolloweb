@@ -5,6 +5,14 @@ import Card from "../shared/Card";
 
 const projects = [
   {
+  title: "CineXpress - API REST con JavaScript",
+  description:
+    "Aplicación web para explorar películas en tendencia, buscarlas por categoría o nombre, y ver detalles como reparto, tráileres y similares, consumiendo The Movie Database API. Proyecto del Curso de API REST con JavaScript.",
+  technologies: ["HTML", "CSS", "JavaScript", "Axios", "Vercel"],
+  repository: "https://github.com/omarhernandezrey/31-cursoDeApiRestConJavascriptEjemplosConApisReales",
+  demo: "https://cinexpressonline.vercel.app/",
+ },
+  {
     title: "Michis App - API REST con JavaScript",
     description:
       "Aplicación web para mostrar, guardar y subir imágenes de gatitos usando The Cat API. Proyecto del Curso de Fundamentos de API REST con JavaScript.",
