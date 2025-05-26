@@ -142,16 +142,6 @@ const projects: Project[] = [
     category: "JavaScript",
   },
   {
-    title: "Página Web de Enfermería",
-    description:
-      "Promoción de servicios de enfermería domiciliarios en Bogotá.",
-    technologies: ["HTML", "SCSS", "CSS", "JavaScript"],
-    repository:
-      "https://github.com/omarhernandezrey/07.2-pagina_web_enfermeria",
-    demo: "https://omarhernandezrey.github.io/07.2-pagina_web_enfermeria/",
-    category: "CSS",
-  },
-  {
     title: "Calculadora de Pago de Turnos",
     description:
       "Calcula pagos de turnos de enfermería con calendario interactivo.",
