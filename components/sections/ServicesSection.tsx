@@ -6,7 +6,8 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import Image from "next/image";
 
 const services = [
   {
@@ -51,16 +52,17 @@ const services = [
   },
 ];
 
-/* Partículas flotantes de fondo */
-const FLOATING_ELEMENTS = Array.from({ length: 15 }, (_, i) => ({
-  id: i,
-  size: Math.random() * 3 + 1,
-  x: Math.random() * 100,
-  y: Math.random() * 100,
-  delay: Math.random() * 3,
-  duration: Math.random() * 8 + 12,
-  opacity: Math.random() * 0.3 + 0.1,
-}));
+// --- Lógica de partículas flotantes tipo AboutSection ---
+const createFloatingElements = (count = 12) =>
+  Array.from({ length: count }, (_, i) => ({
+    id: i,
+    size: Math.random() * 4 + 2,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    delay: Math.random() * 4,
+    duration: Math.random() * 10 + 15,
+    opacity: Math.random() * 0.4 + 0.1,
+  }));
 
 export default function ServicesSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -70,7 +72,16 @@ export default function ServicesSection() {
     offset: ['start end', 'end start'],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const [floatingElements, setFloatingElements] = useState([]);
+  // Parallax para varias formas
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const y4 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  useEffect(() => {
+    setFloatingElements(createFloatingElements());
+  }, []);
+
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
@@ -98,9 +109,48 @@ export default function ServicesSection() {
             'linear-gradient(135deg, var(--background-color) 0%, var(--secondary-background-color) 50%, var(--background-color) 100%)',
         }}
       >
-        {/* Partículas de fondo */}
-        <div className="absolute inset-0 opacity-30">
-          {FLOATING_ELEMENTS.map((el) => (
+        {/* Wave superior */}
+        <div className="absolute top-0 left-0 w-full rotate-180 overflow-hidden leading-[0] z-0">
+          <Image
+            src="/images/wave-top.svg"
+            alt="Wave Top"
+            className="w-full h-auto"
+            width={1920}
+            height={200}
+            priority
+          />
+        </div>
+        {/* Fondo parallax moderno (igual que AboutSection) */}
+        <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
+          {/* Círculo grande blur */}
+          <motion.div
+            style={{ y: y1 }}
+            className="absolute top-[-120px] left-[-120px] w-[350px] h-[350px] rounded-full bg-[var(--primary-color)] opacity-30 blur-3xl"
+          />
+          {/* Blob naranja */}
+          <motion.div
+            style={{ y: y2 }}
+            className="absolute top-[30%] right-[-100px] w-[280px] h-[280px] rounded-[60%_40%_30%_70%/_60%_30%_70%_40%] bg-[var(--accent-color)] opacity-40 blur-2xl rotate-12"
+          />
+          {/* Círculo degradado */}
+          <motion.div
+            style={{ y: y3 }}
+            className="absolute bottom-[-100px] left-[20%] w-[220px] h-[220px] rounded-full bg-gradient-to-tr from-[var(--primary-color)] via-[var(--accent-color)] to-transparent opacity-30 blur-2xl"
+          />
+          {/* Línea diagonal luminosa */}
+          <motion.div
+            style={{ y: y4 }}
+            className="absolute top-[60%] left-[-80px] w-[400px] h-[8px] bg-gradient-to-r from-[var(--accent-color)]/60 via-white/10 to-transparent opacity-40 rotate-[-20deg] blur-md"
+          />
+          {/* Círculo blanco suave */}
+          <motion.div
+            style={{ y: y2 }}
+            className="absolute bottom-[-60px] right-[10%] w-[120px] h-[120px] rounded-full bg-white opacity-10 blur-2xl"
+          />
+        </div>
+        {/* Partículas animadas tipo AboutSection */}
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+          {floatingElements.map((el) => (
             <motion.div
               key={el.id}
               className="absolute rounded-full"
@@ -113,10 +163,10 @@ export default function ServicesSection() {
                 opacity: el.opacity,
               }}
               animate={{
-                y: [-30, 30, -30],
-                x: [-15, 15, -15],
-                opacity: [el.opacity * 0.5, el.opacity, el.opacity * 0.5],
-                scale: [1, 1.5, 1],
+                y: [-40, 40, -40],
+                x: [-20, 20, -20],
+                opacity: [el.opacity * 0.3, el.opacity, el.opacity * 0.3],
+                scale: [1, 1.8, 1],
               }}
               transition={{
                 duration: el.duration,
@@ -127,22 +177,6 @@ export default function ServicesSection() {
             />
           ))}
         </div>
-
-        {/* Formas parallax */}
-        <motion.div className="absolute inset-0 opacity-10" style={{ y }}>
-          <div
-            className="absolute top-20 left-10 w-32 h-32 rounded-full"
-            style={{ backgroundColor: 'var(--primary-color)' }}
-          />
-          <div
-            className="absolute top-40 right-20 w-24 h-24 rounded-full"
-            style={{ backgroundColor: 'var(--accent-color)' }}
-          />
-          <div
-            className="absolute bottom-32 left-1/4 w-40 h-40 rounded-full"
-            style={{ backgroundColor: 'var(--primary-color)' }}
-          />
-        </motion.div>
 
         {/* Contenido principal */}
         <motion.div className="relative z-10 max-w-7xl mx-auto" style={{ opacity }}>
@@ -386,15 +420,16 @@ export default function ServicesSection() {
           </motion.div>
         </motion.div>
 
-        {/* Línea degradada inferior */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-px"
-          style={{
-            background:
-              'linear-gradient(to right, transparent 0%, var(--accent-color) 50%, transparent 100%)',
-            opacity: 0.4,
-          }}
-        />
+        {/* Wave inferior */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden z-0">
+          <Image
+            src="/images/wave-bottom.svg"
+            alt="Wave Bottom"
+            className="w-full h-auto"
+            width={1920}
+            height={200}
+          />
+        </div>
       </section>
     </>
   );

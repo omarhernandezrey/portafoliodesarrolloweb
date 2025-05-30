@@ -3,13 +3,14 @@
    PremiumSkillsSection.tsx
    Sección de habilidades con animaciones avanzadas, filtros por categoría y diseño en glassmorphism.
    - 100 % funcional y tipado en TypeScript.
-   - Listo para reemplazar en tu proyecto Next.js / React Server Components (“use client”).
+   - Listo para reemplazar en tu proyecto Next.js / React Server Components ("use client").
 --------------------------------------------------------------------------------------------------*/
 
 'use client';
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import Image from "next/image";
 
 /* -------------------------------------------------------------------------------------------------
    Tipos y datos
@@ -100,14 +101,16 @@ const ANIMATION_DURATION = 1200;
 /* -------------------------------------------------------------------------------------------------
    Partículas de fondo (decorativas)
 --------------------------------------------------------------------------------------------------*/
-const PARTICLES = Array.from({ length: 20 }, (_, i) => ({
-  id: i,
-  size: Math.random() * 4 + 2,
-  x: Math.random() * 100,
-  y: Math.random() * 100,
-  delay: Math.random() * 5,
-  duration: Math.random() * 10 + 15,
-}));
+const createFloatingElements = (count = 12) =>
+  Array.from({ length: count }, (_, i) => ({
+    id: i,
+    size: Math.random() * 4 + 2,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    delay: Math.random() * 4,
+    duration: Math.random() * 10 + 15,
+    opacity: Math.random() * 0.4 + 0.1,
+  }));
 
 /* -------------------------------------------------------------------------------------------------
    Helpers
@@ -126,10 +129,22 @@ export default function PremiumSkillsSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [hasAnimated, setHasAnimated] = useState(false);
+  const [floatingElements, setFloatingElements] = useState([]);
 
   /* -------------------------- refs ---------------------------- */
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = React.useRef<HTMLElement>(null);
   const animationRefs = useRef<Array<number | null>>([]);
+
+  /* -------------------- parallax scroll effect -------------------- */
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const y4 = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   /* -------------------- filtrado por categoría -------------------- */
   const filteredSkills =
@@ -204,6 +219,10 @@ export default function PremiumSkillsSection() {
     animationRefs.current = Array(filteredSkills.length).fill(null);
   }, [selectedCategory, filteredSkills.length]);
 
+  useEffect(() => {
+    setFloatingElements(createFloatingElements());
+  }, []);
+
   /* ---------------- manejadores de hover ---------------- */
   const handleSkillHover = (idx: number) => {
     setHoveredIndex(idx);
@@ -246,50 +265,81 @@ export default function PremiumSkillsSection() {
 
       <section
         ref={sectionRef}
-        className="relative min-h-screen py-20 px-4 overflow-hidden"
+        id="skills"
+        className="relative min-h-screen py-32 px-4 overflow-hidden"
         style={{
           background:
             'linear-gradient(135deg, var(--background-color) 0%, var(--secondary-background-color) 50%, var(--background-color) 100%)',
         }}
       >
-        {/* partículas decorativas */}
+        {/* Wave superior */}
+        <div className="absolute top-0 left-0 w-full rotate-180 overflow-hidden leading-[0] z-0">
+          <Image
+            src="/images/wave-top.svg"
+            alt="Wave Top"
+            className="w-full h-auto"
+            width={1920}
+            height={200}
+            priority
+          />
+        </div>
+        {/* Fondo parallax moderno (igual que AboutSection) */}
+        <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
+          {/* Círculo grande blur */}
+          <motion.div
+            style={{ y: y1 }}
+            className="absolute top-[-120px] left-[-120px] w-[350px] h-[350px] rounded-full bg-[var(--primary-color)] opacity-30 blur-3xl"
+          />
+          {/* Blob naranja */}
+          <motion.div
+            style={{ y: y2 }}
+            className="absolute top-[30%] right-[-100px] w-[280px] h-[280px] rounded-[60%_40%_30%_70%/_60%_30%_70%_40%] bg-[var(--accent-color)] opacity-40 blur-2xl rotate-12"
+          />
+          {/* Círculo degradado */}
+          <motion.div
+            style={{ y: y3 }}
+            className="absolute bottom-[-100px] left-[20%] w-[220px] h-[220px] rounded-full bg-gradient-to-tr from-[var(--primary-color)] via-[var(--accent-color)] to-transparent opacity-30 blur-2xl"
+          />
+          {/* Línea diagonal luminosa */}
+          <motion.div
+            style={{ y: y4 }}
+            className="absolute top-[60%] left-[-80px] w-[400px] h-[8px] bg-gradient-to-r from-[var(--accent-color)]/60 via-white/10 to-transparent opacity-40 rotate-[-20deg] blur-md"
+          />
+          {/* Círculo blanco suave */}
+          <motion.div
+            style={{ y: y2 }}
+            className="absolute bottom-[-60px] right-[10%] w-[120px] h-[120px] rounded-full bg-white opacity-10 blur-2xl"
+          />
+        </div>
+        {/* Partículas animadas tipo AboutSection */}
         <div className="absolute inset-0 opacity-20 pointer-events-none">
-          {PARTICLES.map((p) => (
+          {floatingElements.map((el) => (
             <motion.div
-              key={p.id}
+              key={el.id}
               className="absolute rounded-full"
               style={{
-                width: p.size,
-                height: p.size,
-                left: `${p.x}%`,
-                top: `${p.y}%`,
-                backgroundColor: 'var(--white-color)',
+                width: el.size,
+                height: el.size,
+                left: `${el.x}%`,
+                top: `${el.y}%`,
+                backgroundColor: 'var(--accent-color)',
+                opacity: el.opacity,
               }}
               animate={{
-                y: [-20, 20, -20],
-                x: [-10, 10, -10],
-                opacity: [0.3, 0.8, 0.3],
-                scale: [1, 1.2, 1],
+                y: [-40, 40, -40],
+                x: [-20, 20, -20],
+                opacity: [el.opacity * 0.3, el.opacity, el.opacity * 0.3],
+                scale: [1, 1.8, 1],
               }}
               transition={{
-                duration: p.duration,
+                duration: el.duration,
                 repeat: Infinity,
-                delay: p.delay,
+                delay: el.delay,
                 ease: 'easeInOut',
               }}
             />
           ))}
         </div>
-
-        {/* degradado de overlay superior */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(to top, var(--background-color) 0%, transparent 30%, var(--background-color) 100%)',
-            opacity: 0.6,
-          }}
-        />
 
         <div className="relative z-10 max-w-7xl mx-auto">
           {/* cabecera */}
@@ -511,15 +561,16 @@ export default function PremiumSkillsSection() {
           </div>
         </div>
 
-        {/* línea inferior decorativa */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-px"
-          style={{
-            background:
-              'linear-gradient(to right, transparent 0%, var(--accent-color) 50%, transparent 100%)',
-            opacity: 0.4,
-          }}
-        />
+        {/* Wave inferior */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden z-0">
+          <Image
+            src="/images/wave-bottom.svg"
+            alt="Wave Bottom"
+            className="w-full h-auto"
+            width={1920}
+            height={200}
+          />
+        </div>
       </section>
     </>
   );

@@ -6,7 +6,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Card from "../shared/Card";
 
 /* ---------------------------------------------------------------------------
@@ -182,18 +182,6 @@ const projects: Project[] = [
 ];
 
 /* ---------------------------------------------------------------------------
-   Partículas de fondo (se reduce el total en móvil)
---------------------------------------------------------------------------- */
-const PARTICLES = Array.from({ length: 15 }, (_, i) => ({
-  id: i,
-  size: Math.random() * 3 + 1,
-  x: Math.random() * 100,
-  y: Math.random() * 100,
-  delay: Math.random() * 4,
-  duration: Math.random() * 8 + 12,
-}));
-
-/* ---------------------------------------------------------------------------
    Botón de categoría (estilos y badge)
 --------------------------------------------------------------------------- */
 type CategoryButtonProps = {
@@ -249,6 +237,29 @@ const CategoryButton: React.FC<CategoryButtonProps> = ({
   </button>
 );
 
+// Tipado para los elementos flotantes
+interface FloatingElement {
+  id: number;
+  size: number;
+  x: number;
+  y: number;
+  delay: number;
+  duration: number;
+  opacity: number;
+}
+
+// --- Lógica de partículas flotantes tipo AboutSection ---
+const createFloatingElements = (count = 12) =>
+  Array.from({ length: count }, (_, i) => ({
+    id: i,
+    size: Math.random() * 4 + 2,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    delay: Math.random() * 4,
+    duration: Math.random() * 10 + 15,
+    opacity: Math.random() * 0.4 + 0.1,
+  }));
+
 /* ---------------------------------------------------------------------------
    ProjectsSection – componente principal Mobile First
 --------------------------------------------------------------------------- */
@@ -258,7 +269,14 @@ const ProjectsSection: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [mounted, setMounted] = useState<boolean>(false); // ← evita SSR/Window
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] });
+  const [floatingElements, setFloatingElements] = useState<FloatingElement[]>([]);
+  // Parallax para varias formas
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const y4 = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   /* ---------------- detectar mobile (solo en cliente) ---------------- */
   useEffect(() => {
@@ -266,6 +284,7 @@ const ProjectsSection: React.FC = () => {
     checkIsMobile();
     window.addEventListener("resize", checkIsMobile);
     setMounted(true); // componente montado
+    setFloatingElements(createFloatingElements());
     return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
 
@@ -318,61 +337,79 @@ const ProjectsSection: React.FC = () => {
       <section
         ref={sectionRef}
         id="projects"
-        className="relative py-16 sm:py-20 md:py-24 lg:py-32 px-4 overflow-hidden scroll-mt-16"
+        className="relative min-h-screen py-32 px-4 overflow-hidden"
         style={{
           background:
             "linear-gradient(135deg, var(--background-color) 0%, var(--secondary-background-color) 50%, var(--background-color) 100%)",
-          color: "var(--text-color)",
         }}
       >
-        {/* partículas decorativas (solo si mounted=true) */}
-        <div className="absolute inset-0 opacity-10 sm:opacity-15 pointer-events-none">
-          {mounted &&
-            PARTICLES.slice(0, isMobile ? 8 : 15).map((p) => (
-              <motion.div
-                key={p.id}
-                className="absolute rounded-full"
-                style={{
-                  width: p.size,
-                  height: p.size,
-                  left: `${p.x}%`,
-                  top: `${p.y}%`,
-                  backgroundColor: "var(--white-color)",
-                }}
-                animate={{
-                  y: [-15, 15, -15],
-                  x: [-8, 8, -8],
-                  opacity: [0.2, 0.6, 0.2],
-                  scale: [1, 1.3, 1],
-                }}
-                transition={{
-                  duration: p.duration,
-                  repeat: Infinity,
-                  delay: p.delay,
-                  ease: "easeInOut",
-                }}
-              />
-            ))}
-        </div>
-
-        {/* overlay degradado */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to top, var(--background-color) 0%, transparent 30%, var(--background-color) 100%)",
-            opacity: 0.6,
-          }}
-        />
-
-        {/* wave superior (solo desktop) */}
-        <div className="hidden md:block absolute top-0 left-0 w-full h-32 md:h-48 rotate-180 overflow-hidden leading-[0] z-0">
+        {/* Wave superior */}
+        <div className="absolute top-0 left-0 w-full rotate-180 overflow-hidden leading-[0] z-0">
           <Image
             src="/images/wave-top.svg"
             alt="Wave Top"
-            fill
-            className="w-full h-full object-cover"
+            className="w-full h-auto"
+            width={1920}
+            height={200}
+            priority
           />
+        </div>
+        {/* Fondo parallax moderno (igual que AboutSection) */}
+        <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
+          {/* Círculo grande blur */}
+          <motion.div
+            style={{ y: y1 }}
+            className="absolute top-[-120px] left-[-120px] w-[350px] h-[350px] rounded-full bg-[var(--primary-color)] opacity-30 blur-3xl"
+          />
+          {/* Blob naranja */}
+          <motion.div
+            style={{ y: y2 }}
+            className="absolute top-[30%] right-[-100px] w-[280px] h-[280px] rounded-[60%_40%_30%_70%/_60%_30%_70%_40%] bg-[var(--accent-color)] opacity-40 blur-2xl rotate-12"
+          />
+          {/* Círculo degradado */}
+          <motion.div
+            style={{ y: y3 }}
+            className="absolute bottom-[-100px] left-[20%] w-[220px] h-[220px] rounded-full bg-gradient-to-tr from-[var(--primary-color)] via-[var(--accent-color)] to-transparent opacity-30 blur-2xl"
+          />
+          {/* Línea diagonal luminosa */}
+          <motion.div
+            style={{ y: y4 }}
+            className="absolute top-[60%] left-[-80px] w-[400px] h-[8px] bg-gradient-to-r from-[var(--accent-color)]/60 via-white/10 to-transparent opacity-40 rotate-[-20deg] blur-md"
+          />
+          {/* Círculo blanco suave */}
+          <motion.div
+            style={{ y: y2 }}
+            className="absolute bottom-[-60px] right-[10%] w-[120px] h-[120px] rounded-full bg-white opacity-10 blur-2xl"
+          />
+        </div>
+        {/* Partículas animadas tipo AboutSection */}
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+          {floatingElements.map((el) => (
+            <motion.div
+              key={el.id}
+              className="absolute rounded-full"
+              style={{
+                width: el.size,
+                height: el.size,
+                left: `${el.x}%`,
+                top: `${el.y}%`,
+                backgroundColor: 'var(--accent-color)',
+                opacity: el.opacity,
+              }}
+              animate={{
+                y: [-40, 40, -40],
+                x: [-20, 20, -20],
+                opacity: [el.opacity * 0.3, el.opacity, el.opacity * 0.3],
+                scale: [1, 1.8, 1],
+              }}
+              transition={{
+                duration: el.duration,
+                repeat: Infinity,
+                delay: el.delay,
+                ease: 'easeInOut',
+              }}
+            />
+          ))}
         </div>
 
         {/* ---------------- contenido principal ---------------- */}
@@ -394,7 +431,7 @@ const ProjectsSection: React.FC = () => {
               }}
               whileHover={{ scale: 1.05 }}
             >
-              Portfolio Showcase
+              Proyectos Destacados
             </motion.span>
 
             <h2
@@ -406,14 +443,14 @@ const ProjectsSection: React.FC = () => {
                 WebkitTextFillColor: "transparent",
               }}
             >
-              My Projects
+              Mis Proyectos
             </h2>
 
             <p
               className="text-sm sm:text-base md:text-lg lg:text-xl max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed px-4"
               style={{ color: "var(--muted-color)" }}
             >
-              Explore my collection of web applications and development projects
+              Explora mi colección de aplicaciones web y proyectos de desarrollo
             </p>
           </motion.div>
 
@@ -434,7 +471,7 @@ const ProjectsSection: React.FC = () => {
             >
               <input
                 type="text"
-                placeholder="Search projects..."
+                placeholder="Buscar proyectos..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-transparent text-white placeholder-gray-400 focus:outline-none rounded-lg sm:rounded-xl text-sm sm:text-base"
@@ -467,11 +504,10 @@ const ProjectsSection: React.FC = () => {
             className="flex justify-center mb-8 sm:mb-12 md:mb-16"
           >
             <div
-              className="flex flex-nowrap sm:flex-nowrap md:flex-wrap gap-2 sm:gap-3 p-2 sm:p-3 backdrop-blur-lg rounded-xl sm:rounded-2xl border overflow-x-auto sm:overflow-x-auto md:overflow-x-visible no-scrollbar max-w-full"
+              className="flex flex-wrap gap-2 sm:gap-3 p-2 sm:p-3 backdrop-blur-lg rounded-xl sm:rounded-2xl border max-w-full"
               style={{
                 backgroundColor: "rgba(40,40,60,0.5)",
-                borderColor: "rgba(209,209,224,0.3)",
-                scrollSnapType: "x mandatory",
+                borderColor: "rgba(209,209,224,0.3)"
               }}
             >
               {categories.map((c) => (
@@ -497,8 +533,8 @@ const ProjectsSection: React.FC = () => {
               className="text-xs sm:text-sm md:text-base px-4"
               style={{ color: "var(--muted-color)" }}
             >
-              Showing {filteredProjects.length} of {projects.length} projects
-              {searchTerm && ` for "${searchTerm}"`}
+              Mostrando {filteredProjects.length} de {projects.length} proyectos
+              {searchTerm && ` para "${searchTerm}"`}
             </p>
           </motion.div>
 
@@ -549,13 +585,13 @@ const ProjectsSection: React.FC = () => {
                   className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4"
                   style={{ color: "var(--white-color)" }}
                 >
-                  No projects found
+                  No se encontraron proyectos
                 </h3>
                 <p
                   className="text-sm sm:text-base mb-4"
                   style={{ color: "var(--muted-color)" }}
                 >
-                  Try adjusting your search or filter criteria.
+                  Intenta ajustar tu búsqueda o los filtros.
                 </p>
                 <button
                   onClick={() => {
@@ -568,22 +604,23 @@ const ProjectsSection: React.FC = () => {
                     color: "var(--white-color)",
                   }}
                 >
-                  Clear filters
+                  Limpiar filtros
                 </button>
               </div>
             </motion.div>
           )}
         </div>
 
-        {/* línea inferior decorativa */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-px"
-          style={{
-            background:
-              "linear-gradient(to right, transparent 0%, var(--accent-color) 50%, transparent 100%)",
-            opacity: 0.4,
-          }}
-        />
+        {/* Wave inferior */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden z-0">
+          <Image
+            src="/images/wave-bottom.svg"
+            alt="Wave Bottom"
+            className="w-full h-auto"
+            width={1920}
+            height={200}
+          />
+        </div>
       </section>
     </>
   );
