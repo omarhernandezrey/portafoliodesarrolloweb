@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 /* -------------------------------------------------------------------------------------------------
    PremiumSkillsSection.tsx
    Sección de habilidades con animaciones avanzadas, filtros por categoría y diseño en glassmorphism.
@@ -217,7 +216,7 @@ export default function PremiumSkillsSection() {
       if (id) cancelAnimationFrame(id);
     });
     animationRefs.current = Array(filteredSkills.length).fill(null);
-  }, [selectedCategory, filteredSkills.length]);
+  }, [selectedCategory, filteredSkills.length, filteredSkills]);
 
   useEffect(() => {
     setFloatingElements(createFloatingElements());

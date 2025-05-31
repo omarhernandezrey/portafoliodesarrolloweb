@@ -12,14 +12,20 @@ const NavbarLogic = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // Cambia a mobile si la pantalla es menor o igual a 768px
+      const width = window.innerWidth;
+      setIsMobile(width <= 1024); // Cambia a mobile/tablet si es menor o igual a 1024px
+      
+      // Cierra el menú si cambia a desktop
+      if (width > 1024 && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
     };
 
     handleResize(); // Detecta el tamaño inicial
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [isMenuOpen]);
 
   return (
     <>

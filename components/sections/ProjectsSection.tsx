@@ -267,8 +267,6 @@ const ProjectsSection: React.FC = () => {
   /* ---------------- estados ---------------- */
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-  const [mounted, setMounted] = useState<boolean>(false); // ← evita SSR/Window
   const sectionRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] });
   const [floatingElements, setFloatingElements] = useState<FloatingElement[]>([]);
@@ -280,12 +278,11 @@ const ProjectsSection: React.FC = () => {
 
   /* ---------------- detectar mobile (solo en cliente) ---------------- */
   useEffect(() => {
-    const checkIsMobile = () => setIsMobile(window.innerWidth < 640);
-    checkIsMobile();
-    window.addEventListener("resize", checkIsMobile);
-    setMounted(true); // componente montado
+    // const checkIsMobile = () => setIsMobile(window.innerWidth < 640);
+    // checkIsMobile();
+    window.addEventListener("resize", () => {});
     setFloatingElements(createFloatingElements());
-    return () => window.removeEventListener("resize", checkIsMobile);
+    return () => window.removeEventListener("resize", () => {});
   }, []);
 
   /* ---------------- filtrado dinámico ---------------- */

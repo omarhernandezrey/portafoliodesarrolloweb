@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 import { educationData } from '../../lib/educationData';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Image from 'next/image';
 
 // Icono de graduación personalizado
 const GraduationCapIcon = ({ size = 24 }) => (
@@ -126,12 +127,12 @@ const EducationModal = ({ isOpen, onClose, title, institution, duration, descrip
         
         {logo && (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px' }}>
-            <img 
+            <Image 
               src={logo} 
               alt={institution} 
+              width={90}
+              height={90}
               style={{ 
-                width: '90px', 
-                height: '90px', 
                 objectFit: 'contain', 
                 borderRadius: '50%', 
                 boxShadow: '0 4px 16px var(--accent-color, rgba(243,156,18,0.15))',
@@ -170,13 +171,12 @@ const EducationModal = ({ isOpen, onClose, title, institution, duration, descrip
               Ver Certificado
             </a>
             <div style={{ marginTop: '12px', display: 'flex', justifyContent: 'center' }}>
-              <img
+              <Image
                 src={certificate}
                 alt="Certificado"
+                width={320}
+                height={240}
                 style={{
-                  maxWidth: '100%',
-                  width: '320px',
-                  height: 'auto',
                   borderRadius: '10px',
                   boxShadow: '0 2px 12px var(--accent-color, rgba(0,0,0,0.15))',
                   objectFit: 'contain',
@@ -227,15 +227,13 @@ function TimelineLogo({ logo, institution }: { logo: string; institution: string
   }
 
   return (
-    <img
+    <Image
       src={logo}
       alt={`${institution} logo`}
+      width={80}
+      height={80}
       className="timeline-logo"
-      loading="lazy"
-      onError={() => setImgError(true)}
       style={{
-        width: '80px',
-        height: '80px',
         objectFit: 'contain',
         borderRadius: '50%',
         boxShadow: '0 4px 16px rgba(243,156,18,0.15)',
@@ -247,6 +245,7 @@ function TimelineLogo({ logo, institution }: { logo: string; institution: string
         transform: 'scale(1.08)',
         transition: 'transform 0.2s',
       }}
+      onError={() => setImgError(true)}
     />
   );
 }
