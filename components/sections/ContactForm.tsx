@@ -19,12 +19,14 @@ const createFloatingElements = (count = 12) =>
     opacity: Math.random() * 0.4 + 0.1,
   }));
 
+type FloatingElement = ReturnType<typeof createFloatingElements>[number];
+
 export default function ContactForm() {
   const form = useRef<HTMLFormElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const [isSending, setIsSending] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
-  const [floatingElements, setFloatingElements] = useState([]);
+  const [floatingElements, setFloatingElements] = useState<FloatingElement[]>([]);
 
   /* -------------------- parallax scroll effect -------------------- */
   const { scrollYProgress } = useScroll({

@@ -1,6 +1,5 @@
 import "./globals.css";
 import NavbarLogic from "../components/ui/NavbarLogic";
-import Head from 'next/head';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

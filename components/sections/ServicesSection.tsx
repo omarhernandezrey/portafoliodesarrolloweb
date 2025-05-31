@@ -64,6 +64,8 @@ const createFloatingElements = (count = 12) =>
     opacity: Math.random() * 0.4 + 0.1,
   }));
 
+type FloatingElement = ReturnType<typeof createFloatingElements>[number];
+
 export default function ServicesSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -72,7 +74,7 @@ export default function ServicesSection() {
     offset: ['start end', 'end start'],
   });
 
-  const [floatingElements, setFloatingElements] = useState([]);
+  const [floatingElements, setFloatingElements] = useState<FloatingElement[]>([]);
   // Parallax para varias formas
   const y1 = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const y2 = useTransform(scrollYProgress, [0, 1], [0, -60]);

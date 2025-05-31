@@ -260,6 +260,17 @@ const flattenEducationData = (data: typeof educationData): EducationItem[] => {
   );
 };
 
+// Defino la interfaz FloatingElement antes de su uso
+interface FloatingElement {
+  id: number;
+  size: number;
+  x: number;
+  y: number;
+  delay: number;
+  duration: number;
+  opacity: number;
+}
+
 const createFloatingElements = (count = 12) =>
   Array.from({ length: count }, (_, i) => ({
     id: i,
@@ -279,7 +290,7 @@ const EducationSection = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [selectedItem, setSelectedItem] = useState<EducationItem | null>(null);
   const [hasMore, setHasMore] = useState<boolean>(true);
-  const [floatingElements, setFloatingElements] = useState<any[]>([]);
+  const [floatingElements, setFloatingElements] = useState<FloatingElement[]>([]);
   const sectionRef = React.useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] });
   const y1 = useTransform(scrollYProgress, [0, 1], [0, 80]);
@@ -326,7 +337,8 @@ const EducationSection = () => {
     setSelectedItem(item);
   };
 
-  const closeModal = () => {
+  const closeModal = (e?: React.MouseEvent | React.KeyboardEvent) => {
+    if (e) e.stopPropagation?.();
     setSelectedItem(null);
   };
 
@@ -771,7 +783,7 @@ const EducationSection = () => {
         </div>
         {/* Wave superior */}
         <div className="absolute top-0 left-0 w-full rotate-180 overflow-hidden leading-[0] z-0">
-          <img
+          <Image
             src="/images/wave-top.svg"
             alt="Wave Top"
             className="w-full h-auto"

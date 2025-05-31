@@ -107,3 +107,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
   - Convertir el portafolio en una Progressive Web App.
 
 Estas mejoras buscan mantener el portafolio moderno, accesible, escalable y fácil de mantener. Si tienes sugerencias adicionales, ¡no dudes en contribuir o abrir un issue!
+
+## Correcciones aplicadas
+
+- 2025-05-31 · Lint (`npm run lint -- --fix`) ejecutado → sin warnings ni errores ✅
+- 2025-05-31 · TypeScript (`npx tsc --noEmit`) ejecutado → sin errores ✅
+- 2025-05-31 · Build de producción (`npm run build`) ejecutado → compilación exitosa sin errores ✅

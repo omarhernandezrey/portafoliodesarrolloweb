@@ -4,7 +4,6 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { FaTimes } from "react-icons/fa";
 import { Transition } from "@headlessui/react";
-import "../styles/globals.css";
 
 interface EducationModalProps {
   isOpen: boolean;

@@ -111,6 +111,8 @@ const createFloatingElements = (count = 12) =>
     opacity: Math.random() * 0.4 + 0.1,
   }));
 
+type FloatingElement = ReturnType<typeof createFloatingElements>[number];
+
 /* -------------------------------------------------------------------------------------------------
    Helpers
 --------------------------------------------------------------------------------------------------*/
@@ -128,7 +130,7 @@ export default function PremiumSkillsSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [hasAnimated, setHasAnimated] = useState(false);
-  const [floatingElements, setFloatingElements] = useState([]);
+  const [floatingElements, setFloatingElements] = useState<FloatingElement[]>([]);
 
   /* -------------------------- refs ---------------------------- */
   const sectionRef = React.useRef<HTMLElement>(null);
