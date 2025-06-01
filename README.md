@@ -1,137 +1,120 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PortafolioDesarrolloWeb
 
-## Getting Started
+Este proyecto es un portafolio profesional desarrollado con **Next.js** y **TypeScript**, optimizado para performance, accesibilidad, SEO y buenas prácticas modernas. Incluye integración con Tailwind CSS, ESLint, PostCSS y despliegue en Vercel.
 
-First, run the development server:
+---
+
+## 🚀 Estructura del Proyecto
+
+- **app/**: Páginas, layouts y rutas dinámicas (estructura App Router de Next.js).
+- **components/**: Componentes reutilizables, organizados en:
+  - `sections/`: Secciones principales del portafolio (Hero, About, Projects, Skills, Services, Contact, Education).
+  - `ui/`: Componentes de interfaz (Navbar, Modals, Botones, etc).
+  - `shared/`: Componentes compartidos (Footer, Cards, Testimonios, Newsletter).
+- **public/**: Recursos estáticos (imágenes, logos, certificados, archivos descargables como el CV).
+- **styles/**: Archivos CSS globales y específicos, configuración de Tailwind.
+- **services/**: Lógica de servicios y acceso a datos.
+- **hooks/**: Hooks personalizados para lógica reutilizable.
+- **lib/**: Utilidades y datos estructurados (ej: educación).
+- **config/**: Configuración de iconos y otros recursos.
+- **.next/**, **dist/**: Carpetas de build y distribución (auto-generadas).
+- **.vercel/**: Configuración de despliegue en Vercel.
+
+---
+
+## ⚙️ Configuración y Herramientas
+
+- **TypeScript**: Estricto, con paths personalizados y soporte JSX.
+- **Next.js**: Modo estricto, Webpack personalizado para evitar dependencias innecesarias en cliente.
+- **Tailwind CSS**: Modo oscuro por clase, animaciones personalizadas, plugin de formularios.
+- **PostCSS**: Tailwind y Autoprefixer.
+- **ESLint**: Reglas de Next.js, TypeScript y eliminación automática de imports no usados.
+- **Vercel**: Header `X-Frame-Options: ALLOWALL` para todas las rutas.
+- **.gitignore**: Ignora node_modules, .next, dist, .env, archivos de build, etc.
+
+---
+
+## 📦 Dependencias Principales
+
+- **Next.js**, **React**, **Tailwind CSS**, **Framer Motion**, **EmailJS**, **React Spring**, **React Icons**, **tsparticles** (animaciones de partículas), **TypeScript**.
+- **Dev:** ESLint, autoprefixer, plugins de ESLint, etc.
+- **Resolutions:** React y ReactDOM forzados a la versión 18.2.0.
+
+---
+
+## 🛠️ Mejoras Implementadas
+
+### Generales
+- **Performance:**
+  - Uso de `React.memo` y `useMemo` en componentes pesados.
+  - Lazy loading de imágenes y componentes no críticos.
+  - Uso de `next/image` para optimización de imágenes.
+- **Accesibilidad:**
+  - Botones y enlaces con `aria-label` descriptivo.
+  - Contraste de colores revisado.
+  - Roles y atributos ARIA en modales y overlays.
+- **Reutilización de código:**
+  - Componentes reutilizables para partículas, botones, filtros, etc.
+- **Gestión de estado:**
+  - Lógica de cambio de paleta centralizada en contexto global.
+- **SEO y Metadatos:**
+  - Uso de `Head` para títulos, descripciones y Open Graph.
+- **Testing:**
+  - Pruebas unitarias y de integración con Jest y React Testing Library (en progreso).
+- **Seguridad:**
+  - Validación robusta y protección anti-spam en formularios.
+
+### Por Sección
+- **HeroSection:** Feedback visual en botones, hook de scroll suave, fallback para fondo.
+- **AboutSection:** Partículas y parallax reutilizables, datos personales desde config, accesibilidad mejorada.
+- **ProjectsSection:** Paginación/carga incremental, animaciones al filtrar.
+- **SkillSection:** Render optimizado, tooltips accesibles.
+- **ServicesSection:** Servicios desde JSON/config, microinteracciones.
+- **ContactForm:** Validación en tiempo real, feedback visual, protección anti-spam.
+- **EducationSection:** Modal accesible, imágenes optimizadas, búsqueda/filtrado de certificados.
+
+---
+
+## 🔮 Mejoras Futuras
+
+- **Internacionalización (i18n):** Soporte multilenguaje con `next-i18next` o similar.
+- **Gestión de estado global:** Considerar Zustand o Jotai si el proyecto crece.
+- **Integración con CMS:** Proyectos, servicios y datos personales gestionados desde un CMS.
+- **CI/CD:** Automatización de pruebas y despliegue.
+- **Documentación:** Ampliar instrucciones de despliegue, personalización y contribución.
+- **Lighthouse:** Mejorar puntaje de performance, accesibilidad y SEO.
+- **Animaciones avanzadas:** Transiciones entre páginas y microinteracciones.
+- **Modo oscuro automático:** Detectar y aplicar el tema del sistema.
+- **PWA:** Soporte Progressive Web App.
+
+---
+
+## 📝 Comandos Útiles
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev       # Desarrollo local
+npm run build     # Build de producción
+npm start         # Servidor de producción
+npm run lint      # Linting de código
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🧩 Notas y Buenas Prácticas
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- El proyecto sigue buenas prácticas de accesibilidad, performance y SEO.
+- Estructura modular y escalable.
+- Listo para despliegue en Vercel.
+- Documentación y código comentado para fácil mantenimiento.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+¿Tienes sugerencias o quieres contribuir? ¡Abre un issue o pull request!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📄 Licencia
 
-## Deploy on Vercel
+Este proyecto está licenciado bajo la Licencia MIT.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# portafoliodesarrolloweb
-
-## 🛠️ Mejoras Implementadas y Futuras
-
-### Mejoras Generales
-- **Optimización de performance:**
-  - Uso de `React.memo` y `useMemo` en componentes pesados o listas grandes.
-  - Lazy loading de imágenes y componentes no críticos en el primer render.
-  - Uso de `next/image` para todas las imágenes, reemplazando `<img>` donde sea posible.
-- **Accesibilidad:**
-  - Todos los botones y enlaces tienen `aria-label` descriptivo.
-  - Contraste de colores revisado en todas las paletas.
-  - Uso de roles y atributos ARIA en modales y overlays.
-- **Reutilización de código:**
-  - Extracción de un componente reutilizable para partículas flotantes/parallax.
-  - Botones de categoría y filtros convertidos en componentes genéricos.
-- **Gestión de estado:**
-  - Centralización de la lógica de cambio de paleta en un contexto global.
-- **SEO y Metadatos:**
-  - Uso del componente `Head` de Next.js para títulos, descripciones y Open Graph.
-- **Testing:**
-  - Pruebas unitarias y de integración con Jest y React Testing Library para los componentes clave.
-- **Seguridad:**
-  - Validación robusta y protección anti-spam en formularios de contacto.
-
-### Mejoras por Sección
-- **HeroSection:**
-  - Feedback visual de loading en el botón "Ver Proyectos".
-  - Hook reutilizable para scroll suave.
-  - Fallback para el fondo de imagen en navegadores antiguos.
-- **AboutSection:**
-  - Extracción de partículas y parallax a un componente reutilizable.
-  - Datos personales desde archivo de configuración o CMS.
-  - Mejora de accesibilidad en los intereses (enlaces accesibles).
-- **ProjectsSection:**
-  - Paginación o carga incremental para listas grandes.
-  - Animaciones al filtrar proyectos.
-- **SkillSection:**
-  - Optimización del renderizado de los círculos de progreso con `React.memo`.
-  - Tooltips accesibles para cada skill.
-- **ServicesSection:**
-  - Servicios desde archivo JSON o CMS.
-  - Microinteracciones al hacer hover en cada servicio.
-- **ContactForm:**
-  - Validación de campos en tiempo real.
-  - Feedback visual de éxito/error con snackbar o toast.
-  - Protección anti-spam (honeypot, reCAPTCHA).
-- **EducationSection:**
-  - Modal accesible (focus trap, cierre con ESC).
-  - Imágenes de certificados optimizadas con `next/image`.
-  - Búsqueda o filtrado de certificados.
-
-### Mejoras Futuras a Implementar
-- **Internacionalización (i18n):**
-  - Implementar soporte multilenguaje con `next-i18next` o similar.
-- **Gestión de estado global:**
-  - Considerar Zustand o Jotai para temas, paletas o modales si el proyecto crece.
-- **Integración con CMS:**
-  - Permitir que proyectos, servicios y datos personales se gestionen desde un CMS (ej: Sanity, Contentful, Strapi).
-- **Automatización de despliegue:**
-  - Integrar CI/CD para pruebas y despliegue automático.
-- **Mejoras en documentación:**
-  - Ampliar el README con instrucciones de despliegue, personalización y contribución.
-- **Lighthouse y auditoría de accesibilidad:**
-  - Revisar y mejorar el puntaje de Lighthouse en performance, accesibilidad y SEO.
-- **Animaciones avanzadas:**
-  - Añadir animaciones de entrada/salida entre páginas y microinteracciones más ricas.
-- **Modo oscuro/tema automático:**
-  - Detectar y aplicar el tema del sistema automáticamente.
-- **Soporte PWA:**
-  - Convertir el portafolio en una Progressive Web App.
-
-Estas mejoras buscan mantener el portafolio moderno, accesible, escalable y fácil de mantener. Si tienes sugerencias adicionales, ¡no dudes en contribuir o abrir un issue!
-
-## Correcciones aplicadas
-
-- 2025-05-31 · Lint (`npm run lint -- --fix`) ejecutado → sin warnings ni errores ✅
-- 2025-05-31 · TypeScript (`npx tsc --noEmit`) ejecutado → sin errores ✅
-- 2025-05-31 · Build de producción (`npm run build`) ejecutado → compilación exitosa sin errores ✅
-
-npm run build
-npm start
-
-npm install core-js
-
-import 'core-js';
-
-rm -rf .next
-
-if (typeof window !== "undefined") {
-  window.onerror = function (message, source, lineno, colno, error) {
-    document.body.innerHTML =
-      "<pre style='color:red; font-size:18px;'>" +
-      "Error: " + message + "\n" +
-      "Source: " + source + "\n" +
-      "Line: " + lineno + ", Column: " + colno + "\n" +
-      (error && error.stack ? "Stack: " + error.stack : "") +
-      "</pre>";
-    return false;
-  };
-}
+Copyright (c) 2024 Omar Alberto Hernandez Rey
