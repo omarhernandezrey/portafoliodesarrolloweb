@@ -122,3 +122,16 @@ npm install core-js
 import 'core-js';
 
 rm -rf .next
+
+if (typeof window !== "undefined") {
+  window.onerror = function (message, source, lineno, colno, error) {
+    document.body.innerHTML =
+      "<pre style='color:red; font-size:18px;'>" +
+      "Error: " + message + "\n" +
+      "Source: " + source + "\n" +
+      "Line: " + lineno + ", Column: " + colno + "\n" +
+      (error && error.stack ? "Stack: " + error.stack : "") +
+      "</pre>";
+    return false;
+  };
+}
