@@ -113,3 +113,12 @@ Estas mejoras buscan mantener el portafolio moderno, accesible, escalable y fác
 - 2025-05-31 · Lint (`npm run lint -- --fix`) ejecutado → sin warnings ni errores ✅
 - 2025-05-31 · TypeScript (`npx tsc --noEmit`) ejecutado → sin errores ✅
 - 2025-05-31 · Build de producción (`npm run build`) ejecutado → compilación exitosa sin errores ✅
+
+npm run build
+npm start
+
+npm install core-js
+
+import 'core-js';
+
+rm -rf .next
