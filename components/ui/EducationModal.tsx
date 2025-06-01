@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import Image from "next/image";
-import { FaTimes } from "react-icons/fa";
-import { Transition } from "@headlessui/react";
+import React, { useEffect, memo } from 'react';
+import ReactDOM from 'react-dom';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 interface EducationModalProps {
   isOpen: boolean;
@@ -16,168 +16,140 @@ interface EducationModalProps {
   certificate?: string | null;
 }
 
-const EducationModal: React.FC<EducationModalProps> = ({
-  isOpen,
-  onClose,
-  title,
-  institution,
-  duration,
-  description,
-  logo,
-  certificate,
+const EducationModal = memo<EducationModalProps>(({ 
+  isOpen, 
+  onClose, 
+  title, 
+  institution, 
+  duration, 
+  description, 
+  logo, 
+  certificate 
 }) => {
-  const modalRef = useRef<HTMLDivElement>(null);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
-
+  // Bloquear scroll cuando el modal está abierto
   useEffect(() => {
-    const previouslyFocusedElement = document.activeElement as HTMLElement;
-
     if (isOpen) {
-      closeButtonRef.current?.focus();
+      const originalBodyOverflow = document.body.style.overflow;
+      const originalHtmlOverflow = document.documentElement.style.overflow;
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalBodyOverflow;
+        document.documentElement.style.overflow = originalHtmlOverflow;
+      };
     }
-
-    return () => {
-      previouslyFocusedElement?.focus();
-    };
   }, [isOpen]);
 
+  // Cerrar con ESC
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen) {
-        onClose();
-      }
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
     };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    
+    if (isOpen) {
+      document.addEventListener('keydown', handleEsc);
+      return () => document.removeEventListener('keydown', handleEsc);
+    }
   }, [isOpen, onClose]);
 
-  return (
-    <Transition show={isOpen} appear>
-      {/* Overlay */}
-      <Transition.Child
-        enter="transition-opacity duration-300"
-        enterFrom="opacity-0"
-        enterTo="opacity-50"
-        leave="transition-opacity duration-200"
-        leaveFrom="opacity-50"
-        leaveTo="opacity-0"
-      >
-        <div
-          className="fixed inset-0 bg-black bg-opacity-70 z-40"
-          onClick={onClose}
-          aria-hidden="true"
-        ></div>
-      </Transition.Child>
+  if (!isOpen) return null;
 
-      {/* Modal */}
-      <Transition.Child
-        enter="transition-transform duration-300"
-        enterFrom="scale-90 opacity-0"
-        enterTo="scale-100 opacity-100"
-        leave="transition-transform duration-200"
-        leaveFrom="scale-100 opacity-100"
-        leaveTo="scale-90 opacity-0"
+  const modalContent = (
+    <div 
+      className="fixed inset-0 bg-black/80 flex items-start justify-center z-[3000] p-5 pt-10 overflow-auto"
+      onClick={onClose}
+    >
+      <motion.div 
+        className="bg-[var(--card-bg-color)] rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto relative border-2 border-[var(--accent-color)]"
+        onClick={(e) => e.stopPropagation()}
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
+        transition={{ duration: 0.3 }}
       >
-        <div
-          className="fixed inset-0 flex items-center justify-center z-50 px-4"
-          aria-modal="true"
-          role="dialog"
-          aria-labelledby="modal-title"
-          aria-describedby="modal-description"
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-8"
         >
-          <div
-            className="bg-gradient-to-br from-[var(--background-color)] via-[var(--secondary-background-color)] to-[var(--background-color)] text-[var(--text-color)] rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative"
-            onClick={(e) => e.stopPropagation()}
-            ref={modalRef}
+          <motion.span
+            className="inline-block px-4 py-2 mb-4 text-xs font-semibold tracking-wider uppercase rounded-full border border-[var(--accent-color)]/30 bg-[var(--accent-color)]/10 text-[var(--accent-color)]"
+            whileHover={{ scale: 1.05 }}
           >
-            {/* Botón de Cierre */}
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 text-[var(--muted-color)] hover:text-[var(--accent-color)] focus:outline-none"
-              aria-label="Cerrar modal"
-              ref={closeButtonRef}
+            Educación
+          </motion.span>
+          
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[var(--primary-color)] to-[var(--accent-color)] bg-clip-text text-transparent">
+            {title}
+          </h2>
+          
+          <p className="text-base text-[var(--muted-color)] mb-2">{institution}</p>
+          <p className="text-sm text-[var(--muted-color)]">{duration}</p>
+        </motion.div>
+        
+        {/* Logo */}
+        {logo && (
+          <div className="flex justify-center mb-6">
+            <Image 
+              src={logo} 
+              alt={institution} 
+              width={90}
+              height={90}
+              className="rounded-full shadow-lg border-2 border-[var(--accent-color)] bg-white p-2"
+              loading="lazy"
+            />
+          </div>
+        )}
+        
+        {/* Description */}
+        {description && (
+          <p className="text-[var(--text-color)] mb-6 leading-relaxed">
+            {description}
+          </p>
+        )}
+        
+        {/* Certificate */}
+        {certificate && (
+          <div className="mt-6 text-center">
+            <a 
+              href={certificate} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block bg-[var(--accent-color)] text-[var(--background-color)] px-6 py-3 rounded-full font-bold mb-4 hover:bg-[var(--accent-color)]/90 transition-colors"
             >
-              <FaTimes size={24} />
-            </button>
-
-            {/* Contenido del Modal */}
-            <div className="p-8">
-              {/* Logo */}
-              <div className="flex justify-center mb-6">
-                <div className="h-24 w-24 rounded-full overflow-hidden bg-[var(--secondary-background-color)] border-4 border-[var(--accent-color)]">
-                  <Image
-                    src={logo}
-                    alt={`${institution} logo`}
-                    width={96} // 24px * 4
-                    height={96}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              </div>
-
-              {/* Título y Detalles */}
-              <h2
-                id="modal-title"
-                className="text-3xl font-bold text-center mb-4 text-[var(--primary-color)]"
-              >
-                {title}
-              </h2>
-              <p className="text-center text-[var(--accent-color)] text-lg font-medium mb-2">
-                {institution}
-              </p>
-              <p className="text-center text-[var(--muted-color)] mb-6">
-                {duration}
-              </p>
-
-              {/* Descripción */}
-              <p
-                id="modal-description"
-                className="text-[var(--text-color)] leading-relaxed mb-6 text-justify"
-              >
-                {description}
-              </p>
-
-              {/* Certificado */}
-              {certificate && (
-                <div className="mt-6">
-                  <h3 className="text-xl font-semibold text-[var(--accent-color)] mb-4 text-center">
-                    Certificado
-                  </h3>
-                  <div className="flex justify-center">
-                    {/* Enlace al certificado completo */}
-                    <a
-                      href={certificate}
-                      className="cursor-pointer"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Image
-                        src={certificate}
-                        alt="Certificado"
-                        width={600} // Ajusta según tus necesidades
-                        height={400}
-                        className="w-full max-w-[600px] max-h-[400px] rounded-lg object-contain"
-                      />
-                    </a>
-                  </div>
-                </div>
-              )}
-
-              {/* Botón de Cierre */}
-              <div className="mt-8 flex justify-center">
-                <button
-                  onClick={onClose}
-                  className="bg-[var(--accent-color)] text-[var(--background-color)] py-2 px-8 rounded-full hover:bg-[var(--primary-hover-color)] transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-[var(--accent-hover-color)]"
-                >
-                  Cerrar
-                </button>
-              </div>
+              Ver Certificado
+            </a>
+            <div className="flex justify-center">
+              <Image
+                src={certificate}
+                alt="Certificado"
+                width={320}
+                height={240}
+                className="rounded-lg shadow-lg bg-white"
+                loading="lazy"
+              />
             </div>
           </div>
-        </div>
-      </Transition.Child>
-    </Transition>
-  );
-};
+        )}
 
-export default React.memo(EducationModal);
+        {/* Close button */}
+        <div className="flex justify-center mt-8">
+          <button
+            onClick={onClose}
+            className="bg-[var(--primary-color)] text-white px-8 py-3 rounded-full font-bold hover:bg-[var(--primary-color)]/90 transition-colors shadow-lg"
+          >
+            Cerrar
+          </button>
+        </div>
+      </motion.div>
+    </div>
+  );
+
+  return ReactDOM.createPortal(modalContent, document.body);
+});
+
+EducationModal.displayName = 'EducationModal';
+
+export default EducationModal;

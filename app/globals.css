@@ -2,14 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Estilos críticos para performance inicial */
+:root {
+  --background-color: #1c1c2e;
+  --secondary-background-color: #28283c;
+  --white-color: #ffffff;
+  --text-color: #f4f4f9;
+  --muted-color: #d1d1e0;
+  --primary-color: #ff6f61;
+  --accent-color: #f39c12;
+  --card-bg-color: #28283c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Evitar flash de contenido sin estilo */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Loading spinner crítico */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--accent-color);
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 #tsparticles {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
-  z-index: -1; /* Mantén las partículas detrás del contenido */
+  top: 0;
+  left: 0;
+  z-index: -1; /* Asegurar que las partículas queden en el fondo */
 }
