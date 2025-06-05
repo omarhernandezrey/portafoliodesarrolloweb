@@ -7,19 +7,20 @@
 /* Estilos globales adicionales */
 
 html, body {
-  scroll-behavior: smooth;
-  overflow-x: hidden !important;
   font-family: var(--main-font-family);
+  overflow-x: hidden !important;
+  scroll-behavior: smooth;
 }
 
 /* Configuración para el cambio dinámico de colores */
+
 /* Paleta por defecto (palette1) */
 
 /* palette1 */
 :root {
   --background-color: #0d131a; /* Azul oscuro profundo para el fondo principal */
   --secondary-background-color: #1c2731; /* Azul grisáceo para fondo secundario */
-  --white-color: #ffffff; /* Blanco puro para textos */
+  --white-color: #fff; /* Blanco puro para textos */
   --text-color: #d1d5db; /* Gris claro para texto general */
   --muted-color: #a1aab8; /* Gris apagado para textos secundarios */
   --primary-color: #00cba9; /* Verde brillante para elementos principales */
@@ -32,15 +33,16 @@ html, body {
   --loadmore-bg-color: #1c2731; /* Fondo del botón de carga */
   --loadmore-border-color: #00cba9; /* Borde del botón de carga */
   --loadmore-hover-bg-color: #142029; /* Fondo más oscuro para hover */
+
   /* Tipografía moderna, neutra */
-  --main-font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  --main-font-family: 'Inter', 'Segoe UI', arial, sans-serif;
 }
 
 /* palette2 */
 :root.palette2 {
   --background-color: #1c1c2e;
   --secondary-background-color: #28283c;
-  --white-color: #ffffff; /* Color blanco */
+  --white-color: #fff; /* Color blanco */
   --text-color: #f4f4f9;
   --muted-color: #d1d1e0;
   --primary-color: #ff6f61;
@@ -53,8 +55,9 @@ html, body {
   --loadmore-bg-color: #28283c;
   --loadmore-border-color: #f39c12;
   --loadmore-hover-bg-color: #1f2833;
+
   /* Tipografía elegante para morado */
-  --main-font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  --main-font-family: 'Poppins', 'Segoe UI', arial, sans-serif;
 }
 
 /* palette3 */
@@ -64,7 +67,7 @@ html, body {
   --secondary-background-color: #262421; /* Fondo secundario ligeramente más claro */
 
   /* Texto */
-  --white-color: #ffffff;    
+  --white-color: #fff;    
   --text-color: #fff9e9;     
   --muted-color: #d3ba8a;    
 
@@ -88,18 +91,19 @@ html, body {
 
   /* Gradiente dorado suave */
   --gold-gradient: linear-gradient(135deg, #c5961f 0%, #ffd65a 100%);
+
   /* Tipografía con serif para dorado/café */
-  --main-font-family: 'Merriweather', Georgia, serif;
+  --main-font-family: 'Merriweather', georgia, serif;
 }
 
 /* palette4 (versión clara inspirada en palette1) */
 :root.palette4 {
   /* Fondos */
   --background-color: #f9fcfb;         /* Fondo principal muy claro con un ligero matiz */
-  --secondary-background-color: #ffffff; /* Sección secundaria en blanco puro */
+  --secondary-background-color: #fff; /* Sección secundaria en blanco puro */
 
   /* Texto */
-  --white-color: #ffffff;              /* Sigue siendo blanco puro para textos o fondos puntuales */
+  --white-color: #fff;              /* Sigue siendo blanco puro para textos o fondos puntuales */
   --text-color: #2d2d2d;               /* Texto oscuro para alto contraste */
   --muted-color: #7a7a7a;              /* Texto secundario/descriptivo */
 
@@ -108,20 +112,21 @@ html, body {
   --accent-color: #00a086;            /* Verde más oscuro como acento */
 
   /* Tarjetas y elementos interiores */
-  --card-bg-color: #ffffff;           /* Fondo de tarjetas */
+  --card-bg-color: #fff;           /* Fondo de tarjetas */
   --inner-circle-bg-color: #00cba9;   /* Mismo verde brillante */
-  --inner-circle-text-color: #ffffff; /* Contraste en círculos o íconos sobre verde */
+  --inner-circle-text-color: #fff; /* Contraste en círculos o íconos sobre verde */
 
   /* Títulos y textos específicos (mantenidos en verde para coherencia) */
   --item-title-color-palette2: #00cba9;
   --loading-text-color-palette2: #00cba9;
 
   /* Botón "Load More" */
-  --loadmore-bg-color: #ffffff;       /* Botón sobre fondo claro */
+  --loadmore-bg-color: #fff;       /* Botón sobre fondo claro */
   --loadmore-border-color: #00cba9;   /* Borde verde para resaltar */
   --loadmore-hover-bg-color: #ecfef9; /* Hover clarito en la misma gama verde/teal */
+
   /* Tipografía moderna, neutra (igual que palette1) */
-  --main-font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  --main-font-family: 'Inter', 'Segoe UI', arial, sans-serif;
 }
 
 /* palette5 */
@@ -131,9 +136,9 @@ html, body {
   --secondary-background-color: #1f1f1f; /* Fondo secundario ligeramente más claro */
 
   /* Texto */
-  --white-color: #ffffff;             /* Blanco puro para elementos puntuales */
+  --white-color: #fff;             /* Blanco puro para elementos puntuales */
   --text-color: #e0e0e0;              /* Gris claro para texto principal */
-  --muted-color: #888888;             /* Gris medio para texto secundario */
+  --muted-color: #888;             /* Gris medio para texto secundario */
 
   /* Colores principales (rojo intenso) */
   --primary-color: #ed3434;           /* Rojo brillante para elementos destacados */
@@ -155,8 +160,9 @@ html, body {
 
   /* Gradiente intenso */
   --bold-gradient: linear-gradient(135deg, #ed3434 0%, #fa5c5c 100%);
+
   /* Tipografía robusta para rojo oscuro */
-  --main-font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  --main-font-family: 'Montserrat', 'Segoe UI', arial, sans-serif;
 }
 
 /* palette6 - Tema Cyberpunk Neon */
@@ -165,31 +171,32 @@ html, body {
   --secondary-background-color: #151530; /* Fondo secundario ligeramente más claro */
 
   /* Texto */
-  --white-color: #ffffff;
+  --white-color: #fff;
   --text-color: #e0e0ff;              /* Azul claro para texto */
   --muted-color: #a0a0ff;             /* Azul neón apagado */
 
   /* Colores principales */
-  --primary-color: #ff00ff;            /* Magenta neón */
-  --accent-color: #00ffff;             /* Cian neón */
+  --primary-color: #f0f;            /* Magenta neón */
+  --accent-color: #0ff;             /* Cian neón */
 
   /* Elementos UI */
   --card-bg-color: #151530;
-  --inner-circle-bg-color: #ff00ff;
+  --inner-circle-bg-color: #f0f;
   --inner-circle-text-color: #0a0a1a;
 
   /* Textos específicos */
-  --item-title-color-palette2: #00ffff;
-  --loading-text-color-palette2: #ff00ff;
+  --item-title-color-palette2: #0ff;
+  --loading-text-color-palette2: #f0f;
 
   /* Botones */
   --loadmore-bg-color: #151530;
-  --loadmore-border-color: #00ffff;
+  --loadmore-border-color: #0ff;
   --loadmore-hover-bg-color: #202045;
 
   /* Efectos especiales */
-  --neon-glow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
-  --neon-text-glow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+  --neon-glow: 0 0 10px #f0f, 0 0 20px #f0f, 0 0 30px #f0f;
+  --neon-text-glow: 0 0 5px #0ff, 0 0 10px #0ff;
+
   /* Tipografía futurista para cyberpunk */
   --main-font-family: 'Orbitron', 'Share Tech Mono', monospace;
 }
@@ -200,7 +207,7 @@ html, body {
   --secondary-background-color: #132a1a; /* Verde un poco más claro */
 
   /* Texto */
-  --white-color: #ffffff;
+  --white-color: #fff;
   --text-color: #d1e7dd;              /* Verde claro suave */
   --muted-color: #8ab39c;             /* Verde apagado */
 
@@ -223,9 +230,10 @@ html, body {
   --loadmore-hover-bg-color: #1e3a24;
 
   /* Efectos naturales */
-  --leaf-shadow: 0 4px 6px rgba(76, 175, 80, 0.2);
+  --leaf-shadow: 0 4px 6px rgb(76 175 80 / 20%);
+
   /* Tipografía amigable para forest */
-  --main-font-family: 'Nunito', 'Segoe UI', Arial, sans-serif;
+  --main-font-family: 'Nunito', 'Segoe UI', arial, sans-serif;
 }
 
 /* palette8 - Tema Sunset Vibes */
@@ -234,7 +242,7 @@ html, body {
   --secondary-background-color: #2a1320; /* Morado un poco más claro */
 
   /* Texto */
-  --white-color: #ffffff;
+  --white-color: #fff;
   --text-color: #ffd6e7;              /* Rosa claro */
   --muted-color: #ffa8c8;             /* Rosa medio */
 
@@ -258,8 +266,9 @@ html, body {
 
   /* Gradiente atardecer */
   --sunset-gradient: linear-gradient(135deg, #ff6b6b 0%, #ffb347 100%);
+
   /* Tipografía redondeada para sunset */
-  --main-font-family: 'Quicksand', 'Segoe UI', Arial, sans-serif;
+  --main-font-family: 'Quicksand', 'Segoe UI', arial, sans-serif;
 }
 
 /* palette9 - Tema Deep Ocean */
@@ -268,7 +277,7 @@ html, body {
   --secondary-background-color: #15152b; /* Azul un poco más claro */
 
   /* Texto */
-  --white-color: #ffffff;
+  --white-color: #fff;
   --text-color: #d1e0ff;              /* Azul claro */
   --muted-color: #8a9bb8;             /* Azul grisáceo */
 
@@ -291,9 +300,10 @@ html, body {
   --loadmore-hover-bg-color: #202040;
 
   /* Efectos oceánicos */
-  --wave-shadow: 0 4px 8px rgba(0, 180, 216, 0.3);
+  --wave-shadow: 0 4px 8px rgb(0 180 216 / 30%);
+
   /* Tipografía geométrica para ocean */
-  --main-font-family: 'Rubik', 'Segoe UI', Arial, sans-serif;
+  --main-font-family: 'Rubik', 'Segoe UI', arial, sans-serif;
 }
 
 /* palette10 - Tema Royal Purple */
@@ -302,7 +312,7 @@ html, body {
   --secondary-background-color: #1a132a; /* Púrpura un poco más claro */
 
   /* Texto */
-  --white-color: #ffffff;
+  --white-color: #fff;
   --text-color: #e6d6ff;              /* Lila claro */
   --muted-color: #b39ddb;             /* Lila medio */
 
@@ -325,9 +335,10 @@ html, body {
   --loadmore-hover-bg-color: #251a3a;
 
   /* Efectos reales */
-  --royal-glow: 0 0 10px rgba(156, 39, 176, 0.5);
+  --royal-glow: 0 0 10px rgb(156 39 176 / 50%);
+
   /* Tipografía elegante para purple */
-  --main-font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  --main-font-family: 'Poppins', 'Segoe UI', arial, sans-serif;
 }
 
 body {
@@ -337,13 +348,13 @@ body {
 }
 
 a, button {
-  color: var(--primary-color);
   background-color: var(--button-bg-color);
+  color: var(--primary-color);
 }
 
 a:hover, button:hover {
-  color: var(--text-color);
   background-color: var(--button-hover-color);
+  color: var(--text-color);
 }
 
 .card {
@@ -353,8 +364,8 @@ a:hover, button:hover {
 
 /* Estilo del contenedor de partículas */
 #tsparticles {
+  height: 100%;
   position: absolute;
   width: 100%;
-  height: 100%;
   z-index: -1; /* Mantén las partículas detrás del contenido */
 }

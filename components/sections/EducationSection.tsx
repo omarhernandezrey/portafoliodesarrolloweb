@@ -344,7 +344,7 @@ const EducationSection = () => {
 
   return (
     <>
-      <style jsx global>{`
+      <style>{`
         .education-section {
           min-height: 100vh;
           padding: 10rem 0.5rem 3rem 0.5rem;

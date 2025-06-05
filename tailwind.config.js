@@ -1,3 +1,4 @@
+/* eslint-disable */
 module.exports = {
   darkMode: 'class', // Habilita el modo oscuro basado en una clase
   content: [

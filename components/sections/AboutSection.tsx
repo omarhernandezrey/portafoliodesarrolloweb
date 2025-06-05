@@ -81,7 +81,7 @@
      return (
        <>
          {/* Variables de color locales (mantiene tu paleta) */}
-         <style jsx>{`
+         <style>{`
            :root {
              --background-color: #1c1c2e;
              --secondary-background-color: #28283c;

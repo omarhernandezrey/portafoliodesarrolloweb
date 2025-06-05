@@ -1,4 +1,5 @@
 // technologyIcons.tsx
+import React from "react";
 import {
   FaReact,
   FaNodeJs,

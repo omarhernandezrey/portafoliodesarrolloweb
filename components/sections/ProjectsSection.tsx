@@ -4,7 +4,8 @@
 --------------------------------------------------------------------------- */
 
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+// import React from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Card from "../shared/Card";
@@ -305,7 +306,7 @@ const ProjectsSection: React.FC = () => {
   return (
     <>
       {/* variables globales + helper scrollbar oculto */}
-      <style jsx>{`
+      <style>{`
         :root {
           --background-color: #1c1c2e;
           --secondary-background-color: #28283c;

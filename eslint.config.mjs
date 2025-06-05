@@ -1,37 +1,35 @@
-// eslint.config.mjs
+import js from "@eslint/js";
+import globals from "globals";
+import tseslint from "typescript-eslint";
+import pluginReact from "eslint-plugin-react";
+import { defineConfig } from "eslint/config";
 
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
-import unusedImports from "eslint-plugin-unused-imports";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  // Extiende las configuraciones recomendadas de Next.js
-  ...compat.extends("next/core-web-vitals"),
-  
-  // Extiende las configuraciones recomendadas de TypeScript
-  ...compat.extends("plugin:@typescript-eslint/recommended"),
-  
-  // Añade el plugin unused-imports
+export default defineConfig([
   {
-    plugins: {
-      "unused-imports": unusedImports,
-    },
-    rules: {
-      // Ejemplo: desactivar la regla de indentación
-      "indent": "off",
-      // Habilita la regla para eliminar imports no usados
-      "unused-imports/no-unused-imports": "error",
-      //"@typescript-eslint/prefer-as-const": "off",
-    },
+    ignores: [
+      "postcss.config.js",
+      "tailwind.config.js"
+    ],
+    settings: {
+      react: {
+        version: "detect"
+      }
+    }
   },
-];
-
-export default eslintConfig;
+  { files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"], plugins: { js }, extends: ["js/recommended"] },
+  { files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"], languageOptions: { globals: globals.browser } },
+  tseslint.configs.recommended,
+  pluginReact.configs.flat.recommended,
+  {
+    files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+    rules: {
+      "react/react-in-jsx-scope": "off"
+    }
+  },
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    rules: {
+      "react/prop-types": "off"
+    }
+  }
+]);
